@@ -25,10 +25,10 @@ SECRET_KEY = '_lu0t^j8vbehe7hbqp-ci!qim6#_l$^!i%%err59j0^2r=o2r@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'https://pure-cliffs-74204.herokuapp.com/']
+ALLOWED_HOSTS = ['*']  # fix later
 
 
-# Application definition
+# Application definition`
 
 INSTALLED_APPS = [
     'django.contrib.admin',
