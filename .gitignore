@@ -106,3 +106,5 @@ ENV/
 *.pyc
 __pycache__/
 media
+
+*/static/admin
