@@ -105,8 +105,4 @@ ENV/
 *.pot
 *.pyc
 __pycache__/
-db.sqlite3
 media
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
