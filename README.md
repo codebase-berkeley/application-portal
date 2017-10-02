@@ -1,3 +1,3 @@
-#### Application Portal
+# Application Portal
 
 Development instructions incoming
