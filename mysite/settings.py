@@ -80,6 +80,7 @@ DB_USER = os.environ['DB_USER']
 DB_PASS = os.environ['DB_PASS']'''
 
 if os.environ.get('production', False):
+    print("in if")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -91,6 +92,7 @@ if os.environ.get('production', False):
         }
     }
 else:
+    print("in else")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
