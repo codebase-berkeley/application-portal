@@ -84,10 +84,10 @@ if os.environ.get('production', False):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'portaldev',
-            'USER': 'administrator',
-            'PASSWORD': 'ACitgpm17',
-            'HOST': 'applicationportal.csvt9rfd7irq.us-west-1.rds.amazonaws.com',
+            'NAME': 'd7noi37clt4ta4',
+            'USER': 'btyorbyceptrdc',
+            'PASSWORD': '73e99fd07f10bb3213760fabcff198760f2b27d1941c568cc44bd14f4544512c',
+            'HOST': 'ec2-54-235-81-176.compute-1.amazonaws.com',
             'PORT': '5432',
         }
     }
