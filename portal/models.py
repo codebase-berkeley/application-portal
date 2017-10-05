@@ -10,3 +10,6 @@ class Dog(models.Model):
 
 class Chicken(models.Model):
     tasty = models.CharField(max_length=30)
+
+class Cat(models.Model):
+    sound = models.CharField(max_length=30)
