@@ -7,3 +7,6 @@ class Animal(models.Model):
 
 class Dog(models.Model):
     fur = models.CharField(max_length=30)
+
+class Chicken(models.Model):
+    tasty = models.CharField(max_length=30)
