@@ -29,5 +29,7 @@ Before pushing, make sure you have made the migrations:
 `python manage.py makemigrations`
 
 
+To run locally, type in `python manage.py runserver` and then visit localhost:8000. You should get some kind of 404 error.
+
 
 
