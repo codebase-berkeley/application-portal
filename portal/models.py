@@ -1,4 +1,69 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
+class Category(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
+
+
+class Application(models.Model):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    email = models.CharField(max_length=40)
+    read = models.BooleanField()
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name + " (" + self.email + ")"
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment_text = models.TextField(max_length=1000)
+    published_date = models.DateTimeField()
+    applicant = models.ForeignKey(Application, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username + " (about " + self.applicant.first_name + " " + self.applicant.last_name + ")" + ": " + self.comment_text[0:30] + "..."
+
+
+class Question(models.Model):
+    question_text = models.TextField()
+    question_type = models.TextField() # added this to make determining the Question easier. Use same string as the class name
+    options = models.TextField(null=True, blank=True)
+    order_number = models.IntegerField() # make it unique later, can cause some annoying problems during dev to make unique
+
+    def __str__(self):
+        return self.question_text[0:40]
+
+class Radiobutton(Question):
+    def __str__(self):
+        return "<RadioButton>: " + self.question_text
+
+
+class Checkbox(Question):
+    def __str__(self):
+        return "<CheckBox>: " + self.question_text
+
+
+class Dropdown(Question):
+    def __str__(self):
+        return "<Dropdown>: " + self.question_text
+
+
+class Paragraph(Question):
+    def __str__(self):
+        return "<Paragraph>: " + self.question_text
+
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    answer_text = models.TextField(max_length=2000)
+
+    def __str__(self):
+        return self.application.first_name + " (" + self.question.question_text[0:20] + "...): " + self.answer_text[0:20] + "..."
