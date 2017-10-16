@@ -1,0 +1,72 @@
+html, body {
+    font-family: sans-serif;
+}
+.hidden {
+	display: none;
+}
+.navbar > .container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-logo {
+    color: #C4820E;
+    font-size: 48px;
+}
+.navbar-logo:focus, .navbar-logo:hover {
+    text-decoration: none;
+}
+.container {
+    width: 1170px;
+    margin: 0 auto;
+}
+a, a:visited {
+    text-decoration: none;
+    color: #00B0DA;
+}
+a:focus, a:hover {
+    text-decoration: underline;
+}
+
+.mock-text-input {
+    min-height: 1.5em;
+    border: 1px solid #cccccc;
+    background-color: #e8e8e8;
+    width: 300px;
+    padding: 1em 1em;
+}
+.mock-textarea-input {
+    min-height: 4em;
+    border: 1px solid #cccccc;
+    background-color: #e8e8e8;
+    width: 400px;
+    padding: 1em 1em;
+}
+
+.question {
+    padding: 1em 1em;
+}
+.editing {
+    background-color: #F2F9FE;
+}
+
+.applist {
+    width: 100%;
+}
+
+.applist-entry {
+    border: 1px solid grey;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    width: 700px;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    width: 900px;
+}
+
+
