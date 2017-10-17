@@ -5,3 +5,6 @@ from django.http import HttpResponse
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
+
+def dashboard(request):
+	return render(request, "portal/dashboard.html")

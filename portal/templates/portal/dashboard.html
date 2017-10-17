@@ -1,0 +1,24 @@
+{% extends 'portal/base.html' %}
+{% load static from staticfiles %}
+
+{% block titletext %}Dashboard{% endblock %}
+{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">{% endblock %}
+
+
+{% block content %}
+	<div class="left">
+		<div class="categories">
+			<p>Applications</p>
+		</div>
+
+
+
+
+	</div>
+
+	<div class="right">
+		<div class="applications">
+			<p>Applicant List</p>
+		</div>
+	</div>
+{% endblock %}
