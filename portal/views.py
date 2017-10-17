@@ -5,8 +5,8 @@ from portal.models import *
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
-def render_app(request,application_id):
-    application = Application.objects.get(id = application_id)
+def render_app(request,app_pk):
+    application = Application.objects.get(pk = app_pk)
     first_name = application.first_name
     last_name = application.last_name
     email = application.email
