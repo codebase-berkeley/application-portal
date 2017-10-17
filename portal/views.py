@@ -12,4 +12,4 @@ def render_app(request,app_pk):
     email = application.email
     questions = Question.objects.values()
     application = str(Comment.objects.values())
-    return render(request, "portal/hello.html", {"first_name": questions })
+    return render(request, "portal/hello.html", {"first_name": questions.get(id = 1) })
