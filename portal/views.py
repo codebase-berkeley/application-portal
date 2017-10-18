@@ -11,4 +11,5 @@ def testcategories(request):
 	apps = list(Application.objects.all())
 	return render(request, "portal/testcategories.html", {'categories': listy, 'apps': apps})
 
-
+def dashboard(request):
+	return render(request, "portal/dashboard.html")

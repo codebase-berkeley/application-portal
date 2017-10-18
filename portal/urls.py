@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     url(r'hello/(?P<first_name>[a-zA-Z]+)$', views.advanced_hello, name="advanced_hello"),
     url(r'testcategories/$', views.testcategories, name="testcategories"),
+    url(r'dashboard$', views.dashboard, name="dashboard")
 ]
