@@ -3,7 +3,7 @@
 ## Question Model
 - question_text: The text that the question will display
 - question_type: String representation of the question type. Use the same string as the class name (i.e. the string type for Radio Buttons should be Radiobutton because that's what the class name for it is
--  options: a string representation of a python list - The list of NJ, TX, FL should be stored as ['NJ', 'NY', 'CA']. Groups that need to store and read the options should write a utility method to convert between the string representation and a python list. There is a built in python method that can help you do this, or you can iterate over the characters of the string and do it yourself
+-  options: a string representation of a python list - The list of NJ, TX, FL should be stored as ['NJ', 'NY', 'CA']. Groups that need to store and read the options should write a utility method to convert between the string representation and a python list. There is a built in python method that can help you do this, or you can iterate over the characters of the string and do it yourself. Options will be None if there are no options for that type of question (i.e. Paragraph). Remember that we opted not to make option its own model because it would complicate the code a bit, so we made it a simple string that can be turned into a python list quickly.
 -  order_number: Where on the application form this question should appear, in relation to other questions. Should start at 1 and all entries should be unique. The question that has number 1 would appear first, the one that has number 2 would be second and so on.
 
 ## Models that inherit from Question (i.e. Paragraph, Checkbox, etc.)
