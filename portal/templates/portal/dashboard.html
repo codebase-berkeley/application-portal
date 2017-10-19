@@ -7,18 +7,79 @@
 
 {% block content %}
 	<div class="left">
-		<div class="categories">
-			<p>Applications</p>
+		<div class="category_title">
+			Applications
 		</div>
-
-
+		<div class="categories">
+			<div class="category">
+				<div class="category_text">
+					All
+				</div>
+			</div>
+			<div class="category">
+				<div class="category_text">
+					Others
+				</div>
+			</div>
+			<div class="new_category">
+				<div class="category_text">
+					<img src="{% static 'images/plus-circle.svg' %}" class="category_plus">
+					New Category
+				</div>
+			</div>
+		</div>
+		
 
 
 	</div>
 
 	<div class="right">
+		<div class="searchbar">
+			Applicant List
+		</div>
 		<div class="applications">
-			<p>Applicant List</p>
+			<div class="applicant">
+				<div class="selection_box">
+				</div>
+				<div class="applicant_name">
+					Olivia
+				</div>
+				<div class="applicant_date">
+					Today
+				</div>
+			</div>
+			<div class="applicant">
+				<div class="selection_box">
+				</div>
+				<div class="applicant_name">
+					Elise
+				</div>
+				<div class="applicant_date">
+					Today
+				</div>
+			</div>
+			<div class="applicant">
+				<div class="selection_box">
+				</div>
+				<div class="applicant_name">
+					Jared
+				</div>
+				<div class="applicant_date">
+					Today
+				</div>
+			</div>
 		</div>
 	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("div.selection_box").click(function() {
+			alert("clicked");
+			
+		});
+	});
+	</script>
+
 {% endblock %}

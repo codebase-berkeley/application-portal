@@ -1,5 +1,6 @@
 .left {
 	float: left;
+	color: white;
 	width: 300px;
 	margin-left: 40px;
 	margin-right: 5px;
@@ -13,19 +14,95 @@
 	margin-right: 40px;
 }
 
-.categories {
-	background-color: #e8e8e8;
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-
+.searchbar {
+	background-color: #4d7790;
+	color: white;
+	padding: 10px 20px 10px 20px;
+	font-size: 24px;
 }
 
 .applications {
-	background-color: #e8e8e8;
+	background-color: #f4f9fd;
+	height: 350px;
+}
+
+.applicant {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #cccccc;
 	padding-left: 20px;
 	padding-right: 20px;
-	padding-top: 2px;
-	padding-bottom: 2px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
+
+.applicant:hover {
+	background-color: #ffffff;
+	font-weight: bold;
+}
+
+.selection_box {
+	background-color: white;
+	border-style: solid;
+	border-color: #cccccc;
+	border-width: 1px;
+	width: 17px;
+	height: 17px;
+	float: left;
+}
+
+.applicant_name {
+	display: inline-block;
+	padding-left: 20px;
+}
+
+.applicant_date {
+	float: right;
+}
+
+.category_title {
+	background-color: #4d7790;
+	padding: 10px 20px 10px 20px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: white;
+	font-size: 24px;
+
+}
+
+.categories {
+	background-color: #4d7790;
+	height: 200px;
+}
+
+.category {
+	padding: 4px 40px 4px 45px;
+	height: 30px;
+}
+
+.new_category {
+	padding: 4px 40px 0px 10px;
+	height: 30px;
+}
+
+.category_text {
+	padding: 5px 10px 5px 10px;
+}
+
+.category_text:hover {
+	background-color: #68879c;
+	font-weight: bold;
+}
+
+.category_plus {
+	padding-right: 17px;
+	height: 18px;
+	width: 18px;
+	float: left;
+}
+
+
+
+
+
+
