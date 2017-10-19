@@ -1,8 +1,8 @@
 {% extends 'portal/base.html' %}
 {% for question in questions %}
 	{%= question.text %}
-	<a href="{% url 'delete_question' id=question.id %}"><img src="/portal/static/images/delete.svg" alt="Delete Question"</a>
-	<a href="{% url 'edit_question' id=question.id %}"><img src="/portal/static/images/edit.svg" alt="edit_question"</a>
+	<a href="{% url 'delete_question' pk=question.pk %}"><img src="/portal/static/images/delete.svg" alt="Delete Question"</a>
+	<a href="{% url 'edit_question' pk=question.pk %}"><img src="/portal/static/images/edit.svg" alt="edit_question"</a>
 {% endfor %}
 
 <form action="{% url 'add_question' %}" method="GET">
