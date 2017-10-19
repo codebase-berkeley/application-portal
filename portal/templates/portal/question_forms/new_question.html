@@ -1,4 +1,3 @@
-{% extends 'portal/base.html' %}
 {% extends 'portal/question_forms/edit_form.html' %}
 {% block titletext %}AddQuestion{% endblock %}
 
@@ -21,7 +20,7 @@
 			{% endblock %}
 		</div>
   		<input type="checkbox" name="required" value="Required">Required<br>
-    	<button type="submit">Save Question</button>
+    	<input type="submit" value="Save Question">
     	<a href="/edit/form">Cancel</a>
    	</form>
 {% endblock %}
