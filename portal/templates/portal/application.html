@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="application.css">
+</head>
+<body>
+<div id = "application">
+      <br>
+      <h1> You are viewing Andrew Chan's application for CodeBase. </h1>
+      <div id="head">
+        <h2> Andrew Chan &nbsp;<button type = "button"
+          onclick="window.location.href='mailto:andrewkchan@berkeley.edu'">andrewkchan@berkeley.edu</button></h2>
+      </div>
+      <hr>
+      <p> Expected Graduation: May 2019 </p>
+      <p>Current Major(s): Computer Science </p>
+      <p> Resume: </p>
+      <br>
+      Check the classes you have taken:
+      <form action="/action_page.php" method="get" id = "answer">
+        <input type="checkbox" name="class" value="CS61A" checked> CS61A<br>
+        <input type="checkbox" name="class" value="CS61B" checked> CS61B<br>
+        <input type="checkbox" name="class" value="CS61C" checked> CS61C<br>
+      </form>
+      Why Code Base?
+      <p id = "answer"> Hi My name is Andrew Chan and I really want to join CodeBase because it is the best club that does coding and stuff.
+      Especially I heard the PMs of the mentored project have lots of $wag... </p>
+      </div>
+</body>
