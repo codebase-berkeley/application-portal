@@ -1,21 +1,23 @@
-{% extends 'base.html' %}
-
+{% extends 'portal/base.html' %}
+{% load static from staticfiles %}
+{% block titletext %}ApplicationViewer{% endblock %}
+{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">{% endblock %}
+{% block content %}
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" type="text/css" href="application.css">
-</head>
 <body>
 <div id = "application">
       <br>
-      <h1> You are viewing Andrew Chan's application for CodeBase. </h1>
+      <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
       <div id="head">
-        <h2> Andrew Chan &nbsp;<button type = "button"
-          onclick="window.location.href='mailto:andrewkchan@berkeley.edu'">andrewkchan@berkeley.edu</button></h2>
+        <h2> {{first_name}} {{last_name}} &nbsp;<button type = "button"
+          onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
       </div>
       <hr>
-      <p> Expected Graduation: May 2019 </p>
-      <p>Current Major(s): Computer Science </p>
+			<div id = "basic info">
+      	<p> Expected Graduation: May 2019 </p>
+      	<p>Current Major(s): Computer Science </p>
+			</div>
       <p> Resume: </p>
       <br>
       Check the classes you have taken:
@@ -29,3 +31,4 @@
       Especially I heard the PMs of the mentored project have lots of $wag... </p>
       </div>
 </body>
+{% endblock %}
