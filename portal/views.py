@@ -11,6 +11,7 @@ def render_app(request,app_pk):
     questions = Question.objects.order_by('order_number')
     question_texts = ["<"+question.question_type+">: "+str(question) for question in questions]
     answers = [answer.answer_text for answer in application.answer_set.all()]
+    qa_pairs = zip(questions,answers)
     dict_out= {"first_name":first_name, "last_name":last_name, "email":email,
-    "questions": question_texts, "answers": answers if answers else "ERROR NO ANSWERS" }
+    "questions": questions, "answers": answers if answers else "ERROR NO ANSWERS", "qa_pairs":qa_pairs }
     return render(request, "portal/application.html",dict_out)

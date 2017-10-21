@@ -17,18 +17,41 @@
 			<div id = "basic info">
       	<p> Expected Graduation: May 2019 </p>
       	<p>Current Major(s): Computer Science </p>
+				<p> Resume: {{answers}}  </p>
+				{% for question,answer in qa_pairs%}
+					{% if question.question_type == "RadioButton" %}
+					<div>
+						<p>
+							{{question.question_text}}: <br>
+							{{answer}}
+						</p>
+					</div>
+					{% endif %}
+				 	{% if question.question_type == "Checkbox"  %}
+					<div>
+						<p>
+							{{question.question_text}}: <br>
+							{{answer}}
+						</p>
+					</div>
+					{% endif %}
+					{% if question.question_type == "Dropdown" %}
+					<div>
+						<p>
+							{{question.question_text}}: <br>
+							{{answer}}
+						</p>
+					</div>
+					{% endif %}
+					{% if question.question_type == "Paragraph" %}
+					<div>
+						<p>
+							{{question.question_text}}: <br>
+							{{answer}}
+						</p>
+					</div>
+					{% endif %}
+				{% endfor %}
 			</div>
-      <p> Resume: {{answers}}  </p>
-      <br>
-      Check the classes you have taken:
-      <form action="/action_page.php" method="get" id = "answer">
-        <input type="checkbox" name="class" value="CS61A" > CS61A<br>
-        <input type="checkbox" name="class" value="CS61B" checked> CS61B<br>
-        <input type="checkbox" name="class" value="CS61C" checked> CS61C<br>
-      </form>
-      Why Code Base?
-      <p id = "answer"> Hi My name is Andrew Chan and I really want to join CodeBase because it is the best club that does coding and stuff.
-      Especially I heard the PMs of the mentored project have lots of $wag... </p>
-      </div>
 </body>
 {% endblock %}
