@@ -14,20 +14,16 @@
 			Applications
 		</div>
 		<div class="categories">
+			{% for category in list_cat %}
 			<div class="category">
 				<div class="category_text">
-					All
+					{{ category }}
 				</div>
-			</div>
-			<div class="category">
-				<div class="category_text">
-					Others
 				</div>
-			</div>
+			{% endfor %}
 			<div class="new_category">
 				<div class="category_text">
 					<i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
-
 					New Category
 				</div>
 			</div>
@@ -60,9 +56,9 @@
 				<div class="dropdown">
  						<button class="dropbtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
  						<div class="dropdown-content">
-	 						<a href="#">All</a>
-	 						<a href="#">Others</a>
-	 						<a href="#">Andrew hates these applicants</a>
+							{% for cat in list_cat %}
+							<a href="#">{{ cat }}</a>
+							{% endfor %}
  					</div>
 				</div>
 			</div>
@@ -72,39 +68,19 @@
 
 
 		<div class="applications">
-
+			{% for app in list_app %}
 			<div class="applicant">
-				<div class="selection_box">
+				<div name="checkbox" class="selection_box">
 				</div>
 				<div class="applicant_name">
-					Olivia
+					{{ app.first_name }} {{ app.last_name }}
 				</div>
 				<div class="applicant_date">
 					Today
 				</div>
 			</div>
-			<div class="applicant">
-				<div class="selection_box">
-				</div>
-				<div class="applicant_name">
-					Elise
-				</div>
-				<div class="applicant_date">
-					Today
-				</div>
-			</div>
-			<div class="applicant">
-				<div class="selection_box">
-				</div>
-				<div class="applicant_name">
-					Jared
-				</div>
-				<div class="applicant_date">
-					Today
-				</div>
-			</div>
+			{% endfor %}
 		</div>
-	</div>
 
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -119,5 +95,6 @@
 		});
 	});
 	</script>
+
 
 {% endblock %}
