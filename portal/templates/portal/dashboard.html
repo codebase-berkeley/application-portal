@@ -2,7 +2,10 @@
 {% load static from staticfiles %}
 
 {% block titletext %}Dashboard{% endblock %}
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+<script src="https://use.fontawesome.com/6700057ba5.js"></script>
+{% endblock %}
 
 
 {% block content %}
@@ -21,23 +24,56 @@
 					Others
 				</div>
 			</div>
+
 			<div class="new_category">
 				<div class="category_text">
-					<img src="{% static 'images/plus-circle.svg' %}" class="category_plus">
+					<i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
+
 					New Category
 				</div>
 			</div>
 		</div>
-		
+
 
 
 	</div>
 
 	<div class="right">
+
+
 		<div class="searchbar">
-			Applicant List
+			<div class="selectall">
+				<div class="selection_box">
+				</div>
+				<div class="applicant_name">
+					Select All
+				</div>
+			</div>
+			<span>
+			<div class="wrapper-search">
+   			<div class="search">
+      		<input type="text" class="searchTerm" placeholder="Search Applicants...">
+					<i id="searchicon" class="fa fa-search"></i>
+     			</button>
+   			</div>
+			</div>
+			<div class="wrapper-dropdown">
+				<div class="dropdown">
+ 						<button class="dropbtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+ 						<div class="dropdown-content">
+	 						<a href="#">All</a>
+	 						<a href="#">Others</a>
+	 						<a href="#">Andrew hates these applicants</a>
+ 					</div>
+				</div>
+			</div>
+
+			</span>
 		</div>
+
+
 		<div class="applications">
+
 			<div class="applicant">
 				<div class="selection_box">
 				</div>
