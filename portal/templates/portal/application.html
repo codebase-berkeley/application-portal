@@ -15,10 +15,10 @@
       </div>
       <hr>
 			<div id = "basic info">
-      	<p> Expected Graduation: May 2019 </p>
-      	<p>Current Major(s): Computer Science </p>
-				<p> Resume: {{answers}}  </p>
-				{% for question,answer in qa_pairs%}
+      	<p> Expected Graduation: Not info provided {{options}} </p>
+      	<p>Current Major(s): Not info provided </p>
+				<p> Resume: N/A  </p>
+				{% for question,answer,option_list in qa_tuple%}
 					{% if question.question_type == "RadioButton" %}
 					<div>
 						<p>
@@ -31,16 +31,29 @@
 					<div>
 						<p>
 							{{question.question_text}}: <br>
-							{{answer}}
-						</p>
+            </p>
+							{% for option in option_list %}
+                  {% if option in answer %}
+                    <input type="checkbox" name="class" disabled = 'disabled' value={{option}} checked> {{option}}<br>
+                  {% elif option not in answer %}
+                    <input type="checkbox" name="class" disabled = 'disabled' value={{option}} > {{option}}<br>
+                  {% endif %}
+              {% endfor %}
 					</div>
 					{% endif %}
 					{% if question.question_type == "Dropdown" %}
 					<div>
 						<p>
 							{{question.question_text}}: <br>
-							{{answer}}
 						</p>
+
+            {% for option in option_list %}
+                {% if option == answer %}
+                  <input type="checkbox" name="class" disabled = 'disabled' value={{option}} checked> {{option}}<br>
+                {% elif not option == answer %}
+                  <input type="checkbox" name="class" disabled = 'disabled' value={{option}} > {{option}}<br>
+                {% endif %}
+            {% endfor %}
 					</div>
 					{% endif %}
 					{% if question.question_type == "Paragraph" %}
@@ -53,5 +66,31 @@
 					{% endif %}
 				{% endfor %}
 			</div>
+      <hr>
+
+      <h1 id = "comment_title">Comments:</h1>
+
+      <!-- This for loop goes through each individual comment (ind_comment) in comments and outputs a div for each one. So far the actual comment's content is hardcoded, but you can easily replace it with {{ind_comment.content}} and {{ind_comment.commenter}} -->
+
+      {% for ind_comment in comments %}
+
+      	<div class = "comment">
+      		<!--
+      		I put an image file for the commenter user icon into the images folder in the static folder, but I couldn't access it.
+
+      		<img src="ApplicationPortal/static/images/comment_user_icon.png"/ alt="" >
+
+      		For now, I put the same image in the same folder as this html folder, but this should be changed.
+      		-->
+
+          <img src="comment_user_icon.png"/ alt="" >
+          <div class = "crop">
+            <img src="{% static "images/user.png" %}" alt="can't load"/>
+          </div>
+      		<p class = "commenter">{{ind_comment.user.username}}</p>
+      		<p class = "content">{{ind_comment.comment_text}}<p>
+      	</div>
+
+      {% endfor %}
 </body>
 {% endblock %}
