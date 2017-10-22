@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from portal.models import Question
+import ast
 
 # Create your views here.
 
@@ -10,13 +11,19 @@ def advanced_hello(request, first_name):
 
 
 def form(request):
-    return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })
+    questions_and_options = []
+    questions = Question.objects.all()
+    for question in questions:
+        options = None
+        if question.options:
+            options = ast.literal_eval(question.options)
+        questions_and_options.append([question, options])
+    return render(request, "portal/question_forms/edit_form.html", { "questions": questions_and_options })
 
 
 def create_question(request, q_text, q_type):
     new_question = Question(question_text=q_text, question_type=q_type)
     new_question.save()
-<<<<<<< HEAD
     return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })
 
 def delete_question(request, question):
@@ -24,7 +31,13 @@ def delete_question(request, question):
     return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })
 
 
-def edit_question(request, question, new_text):
+def edit_question(request, pk=''):
+    if request.method == "GET":
+        question = Question.objects.get(pk=pk)
+        options = None
+        if question.options:
+            options = ast.literal_eval(question.options)
+        return render(request, "portal/question_forms/edit_question.html", { "question": question, "options": options})
     question.question_text = new_text
     question.save()
     return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })

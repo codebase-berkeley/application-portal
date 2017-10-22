@@ -1,13 +1,31 @@
 {% extends 'portal/base.html' %}
-{% for question in questions %}
-	{{ question.text }}
-	<a href="{% url 'delete_question' pk=question.pk %}"><img src="/portal/static/images/delete.svg" alt="Delete Question"</a>
-	<a href="{% url 'edit_question' pk=question.pk %}"><img src="/portal/static/images/edit.svg" alt="edit_question"</a>
-{% endfor %}
+{% load static from staticfiles %}
 
-<form action="{% url 'create_question' %}" method="GET">
-    {% csrf_token %}
-<input type="submit" value="Add New Question"/>
+{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">{% endblock %}
+
+{% block content %}
+{% for question, options in questions %}
+	<div>
+	{{ question.question_text }}
+	<a href="{% url 'portal:edit_question' question.pk %}">
+	    <button type="submit" class="edit-button">
+	    <img src="{% static 'images/edit.svg' %}">
+	    </button>
+	</a>
+	<form action="{% url 'portal:delete_question' %}" method="post">
+	    <button type="submit" value={{question.pk}} class="edit-button">
+	    <img src="{% static 'images/trash.svg' %}">
+	    </button>
+	<ul>
+	{% for option in options %}
+		<li> {{option}} </li>
+	{% endfor %}
+	</ul>
+	</form>
+	<br/>
+	</div>
+{% endfor %}
+{% endblock %}
 
 
 
