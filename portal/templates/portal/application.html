@@ -15,23 +15,31 @@
       </div>
       <hr>
 			<div id = "basic info">
-      	<p> Expected Graduation: Not info provided {{options}} </p>
-      	<p>Current Major(s): Not info provided </p>
-				<p> Resume: N/A  </p>
+      	<p> <b>Expected Graduation:</b> N/A </p>
+      	<p> <b> Current Major(s):</b> N/A </p>
+				<p> <b>Resume:</b> N/A  </p>
 				{% for question,answer,option_list in qa_tuple%}
 					{% if question.question_type == "RadioButton" %}
 					<div>
-						<p>
+						<p id = "question">
 							{{question.question_text}}: <br>
-							{{answer}}
 						</p>
+              <div id="answer">
+                {% for option in option_list %}
+                    {% if option in answer %}
+                      <input type="radio" disabled = 'disabled' value={{option}} checked> {{option}}<br>
+                    {% elif option not in answer %}
+                      <input type="radio" disabled = 'disabled' value={{option}}> {{option}}<br>
+                    {% endif %}
+                {% endfor %}
+              </div>
 					</div>
 					{% endif %}
 				 	{% if question.question_type == "Checkbox"  %}
 					<div>
-						<p>
+						<p id = "question">
 							{{question.question_text}}: <br>
-            </p>
+            <div id="answer">
 							{% for option in option_list %}
                   {% if option in answer %}
                     <input type="checkbox" name="class" disabled = 'disabled' value={{option}} checked> {{option}}<br>
@@ -39,27 +47,31 @@
                     <input type="checkbox" name="class" disabled = 'disabled' value={{option}} > {{option}}<br>
                   {% endif %}
               {% endfor %}
+            </div>
 					</div>
 					{% endif %}
 					{% if question.question_type == "Dropdown" %}
 					<div>
-						<p>
+						<p id = "question">
 							{{question.question_text}}: <br>
 						</p>
-
+            <div id="answer">
             {% for option in option_list %}
-                {% if option == answer %}
-                  <input type="checkbox" name="class" disabled = 'disabled' value={{option}} checked> {{option}}<br>
-                {% elif not option == answer %}
-                  <input type="checkbox" name="class" disabled = 'disabled' value={{option}} > {{option}}<br>
+                {% if option in answer %}
+                  <select disabled>
+                    <option value={{option}}>{{option}}</option>
+                  </select>
                 {% endif %}
             {% endfor %}
+            </div>
 					</div>
 					{% endif %}
 					{% if question.question_type == "Paragraph" %}
 					<div>
-						<p>
+						<p id = "question">
 							{{question.question_text}}: <br>
+            </p>
+            <p id = "answer">
 							{{answer}}
 						</p>
 					</div>

@@ -29,4 +29,4 @@ def render_app(request,app_pk):
     "answers": answers}
     return render(request, "portal/application.html",dict_out)
 def str_to_list(txt):
-    return [a.strip() for a in txt[1:-1].split(',')]
+    return [a.replace("'", "") for a in txt[1:-1].split(',')]
