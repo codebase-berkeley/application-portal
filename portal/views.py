@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from portal.models import Question
 import ast
 
+from portal.models import Category, Application
 # Create your views here.
 
 
@@ -66,3 +67,13 @@ def edit_question(request, pk=''):
     question.options = options
     question.save()
     return redirect('portal:form')
+
+def testcategories(request):
+    listy = list(Category.objects.all())
+    apps = list(Application.objects.all())
+    return render(request, "portal/testcategories.html", {"categories": listy, 'apps': apps})
+
+def dashboard(request):
+    list_cat = list(Category.objects.all())
+    list_app = list(Application.objects.all())
+    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
