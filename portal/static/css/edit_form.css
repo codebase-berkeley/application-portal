@@ -1,0 +1,19 @@
+.edit-button {
+    background-color: transparent; 
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline: none;
+    display: inline;
+}
+
+.Checkbox {
+	list-style-type: square;
+}
+
+.Radiobutton {
+	list-style-type: circle;
+}
+
+
