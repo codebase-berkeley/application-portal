@@ -38,12 +38,17 @@ def create_question(request, q_text, q_type, options):
     else:
         new_question = Question(question_text=q_text, question_type=q_type)
     new_question.save()
-    return render(request, "portal/question_forms/edit_form.html", {"questions": Question.objects.all()})
+    return redirect('portal:form')
 
 
-def delete_question(request, question):
+def delete_question(request):
+    print("printing")
+    for key in request.POST:
+        print("Key:" + key)
+        print(" Value: " + request.POST[key] )
+    question = Question.objects.get(pk=request.POST["to_delete"])
     question.delete()
-    return render(request, "portal/question_forms/edit_form.html", {"questions": Question.objects.all()})
+    return redirect('portal:form')
 
 
 def edit_question(request, pk=''):
