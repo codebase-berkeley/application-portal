@@ -18,17 +18,31 @@ def form(request):
         if question.options:
             options = ast.literal_eval(question.options)
         questions_and_options.append([question, options])
-    return render(request, "portal/question_forms/edit_form.html", { "questions": questions_and_options })
+    return render(request, "portal/question_forms/edit_form.html", {"questions": questions_and_options})
 
 
-def create_question(request, q_text, q_type):
-    new_question = Question(question_text=q_text, question_type=q_type)
+def create_question(request, q_text, q_type, options):
+    if q_type == 'Radiobutton':
+        new_question = Radiobutton(
+            question_text=q_text, question_type=q_type, options=options)
+    elif q_type == 'Checkbox':
+        new_question = Checkbox(question_text=q_text,
+                                question_type=q_type, options=options)
+    elif q_type == 'Dropdown':
+        new_question = Dropdown(question_text=q_text,
+                                question_type=q_type, options=options)
+    elif q_type == 'Paragraph':
+        new_question = Paragraph(question_text=q_text,
+                                 question_type=q_type, options=options)
+    else:
+        new_question = Question(question_text=q_text, question_type=q_type)
     new_question.save()
-    return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })
+    return render(request, "portal/question_forms/edit_form.html", {"questions": Question.objects.all()})
+
 
 def delete_question(request, question):
     question.delete()
-    return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })
+    return render(request, "portal/question_forms/edit_form.html", {"questions": Question.objects.all()})
 
 
 def edit_question(request, pk=''):
@@ -37,8 +51,7 @@ def edit_question(request, pk=''):
         options = None
         if question.options:
             options = ast.literal_eval(question.options)
-        return render(request, "portal/question_forms/edit_question.html", { "question": question, "options": options})
+        return render(request, "portal/question_forms/edit_question.html", {"question": question, "options": options})
     question.question_text = new_text
     question.save()
-    return render(request, "portal/question_forms/edit_form.html", { "questions": Question.objects.all() })
-
+    return render(request, "portal/question_forms/edit_form.html", {"questions": Question.objects.all()})
