@@ -109,4 +109,5 @@ media
 
 */static/admin
 
+*.DS_Store
 .DS_Store
