@@ -1,0 +1,10 @@
+{% extends 'portal/base.html' %}
+
+{% block content %}
+	{% for i in categories%}
+		The category name is {{i}}
+	{% endfor %}
+	{% for i in apps%}
+		The app name is {{i}}
+	{% endfor %}
+{% endblock %}
