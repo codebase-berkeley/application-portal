@@ -1,3 +1,58 @@
+.clicktoedit{
+	/*background-color: red;*/
+	float: right;
+	width: 15%;
+	height: 5em;
+	margin-top: -5em;
+	margin-right: 20em;
+}
+
+#edit{
+	float: left;
+	height: 50%;
+	width: 50%;
+}
+
+.execprof{
+	/*background-color: blue;*/
+	float: right;
+	width: 15%;
+	height: 5em;
+	margin-top: -5em;
+	margin-right: 10em;
+}
+
+#user{
+	float: left;
+	height: 50%;
+	width: 50%;
+}
+
+.tagline{
+	font-size: 0.55em;
+}
+
+.signout{
+	float: right;
+	width: 15%;
+	height: 5em;
+	margin-top: -5em;
+	margin-right: -2.5em;
+}
+
+.out {
+	 background-color: #C4820E;
+	 font-family: "Open Sans";
+	 color: white;
+	 padding-top: 8px;
+	 padding-bottom: 8px;
+	 padding-left: 15px;
+	 padding-right: 15px;
+	 font-size: 14px;
+	 border: none;
+	 cursor: pointer;
+}
+
 .left {
 	float: left;
 	color: white;
@@ -143,7 +198,7 @@
 	font-size: 17px;
 	color: #e3edfc;
 	float: left;
-  width: 100%;
+  width: 70%;
 	border-style: none;
 	border-bottom: 1px solid #ffffff;
   padding: 5px;
@@ -158,9 +213,9 @@
 
 .wrapper-search{
   width: 25%;
-	position: absolute;
+	position: fixed;
   left: 54%;
-  top: 30%;
+  top: 21%;
 	margin-top: -9px;
   margin-left: -75px;
   height: 22px;
@@ -168,9 +223,20 @@
 
 .wrapper-dropdown{
   width: 40%;
-	position: absolute;
-  left: 88%;
-  top: 29.5%;
+	position: fixed;
+  left: 75%;
+  top: 21%;
+	margin-top: -9px;
+  margin-left: -75px;
+  height: 22px;
+	font-size: 17px;
+}
+
+.wrapper-publicform{
+  width: 40%;
+	position: fixed;
+  left: 90%;
+  top: 21%;
 	margin-top: -9px;
   margin-left: -75px;
   height: 22px;
