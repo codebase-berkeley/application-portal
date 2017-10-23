@@ -4,9 +4,16 @@
     border: none;
     cursor:pointer;
     overflow: hidden;
-    outline:none;
-    display: inline-block;
-    margin: 0px 5px;
+    outline: none;
+    display: inline;
+}
+
+.Checkbox {
+	list-style-type: square;
+}
+
+.Radiobutton {
+	list-style-type: circle;
 }
 
 

@@ -42,10 +42,6 @@ def create_question(request, q_text, q_type, options):
 
 
 def delete_question(request):
-    print("printing")
-    for key in request.POST:
-        print("Key:" + key)
-        print(" Value: " + request.POST[key] )
     question = Question.objects.get(pk=request.POST["to_delete"])
     question.delete()
     return redirect('portal:form')
