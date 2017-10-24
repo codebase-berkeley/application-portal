@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import ast
 
 
 # Create your models here.
@@ -59,6 +60,26 @@ class Question(models.Model):
     question_type = models.TextField() # added this to make determining the Question easier. Use same string as the class name
     options = models.TextField(null=True, blank=True)
     order_number = models.IntegerField() # make it unique later, can cause some annoying problems during dev to make unique
+
+    def get_options_list(self):
+        """
+        Convenience function for returning the list version of the options string.
+        Modifying this list will not change the options field of the Question! Use Question.set_options_list for that.
+        :return: (list) List version of Question.options.
+        """
+        if self.options:
+            return ast.literal_eval(self.options)
+        return []
+    
+    def set_options_list(self, options_list):
+        """
+        Convenience function to allow setting the options string by passing in a list.
+        :param options_list: (list) Options list, a list of strings.
+        :return:
+        """
+        if not isinstance(options_list, list):
+            raise Exception("Question.set_options_list requires a list")
+        self.options = options_list.__str__()
 
     def __str__(self):
         return self.question_text[0:40]
