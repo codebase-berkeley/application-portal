@@ -32,6 +32,29 @@ class Comment(models.Model):
 
 
 class Question(models.Model):
+    @classmethod
+    def isinstance(cls, question):
+        """
+        Convenience function for checking if a question object is a <Question Class>.
+        This is inherited by Radiobutton, Checkbox, Dropdown, and Paragraph, and intended to be used
+        by those classes, **not by the Question class**! Example usage:
+
+        >>> from portal.models import Radiobutton, Checkbox
+        >>> q1 = Radiobutton.create("This is a radio button question", ["Yes", "No"])
+        >>> q2 = Dropdown.create("This is a dropdown question", ["Yeah", "Nah"])
+        >>> Radiobutton.isinstance(q1)
+        True
+        >>> Radiobutton.isinstance(q2)
+        False
+        >>> Dropdown.isinstance(q1)
+        False
+        >>> Dropdown.isinstance(q2)
+        True
+
+        :param question: Question object.
+        :return: True if the question is a <Question class>, else false.
+        """
+        return question.question_type == cls.__name__
     question_text = models.TextField()
     question_type = models.TextField() # added this to make determining the Question easier. Use same string as the class name
     options = models.TextField(null=True, blank=True)
@@ -52,7 +75,7 @@ class Radiobutton(Question):
         q = cls(
             question_text=question_text,
             question_type=cls.__name__,
-            options=options.__str__
+            options=options.__str__()
         )
         return q
     def __str__(self):
@@ -71,7 +94,7 @@ class Checkbox(Question):
         q = cls(
             question_text=question_text,
             question_type=cls.__name__,
-            options=options.__str__
+            options=options.__str__()
         )
         return q
     def __str__(self):
@@ -90,7 +113,7 @@ class Dropdown(Question):
         q = cls(
             question_text=question_text,
             question_type=cls.__name__,
-            options=options.__str__
+            options=options.__str__()
         )
         return q
     def __str__(self):
