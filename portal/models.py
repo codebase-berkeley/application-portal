@@ -70,7 +70,7 @@ class Question(models.Model):
         if self.options:
             return ast.literal_eval(self.options)
         return []
-    
+
     def set_options_list(self, options_list):
         """
         Convenience function to allow setting the options string by passing in a list.
