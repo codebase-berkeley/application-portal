@@ -41,21 +41,76 @@ class Question(models.Model):
         return self.question_text[0:40]
 
 class Radiobutton(Question):
+    @classmethod
+    def create(cls, question_text, options):
+        """
+        Convenience function for creating a Radiobutton question.
+        :param question_text: (str) The question text to display.
+        :param options: (list) A list of string options.
+        :return: Radiobutton object.
+        """
+        q = cls(
+            question_text=question_text,
+            question_type=cls.__name__,
+            options=options.__str__
+        )
+        return q
     def __str__(self):
         return "<RadioButton>: " + self.question_text
 
 
 class Checkbox(Question):
+    @classmethod
+    def create(cls, question_text, options):
+        """
+        Convenience function for creating a Checkbox question.
+        :param question_text: (str) The question text to display.
+        :param options: (list) A list of string options.
+        :return: Checkbox object.
+        """
+        q = cls(
+            question_text=question_text,
+            question_type=cls.__name__,
+            options=options.__str__
+        )
+        return q
     def __str__(self):
         return "<CheckBox>: " + self.question_text
 
 
 class Dropdown(Question):
+    @classmethod
+    def create(cls, question_text, options):
+        """
+        Convenience function for creating a Dropdown question.
+        :param question_text: (str) The question text to display.
+        :param options: (list) A list of string options.
+        :return: Dropdown object.
+        """
+        q = cls(
+            question_text=question_text,
+            question_type=cls.__name__,
+            options=options.__str__
+        )
+        return q
     def __str__(self):
         return "<Dropdown>: " + self.question_text
 
 
 class Paragraph(Question):
+    @classmethod
+    def create(cls, question_text):
+        """
+        Convenience function for creating a Paragraph question.
+        :param question_text: (str) The question text to display.
+        :return: Checkbox object.
+        """
+        q = cls(
+            question_text=question_text,
+            question_type=cls.__name__,
+            options=None
+        )
+        return q
     def __str__(self):
         return "<Paragraph>: " + self.question_text
 
