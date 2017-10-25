@@ -106,7 +106,7 @@ def dashboard(request):
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
-def save_app(request, answers=None, first_name=None, last_name=None, email=None):
+def save_app(request):
     if request.method == "GET":
         questions_and_options = []
         questions = Question.objects.all()
@@ -114,9 +114,10 @@ def save_app(request, answers=None, first_name=None, last_name=None, email=None)
             questions_and_options.append([question, question.get_options_list()])
         return render(request, "portal/application_views/apply.html", {"questions_and_options": questions_and_options})
     app = Application()
-    app.first_name = first_name
-    app.last_name = last_name
-    app.email = email
-    for answer in answers:
+    app.first_name = request.POST["first_name"]
+    app.last_name = request.POST["last_name"]
+    app.email = request.POST["email"]
+    for answer in request.POST["answers"]:
         answer.save()
+    app.save()
     return render(request, "portal/application_views/thanks.html")
