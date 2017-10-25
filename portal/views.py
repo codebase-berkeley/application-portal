@@ -12,7 +12,7 @@ import ast
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
-  
+
 def render_app(request,app_pk):
     application = Application.objects.get(pk = app_pk)
     first_name, last_name, email = application.first_name, application.last_name, application.email
@@ -36,7 +36,7 @@ def render_app(request,app_pk):
     "comments": comments,
     "answers": answers}
     return render(request, "portal/application.html", dict_out)
-  
+
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
@@ -84,7 +84,7 @@ def edit_question(request, pk=''):
     if request.method == "GET":
         return render(request, "portal/question_forms/edit_question.html", { "question": question, "options": options})
     question.question_text = request.POST['question_text']
-    if options:    
+    if options:
         for option in options:
             if request.POST.get(option, False):
                 options.remove(option)
@@ -105,3 +105,18 @@ def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def save_app(request, answers=None, first_name=None, last_name=None, email=None):
+    if request.method == "GET":
+        questions_and_options = []
+        questions = Question.objects.all()
+        for question in questions:
+            questions_and_options.append([question, question.get_options_list()])
+        return render(request, "portal/application_views/apply.html", {"questions_and_options": questions_and_options})
+    app = Application()
+    app.first_name = first_name
+    app.last_name = last_name
+    app.email = email
+    for answer in answers:
+        answer.save()
+    return render(request, "portal/application_views/thanks.html")

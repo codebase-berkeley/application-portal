@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'edit/question/(?P<pk>\d*)', views.edit_question, name='edit_question'),
     url(r'testcategories/$', views.testcategories, name="testcategories"),
     url(r'dashboard$', views.dashboard, name="dashboard"),
+    url(r'apply', views.save_app, name="save_app")
 ]
