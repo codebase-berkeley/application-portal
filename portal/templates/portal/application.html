@@ -15,7 +15,7 @@
         onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
     </div>
     <hr>
-			
+
 	<div id = "basic info">
       	<p> <b>Expected Graduation:</b> N/A </p>
       	<p> <b> Current Major(s):</b> N/A </p>
@@ -99,7 +99,7 @@
       	</div>
     {% endfor %}
 
-	<form action="" method = "POST">
+	<form action="{% url 'portal:create_comment' %}" method = "POST">
 		{% csrf_token %}
 		<br>
 		<br>
@@ -107,6 +107,6 @@
 		<textarea class = "comment_form" rows="5" cols="26" name="reply">Add a comment...</textarea><br>
 	</form>
 	<br>
-</div>      
+</div>
 </body>
 {% endblock %}
