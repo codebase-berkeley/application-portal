@@ -1,5 +1,8 @@
 {% load static from staticfiles %}
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/apply.css' %}">
+{% endblock %}
 {% block content %}
 <h1 class = "navbar-logo"> Apply to CodeBase </h1>
 <h2> Thanks for your interest in joining! Please fill out the interest form below. </h2>
@@ -20,16 +23,45 @@
       {% for option in question.1 %}
         <input id={{option}} type="radio" value={{option}}> {{option}} </br>
       {% endfor %}
+
+
+
     {% elif question.0.question_type == "Dropdown" %}
-      <p> {{ question.0.question_text }} </p>
+      <p>
+        <div class="dropdown">
+          <div class="dropbtn">{{ question.0.question_text }}</div>
+          <div class="dropdown-content">
       {% for option in question.1 %}
+        <div id={{option}} type="dropdown" value={{option}} class="dropdown-content"> {{ option}} </div>
       {% endfor %}
+          </div>
+        </div>
+      </p>
+
+
+
     {% elif question.0.question_type == "Checkbox" %}
       <p> {{ question.0.question_text }} </p>
       {% for option in question.1 %}
         <input id={{option}} type="checkbox" value={{option}}> {{option}} </br>
       {% endfor %}
     {% endif %}
+
+
+
   {% endfor %}
+
+  <p>
+    <div class="dropdown">
+      <div class="dropbtn">Some question</div>
+      <div class="dropdown-content">
+        <div class="dropdown-content">Option 1</div>
+        <div class="dropdown-content">Option 2</div>
+        <div class="dropdown-content">Option 3</div>
+      </div>
+    </div>
+  </p>
+
+
 </form>
 {% endblock %}
