@@ -1,0 +1,26 @@
+{% extends 'portal/question_forms/edit_form.html' %}
+{% block titletext %}AddQuestion{% endblock %}
+
+{% block content %}
+	<form method="POST" action="{% url 'form' %}">
+		{% csrf_token %}
+		<p class="question_prompts">Question Text:</p>
+		<input type="text" name="question_text">
+		<br>
+		<p class="question_prompts">Question Type:</p>
+		<select name="question_type">
+			<option value="paragraph">Paragraph</option>
+    		<option value="radio">Multiple Choice</option>
+    		<option value="checkbox">Checkbox</option>
+    		<option value="dropdown">Dropdown</option>
+  		</select>
+  		<br>
+  		<div class="container">
+			{% block content %}
+			{% endblock %}
+		</div>
+  		<input type="checkbox" name="required" value="Required">Required<br>
+    	<input type="submit" value="Save Question">
+    	<a href="/edit/form">Cancel</a>
+   	</form>
+{% endblock %}
