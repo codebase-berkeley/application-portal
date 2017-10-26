@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'edit/question/(?P<pk>\d*)', views.edit_question, name='edit_question'),
     url(r'testcategories/$', views.testcategories, name="testcategories"),
     url(r'dashboard$', views.dashboard, name="dashboard"),
-    url(r'edit/category/(?P<pk>\d*)', views.edit_category, name='edit_category')
-    url(r'category/(?P<pk>\d*)', views.show_category, name='show_category')
+    url(r'edit/category/(?P<pk>\d*)', views.edit_category, name='edit_category'),
+    url(r'category/(?P<pk>\d*)', views.show_category, name='show_category'),
+    url(r'delete_comment', views.delete_comment, name="delete_comment"),
 ]
