@@ -96,6 +96,19 @@ def edit_question(request, pk=''):
     question.save()
     return redirect('portal:form')
 
+def create_category(request, c_text):
+    newcategory = Category(name=c_text)
+    newcategory.save()
+    return redirect()
+
+def delete_category(request):
+    category = Category.objects.get(pk=request.POST["to_delete"])
+    category.delete()
+    return redirect()
+
+def edit_category(request, pk=''):
+    
+
 def testcategories(request):
     listy = list(Category.objects.all())
     apps = list(Application.objects.all())
