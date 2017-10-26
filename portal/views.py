@@ -12,7 +12,7 @@ import ast
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
-  
+
 def render_app(request,app_pk):
     application = Application.objects.get(pk = app_pk)
     first_name, last_name, email = application.first_name, application.last_name, application.email
@@ -36,7 +36,8 @@ def render_app(request,app_pk):
     "comments": comments,
     "answers": answers}
     return render(request, "portal/application.html", dict_out)
-  
+def delete_comment(request, comment_id):
+    return render(request, "portal/base.html")  
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
@@ -84,7 +85,7 @@ def edit_question(request, pk=''):
     if request.method == "GET":
         return render(request, "portal/question_forms/edit_question.html", { "question": question, "options": options})
     question.question_text = request.POST['question_text']
-    if options:    
+    if options:
         for option in options:
             if request.POST.get(option, False):
                 options.remove(option)
