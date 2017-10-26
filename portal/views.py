@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from portal.models import *
-from portal.models import Question
+from portal.models import Question, Answer
 from portal.models import Category, Application
 import ast
 
@@ -117,7 +117,9 @@ def save_app(request):
     app.first_name = request.POST["first_name"]
     app.last_name = request.POST["last_name"]
     app.email = request.POST["email"]
-    for answer in request.POST["answers"]:
-        answer.save()
+    questions = Question.objects.all()
+    for question in questions:
+        answer = Answer()
+        answer.answer_text = request.POST[str(question.question_text)]
     app.save()
     return render(request, "portal/application_views/thanks.html")

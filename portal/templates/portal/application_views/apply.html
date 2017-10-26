@@ -49,7 +49,24 @@
 
 
 
-  {% endfor %}
+  {% endfor %} </br>
+</br>
+  <input id="submit" type="submit" value="Submit"> </br>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  function validateForm() {
+    var isValid = true;
+    $("input").each(function() {
+      if ($(this).val() == '')
+          isValid = false;
+    });
+    return isValid;
+  }
+  $("form").submit(function(e) {
+    if (validateForm() == False)
+      alert("All fields must be filled!")
+      e.preventDefault(e)
+  });
+  </script>
 
   <p>
     <div class="dropdown">
