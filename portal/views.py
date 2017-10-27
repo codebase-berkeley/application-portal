@@ -12,7 +12,8 @@ import ast
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
-  
+
+@login_required  
 def render_app(request,app_pk):
     application = Application.objects.get(pk = app_pk)
     first_name, last_name, email = application.first_name, application.last_name, application.email
@@ -40,6 +41,7 @@ def render_app(request,app_pk):
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
+@login_required
 def form(request):
     questions_and_options = []
     questions = Question.objects.all()
@@ -50,7 +52,7 @@ def form(request):
         questions_and_options.append([question, options])
     return render(request, "portal/question_forms/edit_form.html", {"questions": questions_and_options})
 
-
+@login_required
 def create_question(request, q_text, q_type, options):
     if q_type == 'Radiobutton':
         new_question = Radiobutton(
@@ -69,13 +71,13 @@ def create_question(request, q_text, q_type, options):
     new_question.save()
     return redirect('portal:form')
 
-
+@login_required
 def delete_question(request):
     question = Question.objects.get(pk=request.POST["to_delete"])
     question.delete()
     return redirect('portal:form')
 
-
+@login_required
 def edit_question(request, pk=''):
     question = Question.objects.get(pk=pk)
     options = None
@@ -95,12 +97,13 @@ def edit_question(request, pk=''):
     question.options = options
     question.save()
     return redirect('portal:form')
-
+    
+@login_required
 def testcategories(request):
     listy = list(Category.objects.all())
     apps = list(Application.objects.all())
     return render(request, "portal/testcategories.html", {"categories": listy, 'apps': apps})
-
+@login_required
 def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
