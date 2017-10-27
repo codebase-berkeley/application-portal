@@ -5,7 +5,7 @@ from portal.models import *
 from portal.models import Question
 from portal.models import Category, Application
 import ast
-
+from django.utils.timezone import localtime, now
 
 # Create your views here.
 
@@ -34,14 +34,20 @@ def render_app(request,app_pk):
     "questions": questions, "answers": answer_text if answer_text else "ERROR NO ANSWERS",
     "qa_tuple":qa_tuple,
     "comments": comments,
-    "answers": answers}
+    "answers": answers,
+    "id": app_pk}
     return render(request, "portal/application.html", dict_out)
-def create_comment(request):
+def create_comment(request, app_pk):
     text = request.POST["reply"]
+    comment = Comment(user = User.objects.get(username = "codebase" ), comment_text = text, published_date = localtime(now()), applicant = Application.objects.get(pk = app_pk))
+    comment.save()
+    return render_app(request,app_pk)
 
-def delete_comment(request):
-    #comment = Comment.objects.get(pk = int(request.POST.get("delete")))
-    return render(request, "portal/base.html",{"f":request.method})
+def delete_comment(request, app_pk):
+    comment = Comment.objects.get(pk = int(request.POST["delete"]))
+    comment.delete()
+    return render_app(request,  app_pk)
+
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
