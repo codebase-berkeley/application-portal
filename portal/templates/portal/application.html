@@ -1,7 +1,10 @@
 {% extends 'portal/base.html' %}
 {% load static from staticfiles %}
 {% block titletext %}ApplicationViewer{% endblock %}
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+<script src="https://use.fontawesome.com/6700057ba5.js"></script>
+{% endblock %}
 {% block content %}
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,7 @@
     <br>
     <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
     <div id="head">
-    	<h2> {{first_name}} {{last_name}} &nbsp;<button type = "button"
+    	<h2> {{first_name}} {{last_name}} &nbsp;<button class="blueBtn" type = "button"
         onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
     </div>
     <hr>
@@ -107,6 +110,50 @@
 		<textarea class = "comment_form" rows="5" cols="26" name="reply">Add a comment...</textarea><br>
 	</form>
 	<br>
+
+  <div class="dropdown">
+    <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <div id="catDropdown" class="dropdown-content">
+      {% for cat in list_cat %}
+        <form action="{% url 'portal:change_category' application.pk %}" method="POST">
+          {% csrf_token %}
+          {% if cat == category %}
+          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+            <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
+          </button><br>
+          {% else %}
+          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+            {{ cat }}
+          </button><br>
+          {% endif %}
+        </form>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    /* When the user clicks on the button, 
+    toggle between hiding and showing the dropdown content */
+    function dropdownFunc() {
+        document.getElementById("catDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+
 </div>      
 </body>
 {% endblock %}

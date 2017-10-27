@@ -30,11 +30,14 @@ def render_app(request,app_pk):
     comments = application.comment_set.all()
     options = [str_to_list(question.options) for question in questions]
     qa_tuple = zip(questions,answer_text,options)
+    list_cat = list(Category.objects.all())
+    category = application.category
     dict_out= {"first_name":first_name, "last_name":last_name, "email":email,
     "questions": questions, "answers": answer_text if answer_text else "ERROR NO ANSWERS",
     "qa_tuple":qa_tuple,
     "comments": comments,
-    "answers": answers}
+    "answers": answers, "list_cat": list_cat, "category": category, 
+    "application": application}
     return render(request, "portal/application.html", dict_out)
   
 def str_to_list(txt):
@@ -105,3 +108,8 @@ def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def change_category(request, app_pk):
+    application = Application.objects.get(pk = app_pk)
+    application.category.name = request.POST['category']
+    return redirect('portal:get_application', app_pk)
