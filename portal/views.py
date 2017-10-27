@@ -100,15 +100,20 @@ def edit_question(request, pk=''):
 def create_category(request, c_text):
     newcategory = Category(name=c_text)
     newcategory.save()
-    return redirect()
+    list_cat = list(Category.objects.all())
+    list_app = list(Application.objects.all())
+    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
 def delete_category(request):
     category = Category.objects.get(pk=request.POST["to_delete"])
     category.delete()
-    return redirect()
+    list_cat = list(Category.objects.all())
+    list_app = list(Application.objects.all())
+    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
 def edit_category(request, pk=''):
-    
+    category = Category.objects.get(pk = pk)
+    return redirect()
 
 def testcategories(request):
     listy = list(Category.objects.all())
