@@ -12,7 +12,7 @@
 	    <img src="{% static 'images/edit.svg' %}">
 	    </button>
 	</a>
-	<form action={% url 'portal:delete_question' %}" method="post" style="display: inline">
+	<form action="{% url 'portal:delete_question' %}" method="post" style="display: inline">
 		{% csrf_token %}
 	    <button type="submit" name="to_delete" value={{question.pk}} class="edit-button">
 	    <img src="{% static 'images/trash.svg' %}">
@@ -27,7 +27,3 @@
 	</div>
 {% endfor %}
 {% endblock %}
-
-
-
-

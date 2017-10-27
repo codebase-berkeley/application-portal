@@ -39,10 +39,10 @@
 				<div class="category_text">
 					<a href="{% url 'portal:edit_category' category.pk %}">
 					    <button type="submit" class="edit-button">
-					    <img src="{% static 'images/edit-2.svg' %}" height = "13em" width = "13em">
+					    <img src="{% static 'images/edit-2.svg' %}">
 					    </button>
 					</a>
-					<a href = "/category/{{category.pk}}">{{ category }}</a>
+					<a href = "{% url 'portal:show_category category.pk'%}">{{ category }}</a>
 				</div>
 				</div>
 			{% endfor %}
@@ -97,16 +97,17 @@
 
 		<div class="applications">
 			{% for app in list_app %}
-			<div class="applicant">
-				<div name="checkbox" class="selection_box">
-				</div>
-				<div class="applicant_name">
-					{{ app.first_name }} {{ app.last_name }}
-				</div>
-				<div class="applicant_date">
-					Today
-				</div>
-			</div>
+				{% if app.category == category %}
+					<div class="applicant">
+						<div name="checkbox" class="selection_box">
+						</div>
+						<div class="applicant_name">
+							{{ app.first_name }} {{ app.last_name }}
+						</div>
+						<div class="applicant_date">
+							Today
+						</div>
+					</div>
 			{% endfor %}
 		</div>
 

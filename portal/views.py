@@ -5,14 +5,14 @@ from portal.models import *
 from portal.models import Question
 from portal.models import Category, Application
 import ast
-
+from django.utils.timezone import localtime, now
 
 # Create your views here.
 
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
-  
+
 def render_app(request,app_pk):
     application = Application.objects.get(pk = app_pk)
     first_name, last_name, email = application.first_name, application.last_name, application.email
@@ -37,9 +37,20 @@ def render_app(request,app_pk):
     "qa_tuple":qa_tuple,
     "comments": comments,
     "answers": answers, "list_cat": list_cat, "category": category, 
-    "application": application}
+    "application": application, 
+    "id": app_pk}
     return render(request, "portal/application.html", dict_out)
-  
+def create_comment(request, app_pk):
+    text = request.POST["reply"]
+    comment = Comment(user = User.objects.get(username = "codebase" ), comment_text = text, published_date = localtime(now()), applicant = Application.objects.get(pk = app_pk))
+    comment.save()
+    return render_app(request,app_pk)
+
+def delete_comment(request, app_pk):
+    comment = Comment.objects.get(pk = int(request.POST["delete"]))
+    comment.delete()
+    return render_app(request,  app_pk)
+
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
@@ -87,7 +98,7 @@ def edit_question(request, pk=''):
     if request.method == "GET":
         return render(request, "portal/question_forms/edit_question.html", { "question": question, "options": options})
     question.question_text = request.POST['question_text']
-    if options:    
+    if options:
         for option in options:
             if request.POST.get(option, False):
                 options.remove(option)
@@ -98,6 +109,35 @@ def edit_question(request, pk=''):
     question.options = options
     question.save()
     return redirect('portal:form')
+
+def create_category(request, c_text):
+    newcategory = Category(name=c_text)
+    newcategory.save()
+    list_cat = list(Category.objects.all())
+    list_app = list(Application.objects.all())
+    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def delete_category(request):
+    category = Category.objects.get(pk=request.POST["to_delete"])
+    category.delete()
+    list_cat = list(Category.objects.all())
+    list_app = list(Application.objects.all())
+    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def edit_category(request, pk=''):
+    category = Category.objects.get(pk = pk)
+    list_cat = list(Category.objects.all())
+    list_app = list(Application.objects.all())
+    if request.method == "GET":
+        return render(request, "portal/edit_category.html", {"list_cat": list_cat, "list_app": list_app})
+    category.name = request.POST["cat_name"]
+    category.save()
+    list_cat = list(Category.objects.all())
+    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def show_category(request, pk=''):
+    category = Category.objects.get(pk = pk)
+    return render(request, "portal/category.html")
 
 def testcategories(request):
     listy = list(Category.objects.all())
