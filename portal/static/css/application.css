@@ -32,7 +32,7 @@ h2 {
 
 #question {
     font-weight: bold;
-    
+
 }
 #basic-info p{
   color:blue;
@@ -44,7 +44,7 @@ h2 {
     height: 50px;
     position: relative;
     overflow: hidden;
-    border-radius: 50%; 
+    border-radius: 50%;
     float:left;
     margin-right: 15px;
     margin-left: 15px;
@@ -61,7 +61,7 @@ img {
 }
 
 .commenter {
-  display: inline;
+  display: inline-block;
   font-weight: bold;
   font-family: sans-serif;
   font-size: 14px;
@@ -70,11 +70,20 @@ img {
 }
 
 .content {
-  display: inline;
+  display: inline-block;
   font-family: sans-serif;
   font-size: 12px;
   margin-left: 5px;
 }
+.right-form {
+  display: inline-block;
+  overflow: hidden;
+}
+#delete{
+  float: right;
+  clear: both;
+}
+
 
 .comment_form {
   height:40px;

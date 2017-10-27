@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'edit/question/(?P<pk>\d*)', views.edit_question, name='edit_question'),
     url(r'testcategories/$', views.testcategories, name="testcategories"),
     url(r'dashboard$', views.dashboard, name="dashboard"),
-    url(r'delete_comment',views.delete_comment, name = "delete_comment")
+    url(r'comment/delete',views.delete_comment, name = "delete_comment"),
+    url(r'comment/create', views.create_comment, name = "create_comment"),
 ]

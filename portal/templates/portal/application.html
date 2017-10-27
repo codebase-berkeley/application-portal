@@ -88,19 +88,24 @@
     {% for ind_comment in comments %}
 
     	<div class = "comment">
-
-        	<img src="comment_user_icon.png"/ alt="" >
         	<div class = "crop">
             	<img src="{% static "images/user.png" %}" alt="can't load"/>
         	</div>
       		<p class = "commenter">{{ind_comment.user.username}}</p>
       		<br>
       		<p class = "content">{{ind_comment.comment_text}}<p>
+            <form action = "{% url 'portal:delete_comment' %}" class = "right-form" method = "post">
+              {% csrf_token %}
+                <button type="submit" value={{ind_comment.id}} id = "delete">
+        	         <img src = "{% static 'images/trash.svg' %}">
+        	        </button>
+            </form>
       	</div>
     {% endfor %}
 
 	<form action="{% url 'portal:create_comment' %}" method = "POST">
 		{% csrf_token %}
+    <p>  <p>
 		<br>
 		<br>
 		<input class = "add_comment" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />

@@ -36,8 +36,12 @@ def render_app(request,app_pk):
     "comments": comments,
     "answers": answers}
     return render(request, "portal/application.html", dict_out)
-def delete_comment(request, comment_id):
-    return render(request, "portal/base.html")  
+def create_comment(request):
+    text = request.POST["reply"]
+
+def delete_comment(request):
+    #comment = Comment.objects.get(pk = int(request.POST.get("delete")))
+    return render(request, "portal/base.html",{"f":request.method})
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
