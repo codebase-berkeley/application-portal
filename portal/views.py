@@ -113,13 +113,23 @@ def save_app(request):
         for question in questions:
             questions_and_options.append([question, question.get_options_list()])
         return render(request, "portal/application_views/apply.html", {"questions_and_options": questions_and_options})
-    app = Application()
-    app.first_name = request.POST["first_name"]
-    app.last_name = request.POST["last_name"]
-    app.email = request.POST["email"]
-    questions = Question.objects.all()
-    for question in questions:
-        answer = Answer()
-        answer.answer_text = request.POST[str(question.question_text)]
-    app.save()
-    return render(request, "portal/application_views/thanks.html")
+    else:
+        app = Application()
+        app.first_name = request.POST["first_name"]
+        app.last_name = request.POST["last_name"]
+        app.email = request.POST["email"]
+        questions = Question.objects.all()
+        for question in questions:
+            answer = Answer()
+            answer.application = app
+            answer.question = question
+            if question.question_type == "Checkbox" or question.question_type == "RadioButton":
+                lst_answers = request.POST.getlist(str(question.question_text))
+                answer.answer_text = str(lst_answers)
+            else:
+                answer.answer_text = request.POST[str(question.question_text)]
+            answer.save()
+            #add answer to app.answer_set
+
+        app.save()
+        return render(request, "portal/application_views/thanks.html")

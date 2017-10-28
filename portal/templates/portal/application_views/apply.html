@@ -6,7 +6,7 @@
 {% block content %}
 <h1 class = "navbar-logo"> Apply to CodeBase </h1>
 <h2> Thanks for your interest in joining! Please fill out the interest form below. </h2>
-<form method="post">
+<form method="POST" >
   {% csrf_token %}
   <p> First Name: </p>
   <input id="first_name" type="text" name="first_name">
@@ -18,13 +18,12 @@
     {% if question.0.question_type == "Paragraph" %}
       <p> {{ question.0.question_text }} </p>
       <input id={{question.0.question_text}} type="text" name={{question.0.question_text}}>
+
     {% elif question.0.question_type == "RadioButton" %}
       <p> {{ question.0.question_text }} </p>
       {% for option in question.1 %}
-        <input id={{option}} type="radio" value={{option}}> {{option}} </br>
+        <input id={{option}} name ={{question.0.question_text}} type="radio" value={{option}}> {{option}} </br>
       {% endfor %}
-
-
 
     {% elif question.0.question_type == "Dropdown" %}
       <p>
@@ -32,53 +31,43 @@
           <div class="dropbtn">{{ question.0.question_text }}</div>
           <div class="dropdown-content">
       {% for option in question.1 %}
-        <div id={{option}} type="dropdown" value={{option}} class="dropdown-content"> {{ option}} </div>
+        <div id={{option}} name ={{question.0.question_text}} type="dropdown" value={{option}} class="dropdown-content"> {{option}} </div>
       {% endfor %}
           </div>
         </div>
       </p>
 
-
-
     {% elif question.0.question_type == "Checkbox" %}
       <p> {{ question.0.question_text }} </p>
       {% for option in question.1 %}
-        <input id={{option}} type="checkbox" value={{option}}> {{option}} </br>
+        <input id={{option}} name ={{question.0.question_text}} type="checkbox" value={{option}}> {{option}} </br>
       {% endfor %}
     {% endif %}
 
-
-
-  {% endfor %} </br>
-</br>
+  {% endfor %} 
+  </br>
+  </br>
   <input id="submit" type="submit" value="Submit"> </br>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+  
   function validateForm() {
     var isValid = true;
-    $("input").each(function() {
+    $('.form-field').each(function() {
       if ($(this).val() == '')
           isValid = false;
     });
     return isValid;
   }
-  $("form").submit(function(e) {
-    if (validateForm() == False)
-      alert("All fields must be filled!")
-      e.preventDefault(e)
+
+  $(document).ready(function() {
+    $("form").submit(function(e) {
+      if (validateForm() == False) {
+        alert("All fields must be filled!")
+        e.preventDefault(e)
+      }
+    });
   });
   </script>
-
-  <p>
-    <div class="dropdown">
-      <div class="dropbtn">Some question</div>
-      <div class="dropdown-content">
-        <div class="dropdown-content">Option 1</div>
-        <div class="dropdown-content">Option 2</div>
-        <div class="dropdown-content">Option 3</div>
-      </div>
-    </div>
-  </p>
-
 
 </form>
 {% endblock %}
