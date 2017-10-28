@@ -35,7 +35,6 @@
 		</div>
 		<div class="categories">
 			{% for category in list_cat %}
-			<!-- if category is the one to be edited -->
 			<div class="category">
 				<div class="category_text">
 					<form action="{% url 'portal:edit_category' category.pk %}" method="post">
@@ -43,7 +42,6 @@
 	    				<input id="c_text" type="text" name="cat_name" value="{{ category.name }}"> <input type="submit" value="ok"></p>
 				</div>
 				</div>
-			<!-- otherwise display rest as normal -->
 			{% endfor %}
 			<div class="new_category">
 				<div class="category_text">

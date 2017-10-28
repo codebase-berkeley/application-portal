@@ -39,7 +39,7 @@
 				<div class="category_text">
 					<a href="{% url 'portal:edit_category' category.pk %}">
 					    <button type="submit" class="edit-button">
-					    <img src="{% static 'images/edit-2.svg' %}" height = "13em" width = "13em">
+					    <img src="{% static 'images/edit-2.svg' %}" height = "12em" width = "10em">
 					    </button>
 					</a>
 					<a href = "/category/{{category.pk}}">{{ category }}</a>
@@ -48,7 +48,8 @@
 			{% endfor %}
 			<div class="new_category">
 				<div class="category_text">
-					<i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
+					<a href="{% url 'portal:create_category' category.pk%}">
+					<button><i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i></button> </a>
 					New Category
 				</div>
 			</div>

@@ -97,11 +97,14 @@ def edit_question(request, pk=''):
     question.save()
     return redirect('portal:form')
 
-def create_category(request, c_text):
-    newcategory = Category(name=c_text)
-    newcategory.save()
+def create_category(request, pk=''):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
+    if request.method == "GET":
+        return render(request, "portal/category/create_category.html", {"list_cat": list_cat, "list_app": list_app})
+    newcategory = Category(name = request.POST["newcat_name"])
+    newcategory.save()
+    list_cat = list(Category.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
 def delete_category(request):
@@ -116,7 +119,7 @@ def edit_category(request, pk=''):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     if request.method == "GET":
-        return render(request, "portal/edit_category.html", {"list_cat": list_cat, "list_app": list_app})
+        return render(request, "portal/category/edit_category.html", {"list_cat": list_cat, "list_app": list_app})
     category.name = request.POST["cat_name"]
     category.save()
     list_cat = list(Category.objects.all())

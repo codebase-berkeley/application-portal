@@ -35,21 +35,21 @@
 		</div>
 		<div class="categories">
 			{% for category in list_cat %}
-			<!-- if category is the one to be edited -->
 			<div class="category">
 				<div class="category_text">
-					<form action="{% url 'portal:edit_category' category.pk %}" method="post">
-						{% csrf_token %}
-	    				<input id="c_text" type="text" name="cat_name" value="{{ category.name }}"> <input type="submit" value="ok"></p>
+					<a href="{% url 'portal:edit_category' category.pk %}">
+					    <button type="submit" class="edit-button">
+					    <img src="{% static 'images/edit-2.svg' %}" height = "13em" width = "13em">
+					    </button>
+					</a>
+					<a href = "/category/{{category.pk}}">{{ category }}</a>
 				</div>
 				</div>
-			<!-- otherwise display rest as normal -->
 			{% endfor %}
 			<div class="new_category">
-				<div class="category_text">
-					<i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
-					New Category
-				</div>
+				<form action="{% url 'portal:create_category' category.pk %}" method="post">
+						{% csrf_token %}
+	    				<input id="c_text" type="text" name="newcat_name" value="New Category"> <input type="submit" value="ok"></p>
 			</div>
 		</div>
 
