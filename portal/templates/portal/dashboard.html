@@ -37,6 +37,11 @@
 			{% for category in list_cat %}
 			<div class="category">
 				<div class="category_text">
+					<a href="{% url 'portal:delete_category' category.pk %}">
+					    <button type="submit" class="delete-button">
+					    <img src="{% static 'images/trash-2.svg' %}" height = "12em" width = "10em">
+					    </button>
+					<a>
 					<a href="{% url 'portal:edit_category' category.pk %}">
 					    <button type="submit" class="edit-button">
 					    <img src="{% static 'images/edit-2.svg' %}" height = "12em" width = "10em">

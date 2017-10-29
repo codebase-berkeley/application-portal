@@ -37,9 +37,23 @@
 			{% for category in list_cat %}
 			<div class="category">
 				<div class="category_text">
+					{% if category == chosencat %}
 					<form action="{% url 'portal:edit_category' category.pk %}" method="post">
 						{% csrf_token %}
 	    				<input id="c_text" type="text" name="cat_name" value="{{ category.name }}"> <input type="submit" value="ok"></p>
+	    			{% else %}
+	    			<a href="{% url 'portal:delete_category' category.pk %}">
+					    <button type="submit" class="delete-button">
+					    <img src="{% static 'images/trash-2.svg' %}" height = "12em" width = "10em">
+					    </button>
+					<a>
+	    			<a href="{% url 'portal:edit_category' category.pk %}">
+					    <button type="submit" class="edit-button">
+					    <img src="{% static 'images/edit-2.svg' %}" height = "12em" width = "10em">
+					    </button>
+					</a>
+					<a href = "/category/{{category.pk}}">{{ category }}</a>
+					{% endif %}
 				</div>
 				</div>
 			{% endfor %}
