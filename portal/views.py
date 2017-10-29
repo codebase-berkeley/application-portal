@@ -45,7 +45,7 @@ def str_to_list(txt):
 @login_required
 def form(request):
     questions_and_options = []
-    questions = Question.objects.all()
+    questions = Question.objects.order_by('order_number')
     for question in questions:
         options = None
         if question.options:
@@ -54,22 +54,22 @@ def form(request):
     return render(request, "portal/question_forms/edit_form.html", {"questions": questions_and_options})
 
 @login_required
-def create_question(request, q_text, q_type, options):
-    if q_type == 'Radiobutton':
-        new_question = Radiobutton(
-            question_text=q_text, question_type=q_type, options=options)
-    elif q_type == 'Checkbox':
-        new_question = Checkbox(question_text=q_text,
-                                question_type=q_type, options=options)
-    elif q_type == 'Dropdown':
-        new_question = Dropdown(question_text=q_text,
-                                question_type=q_type, options=options)
-    elif q_type == 'Paragraph':
-        new_question = Paragraph(question_text=q_text,
-                                 question_type=q_type, options=options)
-    else:
-        new_question = Question(question_text=q_text, question_type=q_type)
-    new_question.save()
+def create_question(request):
+    question_text = request.POST.get("question_text")
+    q_type = request.POST.get("question_type")
+    print(q_type)
+    if q_type == 'radio':
+        options = request.POST.getlist("options")
+        q = Radiobutton.create(question_text, options)
+    elif q_type == 'checkbox':
+        options = request.POST.getlist("options", False)
+        q = Checkbox.create(question_text, options)
+    elif q_type == 'dropdown':
+        options = request.POST.getlist("options", False)
+        q = Dropdown.create(question_text, options)
+    elif q_type == 'paragraph':
+        q = Paragraph.create(question_text)
+    q.save()
     return redirect('portal:form')
 
 @login_required
@@ -109,6 +109,3 @@ def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
-
-def login(request):
-    render(request, "portal/registration.html")

@@ -1,7 +1,11 @@
 {% extends 'portal/base.html' %}
 {% load static from staticfiles %}
 
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'scripts/edit_form.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 {% for question, options in questions %}
@@ -26,6 +30,8 @@
 	<br/>
 	</div>
 {% endfor %}
+{% include "portal/question_forms/new_question.html" %}
+
 {% endblock %}
 
 
