@@ -6,7 +6,7 @@
 {% block content %}
 <h1 class = "navbar-logo"> Apply to CodeBase </h1>
 <h2> Thanks for your interest in joining! Please fill out the interest form below. </h2>
-<form method="POST" >
+<form method="POST" action="{% url 'portal:save_app' %}">
   {% csrf_token %}
   <p> First Name: </p>
   <input id="first_name" type="text" name="first_name">
@@ -40,7 +40,7 @@
     {% elif question.0.question_type == "Checkbox" %}
       <p> {{ question.0.question_text }} </p>
       {% for option in question.1 %}
-        <input id={{option}} name ={{question.0.question_text}} type="checkbox" value={{option}}> {{option}} </br>
+        <input id={{option}} name ={{question.0.question_text}} type="checkbox" value={{option}}> {{option}}</br>
       {% endfor %}
     {% endif %}
 
