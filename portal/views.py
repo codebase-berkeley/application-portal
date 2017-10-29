@@ -5,6 +5,7 @@ from portal.models import *
 from portal.models import Question
 from portal.models import Category, Application
 import ast
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -97,7 +98,7 @@ def edit_question(request, pk=''):
     question.options = options
     question.save()
     return redirect('portal:form')
-    
+
 @login_required
 def testcategories(request):
     listy = list(Category.objects.all())
@@ -108,3 +109,6 @@ def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def login(request):
+    render(request, "portal/registration.html")
