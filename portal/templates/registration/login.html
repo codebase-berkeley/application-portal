@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Untitled Document</title>
+    <title>Login</title>
     <!-- Bootstrap -->
 	<link href="../../static/css/codebaselogin.css" rel="stylesheet">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -16,7 +16,7 @@
   </head>
   <body background="">
 	  <script>
-		  $(function() {  
+		  $(function() {
   $('.btn-6')
     .on('mouseenter', function(e) {
 			var parentOffset = $(this).offset(),
@@ -34,22 +34,22 @@
 });
 	  </script>
   	<div class="bigbox">
-				
+
  		<form class="login" method="POST" action="{{ LOGIN_URL }}">
  			{% csrf_token %}
   			{{form.as_p}}
-  			
+
   			<div class="centerer">
   			<input align="middle" class="btn-11" type="submit" value="Log In">
   			</div>
-		</form> 
+		</form>
 	</div>
-  
-  
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="../../../../../../../Dropbox/js/jquery-1.11.3.min.js"></script>
 
-	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="../../../../../../../Dropbox/js/bootstrap.js"></script>
   </body>
 </html>
