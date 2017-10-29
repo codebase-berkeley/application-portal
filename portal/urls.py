@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'dashboard$', views.dashboard, name="dashboard"),
     url(r'edit/category/(?P<pk>\d*)', views.edit_category, name='edit_category'),
     url(r'create/category/(?P<pk>\d*)', views.create_category, name='create_category'),
+    url(r'delete/category(?P<pk>\d*)', views.delete_category, name="delete_category"),
     url(r'category/(?P<pk>\d*)', views.show_category, name='show_category'),
     url(r'delete_comment', views.delete_comment, name="delete_comment"),
     url(r'application/category/(?P<app_pk>\d*)/', views.change_category, name='change_category'),

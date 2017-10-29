@@ -120,8 +120,8 @@ def create_category(request, pk=''):
     list_cat = list(Category.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
-def delete_category(request):
-    category = Category.objects.get(pk=request.POST["to_delete"])
+def delete_category(request, pk=''):
+    category = Category.objects.get(pk= pk)
     category.delete()
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
@@ -132,7 +132,7 @@ def edit_category(request, pk=''):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     if request.method == "GET":
-        return render(request, "portal/category/edit_category.html", {"list_cat": list_cat, "list_app": list_app})
+        return render(request, "portal/category/edit_category.html", {"list_cat": list_cat, "list_app": list_app, "chosencat": category})
     category.name = request.POST["cat_name"]
     category.save()
     list_cat = list(Category.objects.all())
