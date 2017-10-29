@@ -5,7 +5,7 @@ from portal.models import *
 from portal.models import Question
 from portal.models import Category, Application
 import ast
-
+from django.utils.timezone import localtime, now
 
 # Create your views here.
 
@@ -30,14 +30,27 @@ def render_app(request,app_pk):
     comments = application.comment_set.all()
     options = [str_to_list(question.options) for question in questions]
     qa_tuple = zip(questions,answer_text,options)
+    list_cat = list(Category.objects.all())
+    category = application.category
     dict_out= {"first_name":first_name, "last_name":last_name, "email":email,
     "questions": questions, "answers": answer_text if answer_text else "ERROR NO ANSWERS",
     "qa_tuple":qa_tuple,
     "comments": comments,
-    "answers": answers}
+    "answers": answers, "list_cat": list_cat, "category": category, 
+    "application": application, 
+    "id": app_pk}
     return render(request, "portal/application.html", dict_out)
-def delete_comment(request, comment_id):
-    return render(request, "portal/base.html")  
+def create_comment(request, app_pk):
+    text = request.POST["reply"]
+    comment = Comment(user = User.objects.get(username = "codebase" ), comment_text = text, published_date = localtime(now()), applicant = Application.objects.get(pk = app_pk))
+    comment.save()
+    return render_app(request,app_pk)
+
+def delete_comment(request, app_pk):
+    comment = Comment.objects.get(pk = int(request.POST["delete"]))
+    comment.delete()
+    return render_app(request,  app_pk)
+
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
@@ -138,3 +151,8 @@ def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+
+def change_category(request, app_pk):
+    application = Application.objects.get(pk = app_pk)
+    application.category.name = request.POST['category']
+    return redirect('portal:get_application', app_pk)
