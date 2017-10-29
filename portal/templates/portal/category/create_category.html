@@ -52,7 +52,7 @@
 				</div>
 			{% endfor %}
 			<div class="new_category">
-				<form action="{% url 'portal:create_category' category.pk %}" method="post">
+				<form action="{% url 'portal:create_category' %}" method="post">
 						{% csrf_token %}
 	    				<input id="c_text" type="text" name="newcat_name" value="New Category"> <input type="submit" value="ok"></p>
 			</div>

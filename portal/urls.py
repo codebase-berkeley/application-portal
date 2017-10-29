@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'testcategories/$', views.testcategories, name="testcategories"),
     url(r'dashboard$', views.dashboard, name="dashboard"),
     url(r'edit/category/(?P<pk>\d*)', views.edit_category, name='edit_category'),
-    url(r'create/category/(?P<pk>\d*)',
+    url(r'create/category',
         views.create_category, name='create_category'),
     url(r'delete/category(?P<pk>\d*)',
         views.delete_category, name="delete_category"),
@@ -26,4 +26,5 @@ urlpatterns = [
         views.delete_comment, name="delete_comment"),
     url(r'comment/create/(?P<app_pk>[0-9]*$)',
         views.create_comment, name="create_comment"),
+
 ]

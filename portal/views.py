@@ -118,7 +118,7 @@ def edit_question(request, pk=''):
     return redirect('portal:form')
 
 
-def create_category(request, pk=''):
+def create_category(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     if request.method == "GET":

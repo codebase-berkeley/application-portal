@@ -48,8 +48,8 @@
 			{% endfor %}
 			<div class="new_category">
 				<div class="category_text">
-					<i id="plus" class="fa fa-plus-circle" aria-hidden="true"></i>
-					New Category
+					<i id="plus" class="fa fa-plus-circle" aria-hidden="false"></i>
+					<a href="{% url 'portal:create_category' %}"> New Category </a>
 				</div>
 			</div>
 		</div>
