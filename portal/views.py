@@ -57,7 +57,6 @@ def form(request):
 def create_question(request):
     question_text = request.POST.get("question_text")
     q_type = request.POST.get("question_type")
-    print(q_type)
     if q_type == 'radio':
         options = request.POST.getlist("options")
         q = Radiobutton.create(question_text, options)
@@ -81,21 +80,13 @@ def delete_question(request):
 @login_required
 def edit_question(request, pk=''):
     question = Question.objects.get(pk=pk)
-    options = None
-    if question.options:
-        options = ast.literal_eval(question.options)
-    if request.method == "GET":
-        return render(request, "portal/question_forms/edit_question.html", { "question": question, "options": options})
+    options = request.POST.getlist("options")
     question.question_text = request.POST['question_text']
     if options:    
         for option in options:
             if request.POST.get(option, False):
                 options.remove(option)
-    if request.POST.get("add_options", False):
-        new_options = request.POST["add_options"]
-        new_options = [x.strip() for x in new_options.split(',')]
-        options.extend(new_options)
-    question.options = options
+    question.set_options_list(options)
     question.save()
     return redirect('portal:form')
 
