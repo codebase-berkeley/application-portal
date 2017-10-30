@@ -1,11 +1,15 @@
 {% extends 'portal/base.html' %}
 {% load static from staticfiles %}
+{% block titletext %}Thanks!{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/thanks.css' %}">
+{% endblock %}
 
+
+{% block content %}
 <!DOCTYPE html>
 <html>
-
-<!-- for now, the thanks.css file is in the same folder as thanks.html for testing purposes...will move to static/css folder afterwards -->
-<link rel="stylesheet" type="text/css" href="thanks.css">
 
 <body>
 
@@ -24,3 +28,5 @@
 
 </body>
 </html>
+
+{% endblock %}

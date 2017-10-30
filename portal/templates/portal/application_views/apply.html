@@ -17,12 +17,12 @@
   {% for question in questions_and_options %}
     {% if question.0.question_type == "Paragraph" %}
       <p> {{ question.0.question_text }} </p>
-      <input id={{question.0.question_text}} type="text" name={{question.0.question_text}}>
+      <input id={{question.0.question_text}} type="text" name={{question.0.pk}}>
 
     {% elif question.0.question_type == "RadioButton" %}
       <p> {{ question.0.question_text }} </p>
       {% for option in question.1 %}
-        <input id={{option}} name ={{question.0.question_text}} type="radio" value={{option}}> {{option}} </br>
+        <input id={{option}} name ={{question.0.pk}} type="radio" value={{option}}> {{option}} </br>
       {% endfor %}
 
     {% elif question.0.question_type == "Dropdown" %}
@@ -31,7 +31,7 @@
           <div class="dropbtn">{{ question.0.question_text }}</div>
           <div class="dropdown-content">
       {% for option in question.1 %}
-        <div id={{option}} name ={{question.0.question_text}} type="dropdown" value={{option}} class="dropdown-content"> {{option}} </div>
+        <div id={{option}} name ={{question.0.pk}} type="dropdown" value={{option}} class="dropdown-content"> {{option}} </div>
       {% endfor %}
           </div>
         </div>
@@ -40,7 +40,7 @@
     {% elif question.0.question_type == "Checkbox" %}
       <p> {{ question.0.question_text }} </p>
       {% for option in question.1 %}
-        <input id={{option}} name ={{question.0.question_text}} type="checkbox" value={{option}}> {{option}}</br>
+        <input id={{option}} name ={{question.0.pk}} type="checkbox" value={{option}}> {{option}}</br>
       {% endfor %}
     {% endif %}
 
@@ -49,6 +49,8 @@
   </br>
   <input id="submit" type="submit" value="Submit"> </br>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+  //this script prevents users from leaving blank fields, but it doesn't work yet
   
   function validateForm() {
     var isValid = true;

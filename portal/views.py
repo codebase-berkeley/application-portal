@@ -123,17 +123,19 @@ def save_app(request):
     app.save()
     questions = Question.objects.all()
     for question in questions:
-        print(question.question_text)
+        print(request.POST)
+        print(question.pk)
         answer = Answer()
         answer.application = app
         answer.question = question
         if question.question_type == "Checkbox" or question.question_type == "RadioButton":
-            lst_answers = request.POST.getlist(str(question.question_text))
-            answer.answer_text = str(lst_answers)
+            lst_answers = request.POST.getlist(str(question.pk))
+            answer.answer_text = str(lst_answers).replace('u','')
+            print(answer.answer_text)
+            print(lst_answers)
         else:
-            answer.answer_text = request.POST[str(question.question_text)]
+            answer.answer_text = request.POST[str(question.pk)]
         
         answer.save()
 
-    app.save()
     return render(request, "portal/application_views/thanks.html")
