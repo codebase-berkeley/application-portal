@@ -1,17 +1,20 @@
 {% extends 'portal/base.html' %}
 {% load static from staticfiles %}
 
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'scripts/edit_form.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 {% for question, options in questions %}
-	<div>
+	<div class="question">
+	<div class="static_question">
 	{{ question.question_text }}
-	<a href="{% url 'portal:edit_question' question.pk %}">
-	    <button type="submit" class="edit-button">
-	    <img src="{% static 'images/edit.svg' %}">
-	    </button>
-	</a>
+    <button type="submit" class="edit-button">
+    <img src="{% static 'images/edit.svg' %}">
+    </button>
 	<form action={% url 'portal:delete_question' %}" method="post" style="display: inline">
 		{% csrf_token %}
 	    <button type="submit" name="to_delete" value={{question.pk}} class="edit-button">
@@ -23,9 +26,14 @@
 		<li> {{option}} </li>
 	{% endfor %}
 	</ul>
+	</div>
+	<div class="edit_question">
+	{% include "portal/question_forms/edit_question.html" with question=question options=options %}
+	</div>
 	<br/>
 	</div>
 {% endfor %}
+{% include "portal/question_forms/new_question.html" %}
 {% endblock %}
 
 
