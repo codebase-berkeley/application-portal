@@ -1,26 +1,26 @@
-{% extends 'portal/question_forms/edit_form.html' %}
-{% block titletext %}AddQuestion{% endblock %}
-
-{% block content %}
-	<form method="POST" action="{% url 'form' %}">
-		{% csrf_token %}
-		<p class="question_prompts">Question Text:</p>
-		<input type="text" name="question_text">
-		<br>
-		<p class="question_prompts">Question Type:</p>
-		<select name="question_type">
-			<option value="paragraph">Paragraph</option>
-    		<option value="radio">Multiple Choice</option>
-    		<option value="checkbox">Checkbox</option>
-    		<option value="dropdown">Dropdown</option>
-  		</select>
-  		<br>
-  		<div class="container">
-			{% block content %}
-			{% endblock %}
-		</div>
-  		<input type="checkbox" name="required" value="Required">Required<br>
-    	<input type="submit" value="Save Question">
-    	<a href="/edit/form">Cancel</a>
-   	</form>
-{% endblock %}
+<button type="button" id="add_question_button">Add Question</button>
+	<div id="addq">
+		<form method="POST" action="{% url 'portal:create_question' %}">
+			{% csrf_token %}
+			<p><label for="question_text"> Question Text: </label></p>
+			<input type="text" name="question_text">
+			<br>
+			<p><label for="question_type">Question Type: </label></p>
+			<select name="question_type" id="question_type">
+				<option value="paragraph">Paragraph</option>
+	    		<option value="radio">Multiple Choice</option>
+	    		<option value="checkbox">Checkbox</option>
+	    		<option value="dropdown">Dropdown</option>
+	  		</select>
+	  		<br>
+	  		<div class="container" id="add_options">
+	  			<div class="new_options_list">
+	  			<input type="text" name="options"><br>
+	  			</div>
+	  			<button type="button" class="add_option_button">Add Option</button>
+			</div>
+	  		<input type="checkbox" name="required" value="Required">Required<br>
+	    	<input type="submit" value="Save Question">
+	    	<a href="/edit/form">Cancel</a>
+	   </form>
+   </div>
