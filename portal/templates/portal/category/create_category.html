@@ -47,15 +47,14 @@
 					    <img src="{% static 'images/edit-2.svg' %}" height = "13em" width = "13em">
 					    </button>
 					</a>
-					<a href = "{% url 'portal:show_category' category.pk %}">{{ category }}</a>
+					<a href = "/category/{{category.pk}}">{{ category }}</a>
 				</div>
 				</div>
 			{% endfor %}
 			<div class="new_category">
-				<div class="category_text">
-					<i id="plus" class="fa fa-plus-circle" aria-hidden="false"></i>
-					<a href="{% url 'portal:create_category' %}"> New Category </a>
-				</div>
+				<form action="{% url 'portal:create_category' %}" method="post">
+						{% csrf_token %}
+	    				<input id="c_text" type="text" name="newcat_name" value="New Category"> <input type="submit" value="ok"></p>
 			</div>
 		</div>
 
