@@ -1,11 +1,9 @@
 from django.conf.urls import url
 from django.views.generic import TemplateView
-from . import views
 from django.contrib.auth import views as auth_views
+import portal.views as views
 
 urlpatterns = [
-    url(r'hello/(?P<first_name>[a-zA-Z]+)$',
-        views.advanced_hello, name="advanced_hello"),
     url(r'application/(?P<app_pk>[0-9]*$)',
         views.render_app, name="get_application"),
     url(r'edit/form$', views.form, name='form'),
