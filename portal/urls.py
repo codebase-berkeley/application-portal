@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'edit/question/(?P<pk>\d*)', views.edit_question, name='edit_question'),
     url(r'testcategories/$', views.testcategories, name="testcategories"),
     url(r'dashboard$', views.dashboard, name="dashboard"),
+    url(r'apply', views.display_app, name="display_app"),
+    url(r'thanks', views.save_app, name="save_app")
     url(r'edit/category/(?P<pk>\d*)', views.edit_category, name='edit_category'),
     url(r'create/category',
         views.create_category, name='create_category'),
