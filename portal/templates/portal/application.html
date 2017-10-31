@@ -101,14 +101,20 @@
 
 
     {% for i in filled_rating %}
-      <button class="ratingStar" type="submit" name="rating" value="">
+    <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
+      {% csrf_token %}
+      <button class="ratingStar" type="submit" name="rating" value={{ i }}>
         <i class="fa fa-star fa-2x" aria-hidden="true"></i>
       </button>
+    </form>
     {% endfor %}
     {% for i in empty_rating %}
-      <button class="ratingStar" type="submit" name="rating" value="">
+    <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
+      {% csrf_token %}
+      <button class="ratingStar" type="submit" name="rating" value={{ i }}>
         <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-      </button> 
+      </button>
+    </form> 
     {% endfor %}
     -->
     <br>   
