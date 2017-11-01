@@ -106,7 +106,7 @@
 				<div name="checkbox" class="selection_box">
 				</div>
 				<div class="applicant_name">
-					{{ app.first_name }} {{ app.last_name }}
+					<a href="{% url 'portal:render_app' app.pk %}"> {{ app.first_name }} {{ app.last_name }} </a>
 				</div>
 				<div class="applicant_date">
 					Today
