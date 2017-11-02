@@ -1,1 +1,13 @@
-
+{% block content %}
+<div>
+  <form method='post'>
+  {% csrf_token %}
+    <p>Subject:</p>
+    <input type="text" id="subject" name="subject"></input>
+    <p>Email Body:</p>
+    <input type="text" id="body" name="body"></input></br>
+    </br>
+    <input type="submit" id="submit" value="Send Email"></input>
+  </form>
+</div>
+{% endblock %}
