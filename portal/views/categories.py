@@ -65,3 +65,12 @@ def change_category(request, app_pk):
     application = Application.objects.get(pk=app_pk)
     application.category.name = request.POST['category']
     return redirect('portal:get_application', app_pk)
+
+def send_massemail(request, pk=''):
+    category = Category.objects.get(pk=pk)
+    list_app = list(Application.objects.all())
+    category_apps = []
+    for app in list_app:
+        if app.category == category:
+            category_apps.append(app)
+    return render(request, "portal/massemail.html", {"category_apps": category_apps})
