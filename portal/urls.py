@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'comment/create/(?P<app_pk>[0-9]*$)',
         views.create_comment, name="create_comment"),
     url(r'login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
-    url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'})
+    url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
 ]
