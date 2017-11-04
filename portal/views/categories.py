@@ -62,6 +62,6 @@ def dashboard(request):
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
 def change_category(request, app_pk):
-    application = Application.objects.get(pk=app_pk)
+    application = Application.objects.get(pk = app_pk)
     application.category.name = request.POST['category']
-    return redirect('portal:get_application', app_pk)
+    return render_app(request, app_pk)

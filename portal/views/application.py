@@ -15,6 +15,8 @@ def str_to_list(txt):
 @login_required
 def render_app(request,app_pk):
     application = Application.objects.get(pk = app_pk)
+    application.read = True #if rendered, must be read
+    application.save()
     first_name, last_name, email = application.first_name, application.last_name, application.email
     questions = Question.objects.order_by('order_number')
     answers = [answer.answer_text for answer in application.answer_set.all()]
@@ -38,7 +40,8 @@ def render_app(request,app_pk):
                 "comments": comments,
                 "answers": answers, "list_cat": list_cat, "category": category,
                 "application": application,
-                "id": app_pk}
+                "id": app_pk,
+                "read": Application.objects.get(pk = app_pk).read}
     return render(request, "portal/application.html", dict_out)
 
 def create_comment(request, app_pk):
