@@ -65,3 +65,10 @@ def change_category(request, app_pk):
     application = Application.objects.get(pk=app_pk)
     application.category.name = request.POST['category']
     return redirect('portal:get_application', app_pk)
+
+@login_required
+def search(request, term):
+    list_app = list(Application.objects.filter(first_name__icontains=term))
+    list_app.extend(list(Application.objects.filter(last_name__icontains=term)))
+    list_app = list(set(list_app))
+    return render(request, 'portal/search.html', {"list_app": list_app})

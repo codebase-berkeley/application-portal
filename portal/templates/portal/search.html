@@ -1,0 +1,14 @@
+<div class="applications">
+			{% for app in list_app %}
+			<div class="applicant">
+				<div name="checkbox" class="selection_box">
+				</div>
+				<div class="applicant_name">
+					{{ app.first_name }} {{ app.last_name }}
+				</div>
+				<div class="applicant_date">
+					Today
+				</div>
+			</div>
+			{% endfor %}
+		</div>
