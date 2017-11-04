@@ -15,7 +15,7 @@
   
   	function validateForm() {
   		var isValid = true;
-   	 	$('.form-field').each(function() {
+   	 	$('.form').each(function() {
   	 	if ($(this).val() == '')
         	isValid = false;
   	  	});
@@ -24,10 +24,10 @@
 
   	$(document).ready(function() {
     	$('form').submit(function(e) {
-      		//if (validateForm() == false) {
+      		if (validateForm() == false) {
         	alert("All fields must be filled!");
         	e.preventDefault(e);
-      	//}
+      		}
     	});
   	});
 
@@ -41,15 +41,15 @@
 	<form method="POST" action="{% url 'portal:save_app' %}">
   	{% csrf_token %}
   		<p> First Name: </p>
-  		<input id="first_name" type="text" name="first_name">
+  		<input class = "form" id="first_name" type="text" name="first_name">
  	 	<p> Last Name: </p>
-  		<input id="last_name" type="text" name="last_name">
+  		<input class = "form" id="last_name" type="text" name="last_name">
   		<p> Berkeley Email: </p>
-  		<input id="email" type="text" name="email">
+  		<input class = "form" id="email" type="text" name="email">
   		{% for question in questions_and_options %}
     		{% if question.0.question_type == "Paragraph" %}
       			<p> {{ question.0.question_text }} </p>
-      			<input id={{question.0.question_text}} type="text" name={{question.0.pk}}>
+      			<input class = "form" id={{question.0.pk}} type="text" name={{question.0.pk}}>
 
     		{% elif question.0.question_type == "RadioButton" %}
       			<p> {{ question.0.question_text }} </p>

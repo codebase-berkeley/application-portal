@@ -47,13 +47,9 @@ def delete_question(request):
 @login_required
 def edit_question(request, pk=''):
     question = Question.objects.get(pk=pk)
-    options = None
-    if question.options:
-        options = ast.literal_eval(question.options)
-    if request.method == "GET":
-        return render(request, "portal/question_forms/edit_question.html", {"question": question, "options": options})
+    options = request.POST.getlist("options")
     question.question_text = request.POST['question_text']
-    if options:
+    if options:    
         for option in options:
             if request.POST.get(option, False):
                 options.remove(option)
