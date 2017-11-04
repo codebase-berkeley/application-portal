@@ -34,7 +34,7 @@ h2 {
     font-weight: bold;
 
 }
-#basic-info p{
+#basic-info, #rat-info, #com-info p{
   color:blue;
   font-size: 5px
 }
@@ -162,6 +162,7 @@ h3 {
     background-color: transparent;
     border: none;
     color: black;
-    display: inline-block;
+    /*display: inline-block;*/
+    float: left;
     padding: 2px;
 }

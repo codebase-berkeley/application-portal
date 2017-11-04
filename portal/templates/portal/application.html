@@ -84,23 +84,11 @@
 				</div>
 			{% endif %}
 		{% endfor %}
-	</div>
+  </div>
     <hr>
 
-    <h3>Applicant Rating:</h3>
-    <!-- Example stars for testing -->
-    <button class="ratingStar" type="submit" name="rating" value="">
-      <i class="fa fa-star fa-2x" aria-hidden="true"></i>
-    </button>
-    <button class="ratingStar" type="submit" name="rating" value="">
-      <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
-    </button>
-    <!-- actual code for rating; in views.py pass in 2 lists; for ex:
-         if the applicant is rated 3 stars,
-         filled_rating = [1, 2, 3]
-         empty_rating = [4, 5]
-
-
+  <div id = "rat info">
+    <p> <b>Rating:</b></p>
     {% for i in filled_rating %}
     <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
       {% csrf_token %}
@@ -117,10 +105,10 @@
       </button>
     </form>
     {% endfor %}
-    -->
-    <br>
+  </div>
 
-    <h2 id = "comment_title">Comments:</h2>
+<div class = "com info">
+<h2 id = "comment_title">Comments:</h2>
 
     {% for ind_comment in comments %}
 
@@ -139,6 +127,7 @@
             </form>
       	</div>
     {% endfor %}
+</div>
 
 	<form action="{% url 'portal:create_comment' id %}" method = "POST">
 		{% csrf_token %}

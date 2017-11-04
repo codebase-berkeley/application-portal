@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'delete_comment', views.delete_comment, name="delete_comment"),
     url(r'application/assign_category/(?P<app_pk>\d*)/',
         views.change_category, name='change_category'),
+    url(r'application/change_rating/(?P<app_pk>\d*)/',
+        views.change_rating, name='change_rating'),
     url(r'comment/delete/(?P<app_pk>[0-9]*$)',
         views.delete_comment, name="delete_comment"),
     url(r'comment/create/(?P<app_pk>[0-9]*$)',
