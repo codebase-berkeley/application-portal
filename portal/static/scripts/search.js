@@ -1,15 +1,8 @@
 $(document).ready(function(){
 
-$(".searchTerm").on("change keyup paste", function(){
+$(".searchTerm").on("change keyup paste", function(){}
 	$.get("portal/search/"+this.value, function(data, status){
         $(".applications").replaceWith(data)});
     });
-
-// $(".searchTerm").on("change keyup paste", function(){
-// 	$.ajax({
-// 		url:"/portal/search/"+"term"
-// 	})
-//     });
-
 
 });
