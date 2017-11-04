@@ -67,40 +67,37 @@
 
 
 		<div class="searchbar">
-			<div class="selectall">
-				<div class="selection_box">
-				</div>
-				<div class="applicant_name">
+
+				<!-- <div class="applicant_name">
 					Select All
-				</div>
-			</div>
-			<span>
-			<div class="wrapper-search">
-   			<div class="search">
-      		<input type="text" class="searchTerm" placeholder="Search Applicants...">
-					<i id="searchicon" class="fa fa-search"></i>
-     			</button>
-   			</div>
-			</div>
-			<div class="wrapper-dropdown">
+				</div> -->
+
+
+				<i id="searchicon" class="fa fa-search"></i>
+      	<input type="text" class="searchTerm" placeholder="Search Applications...">
+
 				<div class="dropdown">
- 						<button class="dropbtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+ 						<button class="dropbtn" style="height:35px;width:85px;font-size:10px">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
  						<div class="dropdown-content">
 							{% for cat in list_cat %}
 							<a href="#">{{ cat }}</a>
 							{% endfor %}
  					</div>
 				</div>
-			</div>
-			<div class ="wrapper-publicform">
-				<button class="dropbtn">View Public Form</button>
-			</div>
 
-			</span>
+
+				<button class="dropbtn" style="height:35px;width:85px;font-size:10px">View Public Form</button>
+
+				<!-- <div class="selectall">
+					<div class="selection_box" Select All>Select All</div>
+				</div> -->
+
+		</div>
 		</div>
 
 
 		<div class="applications">
+
 			{% for app in list_app %}
 			<div class="applicant">
 				<div name="checkbox" class="selection_box">
