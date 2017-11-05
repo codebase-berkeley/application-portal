@@ -73,17 +73,22 @@ def change_category(request, app_pk):
 
 def create_massemail(request, pk=''):
     category = Category.objects.get(pk=pk)
+    return render(request, "portal/massemail.html", {"category": category})
+
+def send_massemail(request, pk=''):
+    print(request.POST)
+    category = Category.objects.get(pk=pk)
     list_app = list(Application.objects.all())
     category_apps = []
     for app in list_app:
         if app.category == category:
             category_apps.append(app)
-    return render(request, "portal/massemail.html", {"category_apps": category_apps})
+            print(app.email)
 
-def send_massemail(request, category_apps):
     subject = request.POST["subject"]
     body = request.POST["body"]
 
+    print(subject + body)
 
     create_list_params = {"name": "name", "contact": {"company": "CodeBase", "address1": "2650 Haste Street", "city": "Berkeley", "state": "CA", "zip": "94720", "country": "USA"}, "permission_reminder": "You're receiving this email because you applied to CodeBase.", "campaign_defaults": {"from_name": "CodeBase", "from_email": "contact@codebase.berkeley.edu", "subject": subject, "language": "en"}, "email_type_option": True}
 
@@ -96,7 +101,7 @@ def send_massemail(request, category_apps):
         add_member_params = {"email_address": app.email, "status": "subscribed"}
         requests.post(url=URL+"/lists/"+list_id+"/members/"+KEY, params = add_member_params)
 
-    
+
     create_campaign_params = {"type": "regular", "recipients":{"list_id": list_id}}
     create_campaign = requests.post(url=URL+"/campaigns/"+KEY, params = create_campaign_params)
     obj = json.loads(create_campaign.text)
@@ -109,4 +114,3 @@ def send_massemail(request, category_apps):
     requests.post(url=URL+"/campaigns/"+campaign_id+"/actions/send/"+KEY, params={})
 
     return redirect('portal:show_category', category_apps[0].category.pk)
-
