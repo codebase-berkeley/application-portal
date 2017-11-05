@@ -66,4 +66,4 @@ def change_category(request, app_pk):
     application = Application.objects.get(pk = app_pk)
     application.category.name = str(request.POST['category'])
     application.save()
-    return redirect('portal:get_application')
+    return render_app(request, app_pk)
