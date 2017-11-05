@@ -1,7 +1,7 @@
 {% block content %}
 <div>
   <form method="post" action = "{% url 'portal:send_massemail' category.pk %}">
-  {% csrf_token %}
+  	{% csrf_token %}
     <p>Subject:</p>
     <input type="text" id="subject" name="subject"></input>
     <p>Email Body:</p>

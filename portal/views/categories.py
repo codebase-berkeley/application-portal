@@ -10,8 +10,8 @@ import json, requests
 from django.utils.timezone import localtime, now
 from django.contrib.auth.decorators import login_required
 
-URL = "https://us17.api.mailchimp.com/3.0/"
-KEY = "e1a1bff19a0cecf9447238a56a1efa9f"
+URL = "https://us17.api.mailchimp.com/3.0"
+KEY = "e1a1bff19a0cecf9447238a56a1efa9f-us17"
 
 
 
@@ -95,6 +95,7 @@ def send_massemail(request, pk=''):
 
     create_list = requests.post(url=URL+"/lists/"+KEY, params = create_list_params)
     obj = json.loads(create_list.text)
+    print(obj)
     list_id = obj['id']
 
     for app in category_apps:
