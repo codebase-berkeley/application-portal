@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import login_required
 
 URL = "https://us17.api.mailchimp.com/3.0"
 KEY = "e1a1bff19a0cecf9447238a56a1efa9f-us17"
+AUTH = ('nkhatore', KEY)
+HEADERS = {'Content-Type': 'application/json'}
 
 
 
@@ -76,26 +78,23 @@ def create_massemail(request, pk=''):
     return render(request, "portal/massemail.html", {"category": category})
 
 def send_massemail(request, pk=''):
-    print(request.POST)
     category = Category.objects.get(pk=pk)
     list_app = list(Application.objects.all())
     category_apps = []
     for app in list_app:
         if app.category == category:
             category_apps.append(app)
-            print(app.email)
 
     subject = request.POST["subject"]
     body = request.POST["body"]
 
     print(subject + body)
-
     create_list_params = {"name": "name", "contact": {"company": "CodeBase", "address1": "2650 Haste Street", "city": "Berkeley", "state": "CA", "zip": "94720", "country": "USA"}, "permission_reminder": "You're receiving this email because you applied to CodeBase.", "campaign_defaults": {"from_name": "CodeBase", "from_email": "contact@codebase.berkeley.edu", "subject": subject, "language": "en"}, "email_type_option": True}
+    create_list_url = URL+'/lists/'
 
-
-    create_list = requests.post(url=URL+"/lists/"+KEY, params = create_list_params)
+    create_list = requests.post(url=create_list_url, auth=AUTH, headers=HEADERS, json=create_list_params)
+    print(create_list.text)
     obj = json.loads(create_list.text)
-    print(obj)
     list_id = obj['id']
 
     for app in category_apps:
