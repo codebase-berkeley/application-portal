@@ -12,13 +12,15 @@
 
 
 {% block content %}
-	<div class="clicktoedit">
-		<img id="edit" src="{% static 'images/file-text.svg' %}">
-		<b>Application Form</b><br>
-		<div class="tagline">
-			Click to edit
+	<a class="nolinkstyle" href="{% url 'portal:form' %}">
+		<div class="clicktoedit">
+			<img id="edit" src="{% static 'images/file-text.svg' %}">
+			<b>Application Form</b><br>
+			<div class="tagline">
+				Click to edit
+			</div>
 		</div>
-	</div>
+	</a>
 	<div class="execprof">
 		<img id="user" src="{% static 'images/user.svg' %}">
 		<b>Abeansant Khare</b><br>

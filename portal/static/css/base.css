@@ -31,6 +31,11 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
+.headerlink {
+    text-decoration: underline;
+    color:  #C4820E;
+}
+
 .mock-text-input {
     min-height: 1.5em;
     border: 1px solid #cccccc;
@@ -67,4 +72,8 @@ a:focus, a:hover {
 }
 @media (min-width: 769px) and (max-width: 1024px) {
     width: 900px;
+}
+
+.nolinkstyle {
+    color: black !important; 
 }

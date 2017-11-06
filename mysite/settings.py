@@ -141,5 +141,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
 # Security
-LOGIN_REDIRECT_URL = '/portal/login/'
+LOGIN_REDIRECT_URL = '/portal/dashboard/'
 LOGIN_URL = '/portal/login/'
