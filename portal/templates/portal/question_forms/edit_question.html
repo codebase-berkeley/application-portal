@@ -11,26 +11,12 @@
         </p>
     {% endfor %}
 
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">{% endblock %}
-
-{% block content %}
-	<form action="{% url 'portal:edit_question' question.id %}" method="post">
-		{% csrf_token %}
-	    <p><label for="question_text">Question text: </label>
-	    <input id="question_text" type="text" name="question_text" value="{{ question.question_text }}"> </p>
-
-	    {% if options %}
-	    <p>Question options (check to delete):<p>
-	    {% for option in options %}
-	    	<p>
-	     	<input type="checkbox" value="True" name="{{option}}"/>{{option}}</p>
-	     	</p>
-	    {% endfor %}
-
-	    <p> <label for="add_options">Add options (comma delimited): </label>
-	    <input id="add_options" type="text" name="add_options">
-	    {% endif %}
-	    <input type="submit" value="Submit">
-	 	</p>
-	</form>
-{% endblock %}
+    <div class="container" class="add_options">
+        <div class="new_options_list">
+        </div>
+        <button type="button" class="add_option_button">Add Option</button>
+    </div>
+    {% endif %}
+    <input type="submit" value="Submit">
+    </p>
+</form>
