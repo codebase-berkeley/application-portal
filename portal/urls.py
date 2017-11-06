@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'assign_category/(?P<app_pk>\d*)/',
         views.change_category, name='change_category'),
     url(r'category/(?P<pk>\d*)', views.show_category, name='show_category'),
+    url(r'massemail/(?P<pk>\d*)', views.create_massemail, name='create_massemail'),
+    url(r'sent/(?P<pk>\d*)', views.send_massemail, name='send_massemail'),
     url(r'delete_comment', views.delete_comment, name="delete_comment"),
     url(r'change_rating/(?P<app_pk>\d*)/',
         views.change_rating, name='change_rating'),
