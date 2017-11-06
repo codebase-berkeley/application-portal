@@ -114,8 +114,8 @@ def send_massemail(request, pk=''):
     create_email_url = URL+"/campaigns/"+campaign_id+"/content"
     create_email = requests.put(url=create_email_url, auth=AUTH, headers=HEADERS, json=create_email_params)
 
-    send_email_url = URL+"/campaigns/"+campaign_id+"/actions/send/"
-    send_email = requests.post(url=send_email_url, auth=AUTH)
+    send_email_url = URL+"/campaigns/"+campaign_id+"/actions/send"
+    send_email = requests.post(url=send_email_url, auth=AUTH, headers=HEADERS, json={})
     print(send_email.text)
 
     return redirect('portal:show_category', category_apps[0].category.pk)
