@@ -11,12 +11,10 @@
 
 h1 {
   font-weight:200;
-  font-size: 10
 }
 
 h2 {
   font-weight:normal;
-  display: inline-block;
   padding-left: 10px;
 }
 
@@ -35,8 +33,7 @@ h2 {
     font-weight: bold;
 
 }
-#basic-info p{
-  color:blue;
+#basic-info, #rat-info, #com-info p{
   font-size: 5px
 }
 
@@ -147,7 +144,23 @@ img {
     text-align: center;
     text-decoration: none;
     font-size: 14px;
-    float: center;
     display: inline-block;
     min-width: 150px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 3px;
+  display: inline-block;
+}
+
+.ratingStar {
+    background-color: transparent;
+    border: none;
+    color: black;
+    display: inline-block;
+    float: left;
+    padding: 2px;
 }

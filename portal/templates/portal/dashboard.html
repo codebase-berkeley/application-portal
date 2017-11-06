@@ -26,9 +26,11 @@
 			akhare@berkeley.edu
 		</div>
 	</div>
-	<div class="signout">
-		<button class="out">SIGN OUT</button>
-	</div>
+	<a href="{% url 'portal:logout' %}">
+		<div class="signout">
+			<button class="out">SIGN OUT</button>
+		</div>
+	</a>
 
 
 	<div class="left">
@@ -105,7 +107,12 @@
 				<div name="checkbox" class="selection_box">
 				</div>
 				<div class="applicant_name">
-					{{ app.first_name }} {{ app.last_name }}
+					{% if app.read == False %}
+					<a href="{% url 'portal:get_application' app.pk %}"> <b> {{ app.first_name }} {{ app.last_name }} </b> </a>
+					{% endif %}
+					{% if app.read %}
+					<a href="{% url 'portal:get_application' app.pk %}">  {{ app.first_name }} {{ app.last_name }}  </a>
+					{% endif %}
 				</div>
 				<div class="applicant_date">
 					Today

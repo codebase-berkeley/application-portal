@@ -19,16 +19,17 @@ urlpatterns = [
         views.create_category, name='create_category'),
     url(r'delete/category(?P<pk>\d*)',
         views.delete_category, name="delete_category"),
+    url(r'assign_category/(?P<app_pk>\d*)/',
+        views.change_category, name='change_category'),
     url(r'category/(?P<pk>\d*)', views.show_category, name='show_category'),
     url(r'delete_comment', views.delete_comment, name="delete_comment"),
-    url(r'application/category/(?P<app_pk>\d*)/',
-        views.change_category, name='change_category'),
+    url(r'change_rating/(?P<app_pk>\d*)/',
+        views.change_rating, name='change_rating'),
     url(r'comment/delete/(?P<app_pk>[0-9]*$)',
         views.delete_comment, name="delete_comment"),
     url(r'comment/create/(?P<app_pk>[0-9]*$)',
         views.create_comment, name="create_comment"),
     url(r'login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
-    url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'}),
     url(r'search/(?P<term>[a-zA-Z]*)$', views.search, name="search_applicants")
-
+    url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
 ]
