@@ -69,15 +69,12 @@ def dashboard(request):
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
-def change_category(request, app_pk):
-    application = Application.objects.get(pk=app_pk)
-    application.category.name = request.POST['category']
-    return redirect('portal:get_application', app_pk)
-
+@login_required
 def create_massemail(request, pk=''):
     category = Category.objects.get(pk=pk)
     return render(request, "portal/massemail.html", {"category": category})
 
+@login_required
 def send_massemail(request, pk=''):
     category = Category.objects.get(pk=pk)
     list_app = list(Application.objects.all())
@@ -122,18 +119,17 @@ def send_massemail(request, pk=''):
     return redirect('portal:show_category', category_apps[0].category.pk)
 
 
-
 @login_required
 def search(request, term):
     list_app = list(Application.objects.filter(first_name__icontains=term))
     list_app.extend(list(Application.objects.filter(last_name__icontains=term)))
     list_app = list(set(list_app))
     return render(request, 'portal/search.html', {"list_app": list_app})
-  
+
 
 @login_required 
-def change(request, application):
-   application = Application.objects.get(pk = app_pk)
-   application.category = Category.objects.get(name=str(request.POST['category']))
-   application.save()
-   return render_app(request, app_pk)
+def change_category(request, app_pk):
+    application = Application.objects.get(pk = app_pk)
+    application.category = Category.objects.get(name=str(request.POST['category']))
+    application.save()
+    return render_app(request, app_pk)
