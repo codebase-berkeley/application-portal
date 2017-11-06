@@ -17,6 +17,7 @@ class Application(models.Model):
     email = models.CharField(max_length=40)
     read = models.BooleanField()
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    rating = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name + " (" + self.email + ")"

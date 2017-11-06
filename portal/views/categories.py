@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from portal.models import *
 from portal.models import Question, Answer
 from portal.models import Category, Application
+from portal.views.application import render_app
 import ast
 
 from django.utils.timezone import localtime, now
@@ -62,6 +63,7 @@ def dashboard(request):
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
 def change_category(request, app_pk):
-    application = Application.objects.get(pk=app_pk)
-    application.category.name = request.POST['category']
-    return redirect('portal:get_application', app_pk)
+    application = Application.objects.get(pk = app_pk)
+    application.category.name = str(request.POST['category'])
+    application.save()
+    return render_app(request, app_pk)
