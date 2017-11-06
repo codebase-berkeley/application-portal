@@ -89,7 +89,7 @@ def send_massemail(request, pk=''):
     body = request.POST["body"]
 
     print(subject + body)
-    create_list_params = {"name": "name", "contact": {"company": "CodeBase", "address1": "2650 Haste Street", "city": "Berkeley", "state": "CA", "zip": "94720", "country": "USA"}, "permission_reminder": "You're receiving this email because you applied to CodeBase.", "campaign_defaults": {"from_name": "CodeBase", "from_email": "contact@codebase.berkeley.edu", "subject": subject, "language": "en"}, "email_type_option": True}
+    create_list_params = {"name": "name", "contact": {"company": "CodeBase", "address1": "2650 Haste Street", "city": "Berkeley", "state": "CA", "zip": "94720", "country": "USA"}, "permission_reminder": "You're receiving this email because you applied to CodeBase.", "campaign_defaults": {"from_name": "CodeBase", "from_email": "guor.lei@berkeley.edu", "subject": subject, "language": "en"}, "email_type_option": True}
     create_list_url = URL+'/lists/'
 
     create_list = requests.post(url=create_list_url, auth=AUTH, headers=HEADERS, json=create_list_params)
@@ -99,18 +99,23 @@ def send_massemail(request, pk=''):
 
     for app in category_apps:
         add_member_params = {"email_address": app.email, "status": "subscribed"}
-        requests.post(url=URL+"/lists/"+list_id+"/members/"+KEY, params = add_member_params)
+        add_member_url = URL+"/lists/"+list_id+"/members/"
+        add_member = requests.post(url=add_member_url, auth=AUTH, headers=HEADERS, json=add_member_params)
 
 
-    create_campaign_params = {"type": "regular", "recipients":{"list_id": list_id}}
-    create_campaign = requests.post(url=URL+"/campaigns/"+KEY, params = create_campaign_params)
+    create_campaign_params = {"type": "regular", "recipients":{"list_id": list_id}, "settings":{"subject_line": subject, "reply_to": "guor.lei@berkeley.edu", "from_name":"Berkeley CodeBase"}}
+    create_campaign_url = URL+"/campaigns/"
+    create_campaign = requests.post(url=create_campaign_url, auth=AUTH, headers=HEADERS, json=create_campaign_params)
     obj = json.loads(create_campaign.text)
     campaign_id = obj['id']
 
 
-    create_email_params = {"plaintext": body}
-    requests.put(url=URL+"/campaigns/"+campaign_id+"/content/"+KEY, params = create_email_params)
+    create_email_params = {"html": "<p>"+body+"</p>"}
+    create_email_url = URL+"/campaigns/"+campaign_id+"/content"
+    create_email = requests.put(url=create_email_url, auth=AUTH, headers=HEADERS, json=create_email_params)
 
-    requests.post(url=URL+"/campaigns/"+campaign_id+"/actions/send/"+KEY, params={})
+    send_email_url = URL+"/campaigns/"+campaign_id+"/actions/send/"
+    send_email = requests.post(url=send_email_url, auth=AUTH)
+    print(send_email.text)
 
     return redirect('portal:show_category', category_apps[0].category.pk)
