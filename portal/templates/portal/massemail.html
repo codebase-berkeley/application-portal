@@ -1,0 +1,25 @@
+
+{% load static from staticfiles %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/massemail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="title">
+		<h1>Enter your email content:</h1>
+	</div>
+	<div class="content">
+		<form method="post" action = "{% url 'portal:send_massemail' category.pk %}">
+			{% csrf_token %}
+			<p>Subject:</p>
+			<input type="text" id="subject" name="subject"></input>
+			<p>Email Body:</p>
+			<textarea rows='10' cols='50' id='body' name="body"></textarea>
+			</br>
+			<input type="submit" id="submit" value="Send Email"></input>
+		</form>
+	</div>
+</div>
+{% endblock %}
