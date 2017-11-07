@@ -54,45 +54,66 @@
 }
 
 .left {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 	float: left;
 	color: white;
-	width: 300px;
+	width: 250px;
 	margin-left: 40px;
 	margin-right: 5px;
 
 }
 
 .right {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 	float: left;
-	width: 1000px;
+	width: 800px;
 	margin-left: 5px;
 	margin-right: 5px;
-	font-size: 4px;
 	padding-left: 0px;
 }
 
 .searchbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 	float:left;
 	background-color: #4d7790;
 	color: white;
-	/*padding: 2px 10px 10px 5px;*/
+	padding: 10px 10px 10px 10px;
+	height: 40px;
 
-
+}
+.searchbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
 }
 
 .applications {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	flex-direction: column;
+	justify-content: flex-start;
 	background-color: #f4f9fd;
 	height: 350px;
 }
 
 .applicant {
+	
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	border-bottom-color: #cccccc;
 	padding-left: 20px;
 	padding-right: 20px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 16px;
 }
 
 .selectall {
@@ -105,6 +126,7 @@
 }
 
 .selection_box {
+	float: left;
 	background-color: white;
 	border-style: solid;
 	border-color: #cccccc;
@@ -115,17 +137,18 @@
 }
 
 .applicant_name {
-	display: inline-block;
+	float: left;
 	padding-left: 20px;
 }
 
 .applicant_date {
 	float: right;
+	
 }
 
 .category_title {
 	background-color: #4d7790;
-	padding: 10px 20px 10px 20px;
+	padding: 13px 10px 13px 20px;
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	border-bottom-color: white;
@@ -134,23 +157,22 @@
 }
 
 .categories {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 	background-color: #4d7790;
 	height: 200px;
 }
 
 .category {
-	padding: 4px 40px 4px 45px;
+	padding: 4px 20px 4px 20px;
 	height: 30px;
 }
 
 .new_category {
-	padding: 4px 40px 0px 45px;
+	padding: 4px 40px 0px 30px;
 	height: 30px;
 }
-
-
-
-
 
 .category_text {
 	padding: 5px 10px 5px 10px;
@@ -198,18 +220,16 @@
 }
 
 #searchicon {
-	float:left;
 	font-size: 17px;
-	padding-top: 5px
+	margin-left: 0.3em;
+	margin-right: 0.3em;
 }
 
 .searchTerm {
-
 	float:left;
 	display:inline;
-	font-size: 8px;
 	color: #e3edfc;
-  width: 2%;
+  	width: 40%;
 	border-style: none;
 	border-bottom: 1px solid #ffffff;
 	background-color: transparent;
@@ -224,29 +244,6 @@
     width: 2px;
 }
 
-
-.wrapper-dropdown{
-  width: 40%;
-  left: 75%;
-  top: 21%;
-	margin-top: -9px;
-  margin-left: -75px;
-  height: 22px;
-	font-size: 8px;
-	float:left; display:inline; width: 49%;
-}
-
-.wrapper-publicform{
-  width: 40%;
-	position: fixed;
-  left: 90%;
-  top: 21%;
-	margin-top: -9px;
-  margin-left: -75px;
-  height: 22px;
-	font-size: 17px;
-}
-
 /* Dropdown Button */
 .dropbtn {
 	 background-color: #68879c;
@@ -258,47 +255,44 @@
 	 display:inline;
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
 
- float: left;
- display:inline;
-
-
-
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-
-	 float: right;
-	 background-color: #f9f9f9;
-
-	 box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	 z-index: 1;
-	 font-size: 5px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-	 color: black;
-	 padding: 12px 16px;
-	 text-decoration: none;
-	 display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-	background-color: #f1f1f1;
-	font-weight: bold;
-}
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
 	 display: block;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-	 background-color: #879fb0;
+/* Dropdown Button */
+.dropbtn {
+    padding: 5px 5px 5px 5px;
+    border: none;
+    cursor: pointer;
+    height:35px;
+    width:150px;
+    font-size:14px
 }
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #879fb0;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    background-color: #f9f9f9;
+    width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px 0px 5px 0px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: #f1f1f1}
