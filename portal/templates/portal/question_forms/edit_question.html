@@ -1,3 +1,5 @@
+{% load static from staticfiles %}
+
 <form action="{% url 'portal:edit_question' question.id %}" method="post">
     {% csrf_token %}
     <label for="question_text">Question text:</label>
@@ -7,16 +9,16 @@
     <p>Check to delete.</p>
     {% for option in options %}
         <p>
-        <input type="checkbox" value="True" name="{{option}}"/> <input type="text" value={{option}} name="options"/>
+        <input type="checkbox" value="True" name="{{option}}"/> <input type="text" value={{option}} name="options">
         </p>
     {% endfor %}
 
     <div class="container" class="add_options">
         <div class="new_options_list">
         </div>
-        <button type="button" class="add_option_button">Add Option</button>
+        <button type="button" class="add_option_button form_button"><span>Add New Option</span></button>
     </div>
     {% endif %}
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="form_button">
     </p>
 </form>

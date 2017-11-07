@@ -1,15 +1,12 @@
-{% extends 'portal/base.html' %}
+{% extends 'portal/dashboard.html' %}
 {% load static from staticfiles %}
 {% block titletext %}ApplicationViewer{% endblock %}
-{% block externals %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
-<script src="https://use.fontawesome.com/6700057ba5.js"></script>
-{% endblock %}
-{% block content %}
-<!DOCTYPE html>
-<html>
-<body>
+{% block dashboard_externals %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+
+{% endblock dashboard_externals %}
+{% block dashboard_content %}
 <div id = "application">
     <br>
     <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
@@ -176,4 +173,4 @@
 
 </div>
 </body>
-{% endblock %}
+{% endblock dashboard_content %}

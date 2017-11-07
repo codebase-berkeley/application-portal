@@ -8,6 +8,8 @@ from django.utils.timezone import localtime, now
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from .utils import get_dashboard_context
+
 
 def str_to_list(txt):
     if txt is None:
@@ -16,7 +18,9 @@ def str_to_list(txt):
     return [a.strip() for a in out]
 
 @login_required
-def render_app(request,app_pk):
+def render_app(request, app_pk):
+    context = get_dashboard_context()
+
     application = Application.objects.get(pk = app_pk)
     application.read = True #if rendered, must be read
     application.save()
@@ -48,18 +52,22 @@ def render_app(request,app_pk):
     qa_tuple = zip(questions, answer_text, options)
     list_cat = list(Category.objects.all())
     category = application.category
-    print("Answers", answers)
-    dict_out = {"first_name": first_name, "last_name": last_name, "email": email,
-                "questions": questions, "answers": answer_text if answer_text else "ERROR NO ANSWERS",
-                "qa_tuple": qa_tuple,
-                "comments": comments,
-                "filled_rating": filled_rating,
-                "empty_rating": empty_rating,
-                "answers": answers, "list_cat": list_cat, "category": category,
-                "application": application,
-                "id": app_pk,
-                "read": Application.objects.get(pk = app_pk).read}
-    return render(request, "portal/application.html", dict_out)
+
+    context["first_name"] = first_name
+    context["last_name"] = last_name
+    context["email"] = email
+    context["questions"] = questions
+    context["answers"] = answer_text if answer_text else "ERROR NO ANSWERS"
+    context["qa_tuple"] = qa_tuple
+    context["comments"] = comments
+    context["filled_rating"] = filled_rating
+    context["empty_rating"] = empty_rating
+    context["answers"] = answers
+    context["category"] = category
+    context["application"] = application
+    context["id"] = app_pk
+    context["read"] = Application.objects.get(pk = app_pk).read
+    return render(request, "portal/application.html", context)
 
 def create_comment(request, app_pk):
     text = request.POST["reply"]
