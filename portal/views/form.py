@@ -12,7 +12,7 @@ from .utils import get_dashboard_context
 
 @login_required
 def form(request):
-    context = get_dashboard_context()
+    context = get_dashboard_context(request.user.username, request.user.email)
     questions_and_options = []
     questions = Question.objects.order_by('order_number')
     for question in questions:

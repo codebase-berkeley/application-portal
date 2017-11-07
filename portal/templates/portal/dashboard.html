@@ -25,9 +25,9 @@
 	</a>
 	<div class="execprof">
 		<img id="user" src="{% static 'images/user.svg' %}">
-		<b>Abeansant Khare</b><br>
+		<b>{{ username }}</b><br>
 		<div class="tagline">
-			akhare@berkeley.edu
+			{{ email }}
 		</div>
 	</div>
 	<a href="{% url 'portal:logout' %}">
