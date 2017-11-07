@@ -38,6 +38,7 @@ body {
     font-size: 1.3em;
     font-weight: bold;
     padding: 0;
+    margin-bottom: 0.5em;
 }
 
 input {
@@ -47,4 +48,28 @@ input {
 input[type=text] {
     width: 25em;
     height: 2em;
+}
+
+input[type=submit] {
+    background-color: #4D7790; /* Dark blue */
+    border: none;
+    color: white;
+    padding: 10px 28px;
+    margin-left: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    border: none;
+    border-color: transparent;
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
+    background-color: #4B7290;
+}
+
+#title {
+    margin: 0 auto;
+    text-align:center;
 }

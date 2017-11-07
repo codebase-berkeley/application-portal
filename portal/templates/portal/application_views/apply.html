@@ -36,7 +36,7 @@
 </head>
 
 <body>
-	<h1 class = "navbar-logo"> Apply to CodeBase </h1>
+	<h1 id = "title" class = "navbar-logo"> Apply to CodeBase </h1>
 	<form method="POST" action="{% url 'portal:save_app' %}">
   	{% csrf_token %}
   		<p class = "question"> First Name: </p>
