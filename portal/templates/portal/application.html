@@ -138,11 +138,11 @@
         <form action="{% url 'portal:change_category' application.pk %}" method="POST">
           {% csrf_token %}
           {% if cat == category %}
-          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
           </button><br>
           {% else %}
-          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
             {{ cat }}
           </button><br>
           {% endif %}
