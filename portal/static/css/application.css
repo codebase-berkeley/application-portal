@@ -9,11 +9,11 @@
     display: inline-block;
 }
 
-h1 {
+#application h1 {
   font-weight:200;
 }
 
-h2 {
+#application h2 {
   font-weight:normal;
   padding-left: 10px;
 }
@@ -48,7 +48,7 @@ h2 {
     margin-left: 15px;
 }
 
-img {
+#application img {
     margin: 0 auto;
     height: 100%;
     width: auto;
@@ -148,7 +148,7 @@ img {
     min-width: 150px;
 }
 
-h3 {
+#application h3 {
   font-weight: bold;
   font-size: 16px;
   padding-left: 10px;

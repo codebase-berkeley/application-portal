@@ -50,20 +50,14 @@ def edit_category(request, pk=''):
     list_cat = list(Category.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
-
-def show_category(request, pk=''):
-    category = Category.objects.get(pk=pk)
-    list_cat = list(Category.objects.all())
-    list_app = list(Application.objects.all())
-    return render(request, "portal/category.html", {"category": category, "list_cat": list_cat, "list_app": list_app})
-
-
 @login_required
-def testcategories(request):
-    listy = list(Category.objects.all())
-    apps = list(Application.objects.all())
-    return render(request, "portal/testcategories.html", {"categories": listy, 'apps': apps})
-
+def show_category(request, pk=''):
+    context = get_dashboard_context()
+    category = Category.objects.get(pk=pk)
+    list_app = list(Application.objects.all())
+    context["list_app"] = list_app
+    context["category"] = category
+    return render(request, "portal/category.html", context)
 
 @login_required
 def dashboard(request):

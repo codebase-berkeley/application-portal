@@ -10,7 +10,6 @@ urlpatterns = [
     url(r'edit/form/add', views.create_question, name='create_question'),
     url(r'edit/form/delete', views.delete_question, name='delete_question'),
     url(r'edit/question/(?P<pk>\d*)', views.edit_question, name='edit_question'),
-    url(r'testcategories/$', views.testcategories, name="testcategories"),
     url(r'dashboard', views.dashboard, name="dashboard"),
     url(r'apply', views.display_app, name="display_app"),
     url(r'thanks', views.save_app, name="save_app"),
