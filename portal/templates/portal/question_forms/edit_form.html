@@ -11,7 +11,7 @@
 {% for question, options in questions %}
 	<div class="question">
 	<div class="static_question">
-	{{ question.question_text }}
+	<span class="question_text">{{ question.question_text }}
     <button type="submit" class="edit-button">
     <img src="{% static 'images/edit.svg' %}">
     </button>
@@ -21,16 +21,41 @@
 	    <img src="{% static 'images/trash.svg' %}">
 	    </button>
 	</form>
-	<ul class="{{question.question_type}}">
+	</span>
+
+	<div class="edit_input_options">
+	{% if not options %}
+		<br><input type="text">
+	{% endif %}
+
+	{% if question.question_type == "Checkbox" %}
 	{% for option in options %}
-		<li> {{option}} </li>
+		 <br><input type="checkbox">{{option}}
 	{% endfor %}
-	</ul>
+	{% endif %}
+
+	{% if question.question_type == "Radiobutton" %}
+	{% for option in options %}
+		 <br><input type="radio">{{option}}
+	{% endfor %}
+	{% endif %}
+
+	{% if question.question_type == "Dropdown" %}
+	<form>
+	<select name ="options">
+	{% for option in options %}
+		 <option>{{option}}</option>
+	{% endfor %}
+	</select>
+	</form>
+	{% endif %}
 	</div>
+
 	<div class="edit_question">
 	{% include "portal/question_forms/edit_question.html" with question=question options=options %}
 	</div>
 	<br/>
+	</div>
 	</div>
 {% endfor %}
 {% include "portal/question_forms/new_question.html" %}
