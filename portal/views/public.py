@@ -37,9 +37,11 @@ def save_app(request):
             answer.answer_text = str(lst_answers).replace('u', '')
             print(answer.answer_text)
             print(lst_answers)
+        elif question.question_type == "Dropdown":
+            answer.answer_text = request.POST[str(question.pk)]
         else:
             answer.answer_text = request.POST[str(question.pk)]
 
         answer.save()
 
-    return render(request, "portal/application_views/thanks.html")
+    return render(request, "portal/application_views/thanks.html", {"hi":app.answer_set.all()})

@@ -12,7 +12,7 @@
 	<script type='text/javascript'>
 
   	//this script prevents users from leaving blank fields, but it doesn't work yet
-  
+
   	function validateForm() {
   		var isValid = true;
    	 	$('.form').each(function() {
@@ -60,12 +60,12 @@
     		{% elif question.0.question_type == "Dropdown" %}
       			<p>
         		<div class="dropdown">
-          		<div class="dropbtn">{{ question.0.question_text }}</div>
-          		<div class="dropdown-content">
+          		<p> {{ question.0.question_text }} </p>
+          		<select name = {{question.0.pk}}>
       			{% for option in question.1 %}
-        			<div id={{option}} name ={{question.0.pk}} type="dropdown" value={{option}} class="dropdown-content"> {{option}} </div>
+        			<option id={{option}} type="dropdown" value={{option}} class="dropdown-content">{{option}}</option>
       			{% endfor %}
-          		</div>
+					</select>
         		</div>
       			</p>
 
@@ -76,7 +76,7 @@
       			{% endfor %}
     		{% endif %}
 
-  		{% endfor %} 
+  		{% endfor %}
   		</br>
   		</br>
   		<input id="submit" type="submit" value="Submit"/> </br>
