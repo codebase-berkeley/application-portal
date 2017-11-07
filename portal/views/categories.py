@@ -11,6 +11,8 @@ import json, requests
 from django.utils.timezone import localtime, now
 from django.contrib.auth.decorators import login_required
 
+from .utils import get_dashboard_context
+
 URL = "https://us17.api.mailchimp.com/3.0"
 KEY = "e1a1bff19a0cecf9447238a56a1efa9f-us17"
 AUTH = ('nkhatore', KEY)
@@ -65,9 +67,9 @@ def testcategories(request):
 
 @login_required
 def dashboard(request):
-    list_cat = list(Category.objects.all())
-    list_app = list(Application.objects.all())
-    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+    context = get_dashboard_context()
+    context["list_app"] = list(Application.objects.all())
+    return render(request, "portal/dashboard_main.html", context)
 
 @login_required
 def create_massemail(request, pk=''):

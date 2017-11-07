@@ -1,13 +1,13 @@
-{% extends 'portal/base.html' %}
+{% extends 'portal/dashboard.html' %}
 {% load static from staticfiles %}
 
-{% block externals %}
+{% block dashboard_externals %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/edit_form.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{% static 'scripts/edit_form.js' %}"></script>
-{% endblock %}
+{% endblock dashboard_externals %}
 
-{% block content %}
+{% block dashboard_content %}
 {% for question, options in questions %}
 	<div class="question">
 	<div class="static_question">
@@ -59,7 +59,7 @@
 	</div>
 {% endfor %}
 {% include "portal/question_forms/new_question.html" %}
-{% endblock %}
+{% endblock dashboard_content %}
 
 
 

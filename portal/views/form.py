@@ -7,10 +7,12 @@ import ast
 from django.utils.timezone import localtime, now
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .utils import get_dashboard_context
 
 
 @login_required
 def form(request):
+    context = get_dashboard_context()
     questions_and_options = []
     questions = Question.objects.order_by('order_number')
     for question in questions:
@@ -18,7 +20,8 @@ def form(request):
         if question.options:
             options = ast.literal_eval(question.options)
         questions_and_options.append([question, options])
-    return render(request, "portal/question_forms/edit_form.html", {"questions": questions_and_options})
+    context["questions"] = questions_and_options
+    return render(request, "portal/question_forms/edit_form.html", context)
 
 @login_required
 def create_question(request):

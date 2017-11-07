@@ -8,7 +8,9 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{% static 'scripts/search.js' %}"></script>
-{% endblock %}
+{% block dashboard_externals %}
+{% endblock dashboard_externals %}
+{% endblock externals %}
 
 
 {% block content %}
@@ -73,55 +75,26 @@
 
 
 		<div class="searchbar">
-
-				<!-- <div class="applicant_name">
-					Select All
-				</div> -->
-
-
-				<i id="searchicon" class="fa fa-search"></i>
-      	<input type="text" class="searchTerm" placeholder="Search Applications...">
-
-				<div class="dropdown">
- 						<button class="dropbtn" style="height:35px;width:85px;font-size:10px">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
- 						<div class="dropdown-content">
-							{% for cat in list_cat %}
-							<a href="#">{{ cat }}</a>
-							{% endfor %}
- 					</div>
-				</div>
-
-
-				<button class="dropbtn" style="height:35px;width:85px;font-size:10px">View Public Form</button>
-
-				<!-- <div class="selectall">
-					<div class="selection_box" Select All>Select All</div>
-				</div> -->
-
-		</div>
-		</div>
-
-
-		<div class="applications">
-
-			{% for app in list_app %}
-			<div class="applicant">
-				<div name="checkbox" class="selection_box">
-				</div>
-				<div class="applicant_name">
-					{% if app.read == False %}
-					<a href="{% url 'portal:get_application' app.pk %}"> <b> {{ app.first_name }} {{ app.last_name }} </b> </a>
-					{% endif %}
-					{% if app.read %}
-					<a href="{% url 'portal:get_application' app.pk %}">  {{ app.first_name }} {{ app.last_name }}  </a>
-					{% endif %}
-				</div>
-				<div class="applicant_date">
-					Today
+			<i id="searchicon" class="fa fa-search"></i>
+      		<input type="text" class="searchTerm" placeholder="Search Applications...">
+			<div class="dropdown">
+					<button class="dropbtn" style="height:35px;width:85px;font-size:10px">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+					<div class="dropdown-content">
+						{% for cat in list_cat %}
+						<a href="#">{{ cat }}</a>
+						{% endfor %}
 				</div>
 			</div>
-			{% endfor %}
+
+			<button class="dropbtn" style="height:35px;width:85px;font-size:10px">View Public Form</button>
+
 		</div>
+	</div>
+
+
+
+	{% block dashboard_content %}
+	{% endblock dashboard_content %}
 
 
 	<script>
@@ -137,4 +110,4 @@
 	</script>
 
 
-{% endblock %}
+{% endblock content %}
