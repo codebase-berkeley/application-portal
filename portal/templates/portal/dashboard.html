@@ -73,33 +73,24 @@
 
 
 		<div class="searchbar">
-
-				<!-- <div class="applicant_name">
-					Select All
-				</div> -->
-
-
-				<i id="searchicon" class="fa fa-search"></i>
-      	<input type="text" class="searchTerm" placeholder="Search Applications...">
+		
+			<i id="searchicon" class="fa fa-search"></i>
+      		<input type="text" class="searchTerm" placeholder="Search Applications...">
 
 				<div class="dropdown">
- 						<button class="dropbtn" style="height:35px;width:85px;font-size:10px">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+ 						<button class="dropbtn" >Move to Category<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+ 						{% for cat in list_cat %}
  						<div class="dropdown-content">
-							{% for cat in list_cat %}
 							<a href="#">{{ cat }}</a>
-							{% endfor %}
- 					</div>
+ 						</div>
+ 						{% endfor %}
 				</div>
 
 
-				<button class="dropbtn" style="height:35px;width:85px;font-size:10px">View Public Form</button>
-
-				<!-- <div class="selectall">
-					<div class="selection_box" Select All>Select All</div>
-				</div> -->
+				<button class="dropbtn" >View Public Form</button>
 
 		</div>
-		</div>
+		
 
 
 		<div class="applications">
@@ -110,7 +101,7 @@
 				</div>
 				<div class="applicant_name">
 					{% if app.read == False %}
-					<a href="{% url 'portal:get_application' app.pk %}"> <b> {{ app.first_name }} {{ app.last_name }} </b> </a>
+					<a href="{% url 'portal:get_application' app.pk %}"> <br> {{ app.first_name }} {{ app.last_name }} </br> </a>
 					{% endif %}
 					{% if app.read %}
 					<a href="{% url 'portal:get_application' app.pk %}">  {{ app.first_name }} {{ app.last_name }}  </a>
@@ -122,6 +113,8 @@
 			</div>
 			{% endfor %}
 		</div>
+
+	</div>
 
 
 	<script>
