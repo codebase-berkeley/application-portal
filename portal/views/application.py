@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 
 
 def str_to_list(txt):
+    if txt is None:
+        return None
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
 
 @login_required
