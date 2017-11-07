@@ -1,5 +1,7 @@
 body {
 	background-color: #F2F9FD;
+    margin-left: 30px;
+    margin-top: 15px;
 }
 
 .dropbtn {
@@ -18,7 +20,7 @@ body {
 .dropdown-content {
     display: none;
     padding: 10px;
-    background-color: white;
+     background-color: white;
     min-width: 160px;
     text-align: center;
     
@@ -30,4 +32,19 @@ body {
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.question {
+    font-size: 1.3em;
+    font-weight: bold;
+    padding: 0;
+}
+
+input {
+    margin-left: 10px;
+}
+
+input[type=text] {
+    width: 25em;
+    height: 2em;
 }
