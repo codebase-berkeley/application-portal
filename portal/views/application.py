@@ -67,9 +67,10 @@ def render_app(request, app_pk):
     context["read"] = Application.objects.get(pk = app_pk).read
     return render(request, "portal/application.html", context)
 
+@login_required
 def create_comment(request, app_pk):
     text = request.POST["reply"]
-    comment = Comment(user=User.objects.get(username="codebase"), comment_text=text,
+    comment = Comment(user=User.objects.get(username=request.user.username), comment_text=text,
                       published_date=localtime(now()), applicant=Application.objects.get(pk=app_pk))
     comment.save()
     return render_app(request, app_pk)

@@ -56,13 +56,14 @@ def show_category(request, pk=''):
     category = Category.objects.get(pk=pk)
     list_app = list(Application.objects.all())
     context["list_app"] = list_app
-    context["category"] = category
+    context["curr_category"] = category
     return render(request, "portal/category.html", context)
 
 @login_required
 def dashboard(request):
     context = get_dashboard_context(request.user.username, request.user.email)
     context["list_app"] = list(Application.objects.all())
+    context["category"] = "all"
     return render(request, "portal/dashboard_main.html", context)
 
 @login_required
