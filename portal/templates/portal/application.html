@@ -25,14 +25,14 @@
       
 		<p> <b>Resume:</b> N/A  </p>
 		{% for question,answer,option_list in qa_tuple%}
-			{% if question.question_type == "RadioButton" %}
+			{% if question.question_type == "Radiobutton" %}
 				<div>
 					<p id = "question">
 					{{question.question_text}}: <br>
 					</p>
               		<div id="answer">
                 		{% for option in option_list %}
-                    		{% if option in answer %}
+                    		{% if answer in option %}
                       			<input type="radio" disabled = 'disabled' value={{option}} checked> {{option}}<br>
                     		{% elif option not in answer %}
                       			<input type="radio" disabled = 'disabled' value={{option}}> {{option}}<br>

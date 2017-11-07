@@ -22,6 +22,9 @@ def render_app(request,app_pk):
     first_name, last_name, email = application.first_name, application.last_name, application.email
     questions = Question.objects.order_by('order_number')
     answers = [answer.answer_text for answer in application.answer_set.all()]
+
+    print("Answers", answers)
+
     ans = application.answer_set.all()
     answer_text = []
     for answer in ans:
@@ -31,6 +34,7 @@ def render_app(request,app_pk):
             answer_text += ["'{0}'".format(answer.answer_text)]
         else:
             answer_text += [answer.answer_text]
+    print("Answer text", answer_text)
     if application.rating == None:
         filled_rating = []
         empty_rating = [1, 2, 3, 4, 5]
@@ -39,9 +43,11 @@ def render_app(request,app_pk):
         empty_rating = [i for i in range(application.rating+1, 6)]
     comments = application.comment_set.all()
     options = [str_to_list(question.options) for question in questions]
+    print("Options: ", options)
     qa_tuple = zip(questions, answer_text, options)
     list_cat = list(Category.objects.all())
     category = application.category
+    print("Answers", answers)
     dict_out = {"first_name": first_name, "last_name": last_name, "email": email,
                 "questions": questions, "answers": answer_text if answer_text else "ERROR NO ANSWERS",
                 "qa_tuple": qa_tuple,
