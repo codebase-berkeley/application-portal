@@ -26,8 +26,10 @@ $(".add_option_button").click(function(){
 });
 
 $(".edit-button").click(function(){
-	$(this).parent().parent().parent().find(".static_question").hide();
-	$(this).parent().parent().parent().find(".edit_question").show();
+	// $(this).parent().parent().parent().find(".static_question").hide();
+	// $(this).parent().parent().parent().find(".edit_question").show();
+	$(this).closest(".question").find(".static_question").hide();
+	$(this).closest(".question").find(".edit_question").show();
 });
 
 });
