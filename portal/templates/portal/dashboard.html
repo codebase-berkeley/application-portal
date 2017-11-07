@@ -77,24 +77,22 @@
 		<div class="searchbar">
 			<i id="searchicon" class="fa fa-search"></i>
       		<input type="text" class="searchTerm" placeholder="Search Applications...">
-			<div class="dropdown">
-					<button class="dropbtn" style="height:35px;width:85px;font-size:10px">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
-					<div class="dropdown-content">
-						{% for cat in list_cat %}
-						<a href="#">{{ cat }}</a>
-						{% endfor %}
+
+				<div class="dropdown">
+ 						<button class="dropbtn" >Move to Category<i class="fa fa-angle-down" aria-hidden="true"></i></button>
+ 						{% for cat in list_cat %}
+ 						<div class="dropdown-content">
+							<a href="#">{{ cat }}</a>
+ 						</div>
+ 						{% endfor %}
 				</div>
 			</div>
-
-			<button class="dropbtn" style="height:35px;width:85px;font-size:10px">View Public Form</button>
-
+    <button class="dropbtn" >View Public Form</button>
 		</div>
-	</div>
-
-
-
 	{% block dashboard_content %}
 	{% endblock dashboard_content %}
+
+	</div>
 
 
 	<script>
