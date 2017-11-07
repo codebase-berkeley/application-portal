@@ -44,4 +44,4 @@ def save_app(request):
 
         answer.save()
 
-    return render(request, "portal/application_views/thanks.html", {"hi":app.answer_set.all()})
+    return render(request, "portal/application_views/thanks.html")
