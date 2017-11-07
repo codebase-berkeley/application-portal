@@ -8,7 +8,9 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{% static 'scripts/search.js' %}"></script>
-{% endblock %}
+{% block dashboard_externals %}
+{% endblock dashboard_externals %}
+{% endblock externals %}
 
 
 {% block content %}
@@ -73,7 +75,6 @@
 
 
 		<div class="searchbar">
-		
 			<i id="searchicon" class="fa fa-search"></i>
       		<input type="text" class="searchTerm" placeholder="Search Applications...">
 
@@ -85,34 +86,11 @@
  						</div>
  						{% endfor %}
 				</div>
-
-
-				<button class="dropbtn" >View Public Form</button>
-
-		</div>
-		
-
-
-		<div class="applications">
-
-			{% for app in list_app %}
-			<div class="applicant">
-				<div name="checkbox" class="selection_box">
-				</div>
-				<div class="applicant_name">
-					{% if app.read == False %}
-					<a href="{% url 'portal:get_application' app.pk %}"> <br> {{ app.first_name }} {{ app.last_name }} </br> </a>
-					{% endif %}
-					{% if app.read %}
-					<a href="{% url 'portal:get_application' app.pk %}">  {{ app.first_name }} {{ app.last_name }}  </a>
-					{% endif %}
-				</div>
-				<div class="applicant_date">
-					Today
-				</div>
 			</div>
-			{% endfor %}
+    <button class="dropbtn" >View Public Form</button>
 		</div>
+	{% block dashboard_content %}
+	{% endblock dashboard_content %}
 
 	</div>
 
@@ -130,4 +108,4 @@
 	</script>
 
 
-{% endblock %}
+{% endblock content %}
