@@ -63,7 +63,7 @@
           		<p> {{ question.0.question_text }} </p>
           		<select name = {{question.0.pk}}>
       			{% for option in question.1 %}
-        			<option id={{option}} type="dropdown" value={{option}} class="dropdown-content">{{option}}</option>
+        			<option id={{option}} type="dropdown" value="{{option}}" class="dropdown-content">{{option}}</option>
       			{% endfor %}
 					</select>
         		</div>
