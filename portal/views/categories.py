@@ -67,7 +67,7 @@ def testcategories(request):
 def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
-    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+    return render(request, "portal/dashboard_main.html", {"list_cat": list_cat, "list_app": list_app})
 
 @login_required
 def create_massemail(request, pk=''):
