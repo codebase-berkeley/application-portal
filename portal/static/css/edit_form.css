@@ -1,0 +1,69 @@
+.edit-button {
+    background-color: transparent; 
+    background-repeat: no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline: none;
+    display: inline;
+}
+
+.Checkbox {
+	list-style-type: square;
+}
+
+.Radiobutton {
+	list-style-type: circle;
+}
+
+.form_button {
+	background-color: rgb(72, 122, 142);
+	border: none;
+	padding: 5px 10px;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+	margin: 5px;
+}
+
+#formbutton span {
+	color: white;
+	font-weight: bold;
+}
+
+.form_button img {
+	vertical-align: middle;
+	margin-bottom: 0.5em;
+}
+
+.question_text {
+	font-size: 1.3em;
+	margin: 5px 5px;
+}
+
+input[type=text] {
+	width: 300px;
+	padding: 5px 5px;
+}
+
+input[type=text]:focus {
+    border: 2px solid rgb(138, 172, 226);
+}
+
+.edit_input_options {
+	margin-left: 20px;
+}
+
+#addq {
+	width: 500px;
+	min-height: 200px;
+	margin-left: 20px;
+	background-color: rgb(204, 214, 232);
+	padding: 20px 20px;
+}
+
+body {
+	background: linear-gradient(white, rgb(227, 235, 249)) fixed;
+}
+
+

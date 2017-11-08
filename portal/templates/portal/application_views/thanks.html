@@ -1,0 +1,31 @@
+{% extends 'portal/base.html' %}
+{% load static from staticfiles %}
+{% block titletext %}Thanks!{% endblock %}
+{% block externals %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/thanks.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<div id = "main">
+	<h1>Thank you for applying to CodeBase!</h1>
+
+	<h2>We've received your application and will carefully review it. You'll hear from us soon! </h2>
+
+	<br>
+	<br>
+
+	<h2>- The CodeBase Team</h2>
+
+</div>
+
+</body>
+</html>
+
+{% endblock %}

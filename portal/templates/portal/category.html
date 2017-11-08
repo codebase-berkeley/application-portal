@@ -1,0 +1,39 @@
+{% extends 'portal/dashboard.html' %}
+{% load static from staticfiles %}
+
+{% block titletext %}Dashboard{% endblock titletext %}
+
+
+{% block dashboard_content %}
+		<div class="applications">
+			{% for app in list_app %}
+				{% if app.category == curr_category %}
+					<div class="applicant">
+						<div name="checkbox" class="selection_box">
+						</div>
+						<div class="applicant_name">
+							<a href="{% url 'portal:get_application' app.pk %}"> {{ app.first_name }} {{ app.last_name }} </a>
+						</div>
+						<div class="applicant_date">
+							Today
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$("div.selection_box").click(function() {
+			if ($(this).find('img').length) {
+				$(this).html('');
+			} else {
+				$(this).html('<img src="{% static "images/check.svg" %}" width="17px" height="17px">');
+			}
+		});
+	});
+	</script>
+
+
+{% endblock dashboard_content %}

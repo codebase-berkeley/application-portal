@@ -1,0 +1,84 @@
+body {
+	background-color: #F2F9FD;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.dropbtn {
+    background-color: #60879E;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    min-width: 180px;
+    text-align: center;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 10px;
+     background-color: white;
+    min-width: 160px;
+    text-align: center;
+    
+}
+
+.dropdown-content div:hover{
+	background-color: #E0E0E0;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.question {
+    font-size: 0.9em;
+    font-weight: 535;
+    padding: 0;
+    margin-bottom: 0.5em;
+}
+
+input[type=text] {
+    width: 25em;
+    height: 1.5em;
+    margin-bottom: 10px;
+}
+
+input[type=submit] {
+    background-color: #C4820E; /* Orange */
+    border: none;
+    color: white;
+    padding: 5px 14px;
+    margin-left: 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border: none;
+    border-color: transparent;
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
+    background-color: #C8850F;
+}
+
+#title {
+    margin: 0 auto;
+    font-weight: normal;
+    font-size: 2.8em;
+    margin-bottom: 30px;
+}
+
+.main {
+    padding-left: 15px;
+}
+
+h2 {
+    padding-left: 5px;
+    font-size: 1.4em;
+    font-weight: 535;
+}

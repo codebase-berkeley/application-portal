@@ -17,6 +17,7 @@ class Application(models.Model):
     email = models.CharField(max_length=40)
     read = models.BooleanField()
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    rating = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.first_name + " " + self.last_name + " (" + self.email + ")"
@@ -59,7 +60,7 @@ class Question(models.Model):
     question_text = models.TextField()
     question_type = models.TextField() # added this to make determining the Question easier. Use same string as the class name
     options = models.TextField(null=True, blank=True)
-    order_number = models.IntegerField() # make it unique later, can cause some annoying problems during dev to make unique
+    order_number = models.IntegerField(null=True, blank=True) # make it unique later, can cause some annoying problems during dev to make unique
 
     def get_options_list(self):
         """

@@ -1,0 +1,17 @@
+h1 {
+  font-weight:200;
+  font-size: 50px
+  text-align:center;
+}
+
+h2 {
+  font-weight:normal;
+  display: inline-block;
+  padding-left: 10px;
+}
+
+#main {
+  background-color:#ddedf2;
+  font-family: sans-serif;
+  padding-left: 20px;
+}

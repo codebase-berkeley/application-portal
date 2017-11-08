@@ -1,26 +1,32 @@
-{% extends 'portal/question_forms/edit_form.html' %}
-{% block titletext %}AddQuestion{% endblock %}
+{% load static from staticfiles %}
 
-{% block content %}
-	<form method="POST" action="{% url 'form' %}">
-		{% csrf_token %}
-		<p class="question_prompts">Question Text:</p>
-		<input type="text" name="question_text">
-		<br>
-		<p class="question_prompts">Question Type:</p>
-		<select name="question_type">
-			<option value="paragraph">Paragraph</option>
-    		<option value="radio">Multiple Choice</option>
-    		<option value="checkbox">Checkbox</option>
-    		<option value="dropdown">Dropdown</option>
-  		</select>
-  		<br>
-  		<div class="container">
-			{% block content %}
-			{% endblock %}
-		</div>
-  		<input type="checkbox" name="required" value="Required">Required<br>
-    	<input type="submit" value="Save Question">
-    	<a href="/edit/form">Cancel</a>
-   	</form>
-{% endblock %}
+<button type="button" id="add_question_button" class="form_button"><img src="{% static 'images/plus-circle.svg' %}" class="svg"> <span>Add New Question</span></button>
+	<div id="addq">
+		<form method="POST" action="{% url 'portal:create_question' %}">
+			{% csrf_token %}
+			<p><label for="question_text" class="question_text">Question Text </label></p>
+			<div class="edit_input_options">
+			<input type="text" name="question_text">
+			<br>
+			</div>
+			<p><label for="question_type" class="question_text">Question Type </label></p>
+			<div class="edit_input_options">
+			<select name="question_type" id="question_type">
+				<option value="paragraph">Paragraph</option>
+	    		<option value="radio">Multiple Choice</option>
+	    		<option value="checkbox">Checkbox</option>
+	    		<option value="dropdown">Dropdown</option>
+	  		</select>
+	  		</div>
+	  		<br>
+	  		<div class="container" id="add_options">
+	  			<div class="new_options_list edit_input_options">
+	  			<input type="text" name="options"><br>
+	  			</div>
+	  			<button type="button" class="add_option_button form_button">Add Option</button>
+			</div>
+	  		<!-- <input type="checkbox" name="required" value="Required">Required<br> -->
+	    	<input type="submit" value="Save Question" class="form_button">
+	    	<a href="portal/edit/form">Cancel</a>
+	   </form>
+   </div>

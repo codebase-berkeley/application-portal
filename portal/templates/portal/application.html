@@ -1,34 +1,31 @@
-{% extends 'portal/base.html' %}
+{% extends 'portal/dashboard.html' %}
 {% load static from staticfiles %}
 {% block titletext %}ApplicationViewer{% endblock %}
-{% block externals %}<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">{% endblock %}
-{% block content %}
-<!DOCTYPE html>
-<html>
-<body>
+{% block dashboard_externals %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+
+{% endblock dashboard_externals %}
+{% block dashboard_content %}
 <div id = "application">
     <br>
     <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
     <div id="head">
-    	<h2> {{first_name}} {{last_name}} &nbsp;<button type = "button"
+    	<h2> {{first_name}} {{last_name}} &nbsp;<button class="blueBtn" type = "button"
         onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
     </div>
     <hr>
-			
+
 	<div id = "basic info">
-      	<p> <b>Expected Graduation:</b> N/A </p>
-      	<p> <b> Current Major(s):</b> N/A </p>
-		<p> <b>Resume:</b> N/A  </p>
 		{% for question,answer,option_list in qa_tuple%}
-			{% if question.question_type == "RadioButton" %}
+			{% if question.question_type == "Radiobutton" %}
 				<div>
 					<p id = "question">
 					{{question.question_text}}: <br>
 					</p>
               		<div id="answer">
                 		{% for option in option_list %}
-                    		{% if option in answer %}
+                    		{% if answer in option %}
                       			<input type="radio" disabled = 'disabled' value={{option}} checked> {{option}}<br>
                     		{% elif option not in answer %}
                       			<input type="radio" disabled = 'disabled' value={{option}}> {{option}}<br>
@@ -59,13 +56,9 @@
 					{{question.question_text}}: <br>
 					</p>
             		<div id="answer">
-            			{% for option in option_list %}
-                			{% if option in answer %}
-                 				<select disabled>
-                    			<option value={{option}}>{{option}}</option>
-                  				</select>
-                			{% endif %}
-            			{% endfor %}
+                 			<select disabled>
+                    			<option value={{answer}}>{{answer}}</option>
+                  		</select>
             		</div>
 				</div>
 			{% endif %}
@@ -80,26 +73,53 @@
 				</div>
 			{% endif %}
 		{% endfor %}
-	</div>
+  </div>
     <hr>
 
-    <h2 id = "comment_title">Comments:</h2>
+  <div id = "rat info">
+    <h3><b>Rating:</b></h3>
+    {% for i in filled_rating %}
+    <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
+      {% csrf_token %}
+      <button class="ratingStar" type="submit" name="rating" value={{ i }}>
+        <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+      </button>
+    </form>
+    {% endfor %}
+    {% for i in empty_rating %}
+    <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
+      {% csrf_token %}
+      <button class="ratingStar" type="submit" name="rating" value={{ i }}>
+        <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
+      </button>
+    </form>
+    {% endfor %}
+    <br><br>
+  </div>
+
+<div class = "com info">
+<h2 id = "comment_title">Comments:</h2>
 
     {% for ind_comment in comments %}
 
     	<div class = "comment">
-
-        	<img src="comment_user_icon.png"/ alt="" >
         	<div class = "crop">
             	<img src="{% static "images/user.png" %}" alt="can't load"/>
         	</div>
       		<p class = "commenter">{{ind_comment.user.username}}</p>
       		<br>
-      		<p class = "content">{{ind_comment.comment_text}}<p>
+      		<p class = "content">{{ind_comment.comment_text}} <p>
+            <form action = "{% url 'portal:delete_comment' id %}" class = "right-form" method = "post">
+              {% csrf_token %}
+                <button type="submit" name = "delete" value = {{ind_comment.id}}>
+        	         <img src = "{% static 'images/trash.svg' %}">
+        	       </button>
+            </form>
       	</div>
     {% endfor %}
+</div>
 
-	<form action="" method = "POST">
+	<form action="{% url 'portal:create_comment' id %}" method = "POST">
 		{% csrf_token %}
 		<br>
 		<br>
@@ -107,6 +127,50 @@
 		<textarea class = "comment_form" rows="5" cols="26" name="reply">Add a comment...</textarea><br>
 	</form>
 	<br>
-</div>      
+
+  <div class="dropdown">
+    <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <div id="catDropdown" class="dropdown-content">
+      {% for cat in list_cat %}
+        <form action="{% url 'portal:change_category' application.pk %}" method="POST">
+          {% csrf_token %}
+          {% if cat == category %}
+          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+            <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
+          </button><br>
+          {% else %}
+          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+            {{ cat }}
+          </button><br>
+          {% endif %}
+        </form>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+    function dropdownFunc() {
+        document.getElementById("catDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+
+</div>
 </body>
-{% endblock %}
+{% endblock dashboard_content %}

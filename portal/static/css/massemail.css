@@ -1,0 +1,26 @@
+h1 {
+	color: #C4820E;
+}
+
+.title {
+	width: 400px;
+	padding: 10px 20px 10px 0px;
+}
+
+.content {
+	padding: 10px 20px 10px 20px;
+	background-color: #4d7790;
+	width: 400px;
+}
+
+form {
+	color: white;
+}
+
+#subject {
+	width: 200px;
+}
+
+#submit {
+	padding-top: 10px
+}
