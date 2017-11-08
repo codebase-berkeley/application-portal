@@ -1,7 +1,7 @@
 body {
 	background-color: #F2F9FD;
-    margin-left: 30px;
-    margin-top: 15px;
+    margin-left: 80px;
+    margin-top: 20px;
 }
 
 .dropbtn {
@@ -35,41 +35,50 @@ body {
 }
 
 .question {
-    font-size: 1.3em;
-    font-weight: bold;
+    font-size: 0.9em;
+    font-weight: 535;
     padding: 0;
     margin-bottom: 0.5em;
 }
 
-input {
-    margin-left: 10px;
-}
-
 input[type=text] {
     width: 25em;
-    height: 2em;
+    height: 1.5em;
+    margin-bottom: 10px;
 }
 
 input[type=submit] {
-    background-color: #4D7790; /* Dark blue */
+    background-color: #C4820E; /* Orange */
     border: none;
     color: white;
-    padding: 10px 28px;
+    padding: 5px 14px;
     margin-left: 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 22px;
+    font-size: 20px;
     border: none;
     border-color: transparent;
 }
 
 input[type=submit]:hover {
     cursor: pointer;
-    background-color: #4B7290;
+    background-color: #C8850F;
 }
 
 #title {
     margin: 0 auto;
-    text-align:center;
+    font-weight: normal;
+    font-size: 2.8em;
+    margin-bottom: 30px;
+}
+
+.main {
+    padding-left: 15px;
+}
+
+h2 {
+    padding-left: 5px;
+    font-size: 1.4em;
+    font-weight: 535;
 }
