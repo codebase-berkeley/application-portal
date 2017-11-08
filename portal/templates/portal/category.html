@@ -7,7 +7,7 @@
 {% block dashboard_content %}
 		<div class="applications">
 			{% for app in list_app %}
-				{% if app.category == category %}
+				{% if app.category == curr_category %}
 					<div class="applicant">
 						<div name="checkbox" class="selection_box">
 						</div>
