@@ -19,7 +19,7 @@ def str_to_list(txt):
 
 @login_required
 def render_app(request, app_pk):
-    context = get_dashboard_context()
+    context = get_dashboard_context(request.user.username, request.user.email)
 
     application = Application.objects.get(pk = app_pk)
     application.read = True #if rendered, must be read
@@ -27,8 +27,6 @@ def render_app(request, app_pk):
     first_name, last_name, email = application.first_name, application.last_name, application.email
     questions = Question.objects.order_by('order_number')
     answers = [answer.answer_text for answer in application.answer_set.all()]
-
-    print("Answers", answers)
 
     ans = application.answer_set.all()
     answer_text = []
@@ -39,7 +37,7 @@ def render_app(request, app_pk):
             answer_text += ["'{0}'".format(answer.answer_text)]
         else:
             answer_text += [answer.answer_text]
-    print("Answer text", answer_text)
+
     if application.rating == None:
         filled_rating = []
         empty_rating = [1, 2, 3, 4, 5]
@@ -69,9 +67,10 @@ def render_app(request, app_pk):
     context["read"] = Application.objects.get(pk = app_pk).read
     return render(request, "portal/application.html", context)
 
+@login_required
 def create_comment(request, app_pk):
     text = request.POST["reply"]
-    comment = Comment(user=User.objects.get(username="codebase"), comment_text=text,
+    comment = Comment(user=User.objects.get(username=request.user.username), comment_text=text,
                       published_date=localtime(now()), applicant=Application.objects.get(pk=app_pk))
     comment.save()
     return render_app(request, app_pk)

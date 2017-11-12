@@ -36,51 +36,50 @@
 </head>
 
 <body>
-	<h1 class = "navbar-logo"> Apply to CodeBase </h1>
-	<h2> Thanks for your interest in joining! Please fill out the interest form below. </h2>
-	<form method="POST" action="{% url 'portal:save_app' %}">
-  	{% csrf_token %}
-  		<p> First Name: </p>
-  		<input class = "form" id="first_name" type="text" name="first_name">
- 	 	<p> Last Name: </p>
-  		<input class = "form" id="last_name" type="text" name="last_name">
-  		<p> Berkeley Email: </p>
-  		<input class = "form" id="email" type="text" name="email">
-  		{% for question in questions_and_options %}
-    		{% if question.0.question_type == "Paragraph" %}
-      			<p> {{ question.0.question_text }} </p>
-      			<input class = "form" id={{question.0.pk}} type="text" name={{question.0.pk}}>
+	<h1 id = "title" class = "navbar-logo"> Apply to CodeBase </h1>
+  <h2>Thank you for interest in joining! Please fill out the form below.</h2>
+  <div class = "main">
+  	<form method="POST" action="{% url 'portal:save_app' %}">
+    	{% csrf_token %}
+    		<p class = "question"> What's your first name? </p>
+    		<input class = "form" id="first_name" type="text" name="first_name">
+   	 	  <p class = "question"> What's your last name? </p>
+    		<input class = "form" id="last_name" type="text" name="last_name">
+    		<p class = "question"> What's your berkeley email? </p>
+    		<input class = "form" id="email" type="text" name="email">
+    		{% for question in questions_and_options %}
+      		{% if question.0.question_type == "Paragraph" %}
+        			<p class = "question"> {{ question.0.question_text }} </p>
+        			<input class = "form" id={{question.0.pk}} type="text" name={{question.0.pk}}>
 
-    		{% elif question.0.question_type == "Radiobutton" %}
-      			<p> {{ question.0.question_text }} </p>
-      			{% for option in question.1 %}
-        			<input id={{option}} name ={{question.0.pk}} type="radio" value={{option}}> {{option}} </br>
-      			{% endfor %}
+      		{% elif question.0.question_type == "Radiobutton" %}
+        			<p class = "question"> {{ question.0.question_text }} </p>
+        			{% for option in question.1 %}
+          			<input id={{option}} name ={{question.0.pk}} type="radio" value={{option}}> {{option}} </br>
+        			{% endfor %}
 
-    		{% elif question.0.question_type == "Dropdown" %}
-      			<p>
-        		<div class="dropdown">
-          		<p> {{ question.0.question_text }} </p>
-          		<select name = {{question.0.pk}}>
-      			{% for option in question.1 %}
-        			<option id={{option}} type="dropdown" value="{{option}}" class="dropdown-content">{{option}}</option>
-      			{% endfor %}
-					</select>
-        		</div>
-      			</p>
+      		{% elif question.0.question_type == "Dropdown" %}
+          		<div class="dropdown">
+            		<p class = "question"> {{ question.0.question_text }} </p>
+          		  <select name = {{question.0.pk}}>
+      			     {% for option in question.1 %}
+        			     <option id={{option}} type="dropdown" value="{{option}}" class="dropdown-content">{{option}}</option>
+      			     {% endfor %}
+  				     </select>
+          		</div>
+      		{% elif question.0.question_type == "Checkbox" %}
+        			<p class = "question"> {{ question.0.question_text }} </p>
+        			{% for option in question.1 %}
+          			<input id={{option}} name ={{question.0.pk}} type="checkbox" value={{option}}> {{option}}</br>
+        			{% endfor %}
+      		{% endif %}
 
-    		{% elif question.0.question_type == "Checkbox" %}
-      			<p> {{ question.0.question_text }} </p>
-      			{% for option in question.1 %}
-        			<input id={{option}} name ={{question.0.pk}} type="checkbox" value={{option}}> {{option}}</br>
-      			{% endfor %}
-    		{% endif %}
-
-  		{% endfor %}
-  		</br>
-  		</br>
-  		<input id="submit" type="submit" value="Submit"/> </br>
-	</form>
+    		{% endfor %}
+    		</br>
+    		</br>
+    		<input id="submit" type="submit" value="Submit Application"/> </br>
+  	</form>
+  </div>
 </body>
 </html>
 {% endblock %}

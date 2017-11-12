@@ -15,7 +15,7 @@
     <button type="submit" class="edit-button">
     <img src="{% static 'images/edit.svg' %}">
     </button>
-	<form action={% url 'portal:delete_question' %}" method="post" style="display: inline">
+	<form action="{% url 'portal:delete_question' %}" method="post" style="display: inline">
 		{% csrf_token %}
 	    <button type="submit" name="to_delete" value={{question.pk}} class="edit-button">
 	    <img src="{% static 'images/trash.svg' %}">
@@ -50,12 +50,12 @@
 	</form>
 	{% endif %}
 	</div>
+	</div>
 
 	<div class="edit_question">
 	{% include "portal/question_forms/edit_question.html" with question=question options=options %}
 	</div>
 	<br/>
-	</div>
 	</div>
 {% endfor %}
 {% include "portal/question_forms/new_question.html" %}

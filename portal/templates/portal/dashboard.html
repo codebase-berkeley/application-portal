@@ -25,9 +25,9 @@
 	</a>
 	<div class="execprof">
 		<img id="user" src="{% static 'images/user.svg' %}">
-		<b>Abeansant Khare</b><br>
+		<b>{{ username }}</b><br>
 		<div class="tagline">
-			akhare@berkeley.edu
+			{{ email }}
 		</div>
 	</div>
 	<a href="{% url 'portal:logout' %}">
@@ -46,6 +46,7 @@
 			<div class="category">
 				<div class="category_text">
 					<a href="{% url 'portal:delete_category' category.pk %}">
+
 					    <button type="submit" class="delete-button">
 					    <img src="{% static 'images/trash-2.svg' %}" height = "12em" width = "10em">
 					    </button>
@@ -55,7 +56,11 @@
 					    <img src="{% static 'images/edit-2.svg' %}" height = "13em" width = "13em">
 					    </button>
 					</a>
-					<a href = "{% url 'portal:show_category' category.pk %}">{{ category }}</a>
+					<a href = "{% url 'portal:show_category' category.pk %}">{{ category }}
+					{% if curr_category == category %}
+						*
+					{% endif %}</a>
+
 				</div>
 				</div>
 			{% endfor %}
@@ -90,7 +95,7 @@
 		</div>
 		{% block dashboard_content %}
 		{% endblock dashboard_content %}
-    	<button class="dropbtn" >View Public Form</button>
+    	<a href="{% url 'portal:display_app' %}"><button class="dropbtn" >View Public Form</button></a>
 	</div>
 </div>
 
