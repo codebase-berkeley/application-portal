@@ -45,7 +45,7 @@ def save_app(request):
         answer.save()
     all_assignments = list(Assignment.objects.all())
     count = {}
-    for ex in list(Users.objects.all()):
+    for ex in list(User.objects.all()):
         count[ex.pk] = 0
     for assignment in all_assignments:
         exec_user = assignment.exec_user
