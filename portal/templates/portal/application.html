@@ -26,9 +26,9 @@
               		<div id="answer">
                 		{% for option in option_list %}
                     		{% if answer in option %}
-                      			<input type="radio" disabled = 'disabled' value={{option}} checked> {{option}}<br>
+                      			<input type="radio" disabled = 'disabled' value="{{option}}" checked> {{option}}<br>
                     		{% elif option not in answer %}
-                      			<input type="radio" disabled = 'disabled' value={{option}}> {{option}}<br>
+                      			<input type="radio" disabled = 'disabled' value="{{option}}"> {{option}}<br>
                     		{% endif %}
                 		{% endfor %}
               		</div>
@@ -135,11 +135,11 @@
         <form action="{% url 'portal:change_category' application.pk %}" method="POST">
           {% csrf_token %}
           {% if cat == category %}
-          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
           </button><br>
           {% else %}
-          <button class="dropdownElem" type="submit" name="category" value={{ cat }}>
+          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
             {{ cat }}
           </button><br>
           {% endif %}
