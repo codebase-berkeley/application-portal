@@ -167,3 +167,8 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.application.first_name + " (" + self.question.question_text[0:20] + "...): " + self.answer_text[0:20] + "..."
+
+
+class Assignment(models.Model):
+    applicant = models.ForeignKey(Application, on_delete=models.CASCADE)
+    exec_user = models.ForeignKey(User, on_delete=models.CASCADE)
