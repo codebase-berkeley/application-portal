@@ -51,6 +51,14 @@ def render_app(request, app_pk):
     list_cat = list(Category.objects.all())
     category = application.category
 
+    list_user = list(User.objects.all())
+    list_assign = list(Assignment.objects.all())
+
+    assigned_users = []
+    for assignment in list_assign:
+        if assignment.applicant == application:
+            assigned_users.append(assignment.exec_user)
+
     context["first_name"] = first_name
     context["last_name"] = last_name
     context["email"] = email
@@ -65,6 +73,8 @@ def render_app(request, app_pk):
     context["application"] = application
     context["id"] = app_pk
     context["read"] = Application.objects.get(pk = app_pk).read
+    context["list_user"] = list_user
+    context["assigned_users"] = assigned_users
     return render(request, "portal/application.html", context)
 
 @login_required
@@ -85,4 +95,24 @@ def change_rating(request, app_pk):
     application = Application.objects.get(pk = app_pk)
     application.rating = int(request.POST["rating"])
     application.save()
+    return render_app(request, app_pk)
+
+def assign_user(request, app_pk):
+    application = Application.objects.get(pk = app_pk)
+    assigned_user = User.objects.get(pk = int(request.POST['chosen_user']))
+
+
+    list_assign = list(Assignment.objects.all())
+    to_delete = []
+    for assignment in list_assign:
+        if assignment.applicant.pk == int(app_pk) and assignment.exec_user.pk == int(request.POST['chosen_user']):
+            to_delete.append(assignment)
+
+    if len(to_delete) == 0:
+        new_assignment = Assignment(applicant = application, exec_user = assigned_user)
+        new_assignment.save()
+    else:
+        for assignment in to_delete:
+            assignment.delete() 
+
     return render_app(request, app_pk)

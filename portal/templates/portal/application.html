@@ -148,11 +148,33 @@
     </div>
   </div>
 
-  <script type="text/javascript">
+  <div class="dropdown">
+    <button onclick="dropdownFunc()" class="dropbtn blueBtn">Assign to User <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <div id="userDropdown" class="dropdown-content">
+      {% for user in list_user %}
+        <form action="{% url 'portal:assign_user' application.pk %}" method="POST">
+          {% csrf_token %}
+          {% if user in assigned_users %}
+          <button class="dropdownElem" type="submit" name="chosen_user" value="{{ user.pk }}">
+            <i class="fa fa-check" aria-hidden="true"></i> {{ user }}
+          </button><br>
+          {% else %}
+          <button class="dropdownElem" type="submit" name="chosen_user" value="{{ user.pk }}">
+            {{ user }}
+          </button><br>
+          {% endif %}
+        </form>
+      {% endfor %}
+    </div>
+  </div>
+
+
+    <script type="text/javascript">
     /* When the user clicks on the button,
     toggle between hiding and showing the dropdown content */
     function dropdownFunc() {
         document.getElementById("catDropdown").classList.toggle("show");
+        document.getElementById("userDropdown").classList.toggle("show");
     }
 
     // Close the dropdown menu if the user clicks outside of it
