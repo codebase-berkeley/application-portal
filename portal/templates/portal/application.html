@@ -10,14 +10,18 @@
 
 <button id = "application_pk" value = "{{application.pk}}" hidden = "true"></button>
 
+{% for cat in list_cat %}
+  <button class = "category_pks" value = "{{cat.pk}}" hidden = "true"></button>
+{% endfor %}
+
 <div id = "application">
-    <br>
-    <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
-    <div id="head">
-    	<h2> {{first_name}} {{last_name}} &nbsp;<button class="blueBtn" type = "button"
-        onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
-    </div>
-    <hr>
+  <br>
+  <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
+  <div id="head">
+    <h2> {{first_name}} {{last_name}} &nbsp;<button class="blueBtn" type = "button"
+      onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
+  </div>
+  <hr>
 
 	<div id = "basic info">
 		{% for question,answer,option_list in qa_tuple%}
@@ -77,7 +81,7 @@
 			{% endif %}
 		{% endfor %}
   </div>
-    <hr>
+  <hr>
 
   <div id = "rat info">
     <h3><b>Rating:</b></h3>
@@ -100,27 +104,25 @@
     <br><br>
   </div>
 
-<div class = "com info">
-<h2 id = "comment_title">Comments:</h2>
-
+  <div class = "com info">
+  <h2 id = "comment_title">Comments:</h2>
     {% for ind_comment in comments %}
-
     	<div class = "comment">
-        	<div class = "crop">
-            	<img src="{% static "images/user.png" %}" alt="can't load"/>
-        	</div>
-      		<p class = "commenter">{{ind_comment.user.username}}</p>
-      		<br>
-      		<p class = "content">{{ind_comment.comment_text}} <p>
-            <form action = "{% url 'portal:delete_comment' id %}" class = "right-form" method = "post">
-              {% csrf_token %}
-                <button type="submit" name = "delete" value = {{ind_comment.id}}>
-        	         <img src = "{% static 'images/trash.svg' %}">
-        	       </button>
-            </form>
-      	</div>
+        <div class = "crop">
+          <img src="{% static "images/user.png" %}" alt="can't load"/>
+        </div>
+      	<p class = "commenter">{{ind_comment.user.username}}</p>
+      	<br>
+      	<p class = "content">{{ind_comment.comment_text}} <p>
+        <form action = "{% url 'portal:delete_comment' id %}" class = "right-form" method = "post">
+          {% csrf_token %}
+            <button type="submit" name = "delete" value = {{ind_comment.id}}>
+              <img src = "{% static 'images/trash.svg' %}">
+            </button>
+        </form>
+      </div>
     {% endfor %}
-</div>
+  </div>
 
 	<form action="{% url 'portal:create_comment' id %}" method = "POST">
 		{% csrf_token %}
@@ -135,18 +137,15 @@
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="catDropdown" class="dropdown-content">
       {% for cat in list_cat %}
-        <form action="{% url 'portal:change_category' application.pk %}" method="POST">
-          {% csrf_token %}
-          {% if cat == category %}
-          <button class="dropdownElem catElem" type="submit" name="category" value="{{ cat }}">
+        {% if cat == category %}
+          <button id = "{{ cat.pk }}" class="dropdownElem catElem" name="category" value="{{ cat.pk }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
           </button><br>
-          {% else %}
-          <button class="dropdownElem catElem" type="submit" name="category" value="{{ cat }}">
+        {% else %}
+          <button id = "{{ cat.pk }}" class="dropdownElem catElem" name="category" value="{{ cat.pk }}">
             {{ cat }}
           </button><br>
-          {% endif %}
-        </form>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -155,25 +154,22 @@
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Assign to User <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="userDropdown" class="dropdown-content">
       {% for user in list_user %}
-        <form action="{% url 'portal:assign_user' %}" method="POST">
-          {% csrf_token %}
-          {% if user in assigned_users %}
+        {% if user in assigned_users %}
           <button id="{{ user.pk }}" class="dropdownElem userElem" name="chosen_user" value="{{ user.pk }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ user }}
           </button><br>
-          {% else %}
+        {% else %}
           <button id="{{ user.pk }}" class="dropdownElem userElem"  name="chosen_user" value="{{ user.pk }}"> 
             {{ user }}
           </button><br>
-          {% endif %}
-        </form>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
     /* When the user clicks on the button,
     toggle between hiding and showing the dropdown content */
     function dropdownFunc() {
@@ -204,8 +200,6 @@
     var curruser_pk = $(this).val()
     var currapp_pk = $("#application_pk").val()
 
-    console.log(currapp_pk)
-    console.log(curruser_pk)
     var data = {
       app_pk: currapp_pk,
       user_pk: curruser_pk,
@@ -213,10 +207,11 @@
     }
     $.post("/portal/assign_user/", data, function(res) {
       event.preventDefault();
-      console.log("inside");
       if (res.success) {
-        var has_check = ($("#"+curruser_pk).has("i").length ? true : false );
+        var has_check = ($("#"+curruser_pk).has("i").length ? true : false);
         
+        console.log(has_check);
+        console.log(curruser_pk);
         if (has_check) {
           $("#"+curruser_pk).children("i").remove();
         } else {
@@ -226,10 +221,35 @@
       }
     }, "JSON")
   });
+
+  $(".catElem").on("click", function(event) {
+    event.preventDefault();
+
+    var currcat_pk = $(this).val()
+    var currapp_pk = $("#application_pk").val()
+
+    var data = {
+      app_pk: currapp_pk,
+      cat_pk: currcat_pk,
+      csrfmiddlewaretoken: "{{ csrf_token }}"
+    }
+
+    $.post("/portal/assign_category/", data, function(res) {
+      event.preventDefault();
+      if (res.success) {
+
+        var all_cat = document.getElementsByClassName("category_pks");
+
+        for (var i=0; i<all_cat.length;i++) {
+          $("#"+all_cat[i].value).children("i").remove();
+        }
+        
+        $("#"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
+        
+      }
+    }, "JSON")
+  });
   </script>
-  
-
-
 </div>
 </body>
 {% endblock dashboard_content %}

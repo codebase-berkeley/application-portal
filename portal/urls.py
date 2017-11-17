@@ -18,7 +18,7 @@ urlpatterns = [
         views.create_category, name='create_category'),
     url(r'delete/category(?P<pk>\d*)',
         views.delete_category, name="delete_category"),
-    url(r'assign_category/(?P<app_pk>\d*)/',
+    url(r'assign_category/',
         views.change_category, name='change_category'),
     url(r'category/(?P<pk>\d*)', views.show_category, name='show_category'),
     url(r'massemail/(?P<pk>\d*)', views.create_massemail, name='create_massemail'),
