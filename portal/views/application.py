@@ -69,11 +69,15 @@ def render_app(request, app_pk):
 
 @login_required
 def create_comment(request, app_pk):
-    text = request.POST["reply"]
+    text = request.POST['text']
     comment = Comment(user=User.objects.get(username=request.user.username), comment_text=text,
                       published_date=localtime(now()), applicant=Application.objects.get(pk=app_pk))
     comment.save()
-    return render_app(request, app_pk)
+    success = {
+        "success": True
+    }
+    return JsonResponse(success)
+    
 
 
 def delete_comment(request, app_pk):

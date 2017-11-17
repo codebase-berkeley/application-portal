@@ -102,7 +102,7 @@
 
     {% for ind_comment in comments %}
 
-    	<div class = "comment">
+    	<div id = "comments">
         	<div class = "crop">
             	<img src="{% static "images/user.png" %}" alt="can't load"/>
         	</div>
@@ -119,14 +119,11 @@
     {% endfor %}
 </div>
 
-	<form action="{% url 'portal:create_comment' id %}" method = "POST">
-		{% csrf_token %}
-		<br>
-		<br>
-		<input class = "add_comment" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
-		<textarea class = "comment_form" rows="5" cols="26" name="reply">Add a comment...</textarea><br>
-	</form>
-	<br>
+
+  <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
+  <textarea id ="text" type="text" name="text"></textarea> </br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src = "{% static 'scripts/comments.js' %}"></script>
 
   <div class="dropdown">
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
