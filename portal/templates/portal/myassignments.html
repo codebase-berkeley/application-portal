@@ -1,0 +1,30 @@
+{% extends 'portal/dashboard.html' %}
+{% load static from staticfiles %}
+
+{% block titletext %}My Assignments{% endblock titletext %}
+
+{% block dashboard_content %}
+
+<div class="applications">
+
+    {% for assignment in my_assigns %}
+    	{% with app=assignment.applicant %}
+		<div class="applicant">
+		    <div name="checkbox" class="selection_box"></div>
+		    <div class="applicant_name">
+		    {% if app.read == False %}
+		       	<a href="{% url 'portal:get_application' app.pk %}"> <b> {{ app.first_name }} {{ app.last_name }} </b> </a>
+		    {% endif %}
+		    {% if app.read %}
+		        <a href="{% url 'portal:get_application' app.pk %}">  {{ app.first_name }} {{ app.last_name }}  </a>
+		    {% endif %}
+		    </div>
+		    <div class="applicant_date">
+		        Today
+		    </div>
+		</div>
+		{% endwith %}
+    {% endfor %}
+</div>
+
+{% endblock %}
