@@ -4,7 +4,7 @@
 {% block dashboard_externals %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock dashboard_externals %}
 {% block dashboard_content %}
 <div id = "application">
@@ -97,34 +97,30 @@
     <br><br>
   </div>
 
-<div class = "com info">
+<div class = "com-info">
 <h2 id = "comment_title">Comments:</h2>
-
     {% for ind_comment in comments %}
-
-    	<div id = "comments">
-        	<div class = "crop">
-            	<img src="{% static "images/user.png" %}" alt="can't load"/>
+    <div id = "comments">
+      <div class = "crop">
+            	<img src="{% static "images/user.png" %}" alt="cannot load"/>
         	</div>
       		<p class = "commenter">{{ind_comment.user.username}}</p>
       		<br>
-      		<p class = "content">{{ind_comment.comment_text}} <p>
+      		<p class = "content">{{ind_comment.comment_text}} </p>
+          <img id = "delete" value = 10 src = "{% static 'images/trash.svg' %}"/>
             <form action = "{% url 'portal:delete_comment' id %}" class = "right-form" method = "post">
               {% csrf_token %}
                 <button type="submit" name = "delete" value = {{ind_comment.id}}>
         	         <img src = "{% static 'images/trash.svg' %}">
         	       </button>
             </form>
-      	</div>
+    </div>
     {% endfor %}
 </div>
 
 
   <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
-  <textarea id ="text" type="text" name="text"></textarea> </br>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src = "{% static 'scripts/comments.js' %}"></script>
-
+  <textarea id ="text" placeholder = "Add a comment. . ."></textarea> </br>
   <div class="dropdown">
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="catDropdown" class="dropdown-content">
@@ -166,6 +162,23 @@
         }
       }
     }
+    $("#submit").on("click", function(event) {
+        event.preventDefault();
+        var data = {
+            text: $("#text").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("{% url 'portal:create_comment' id %}", data, function(res) {
+            event.preventDefault();
+            if (res.success) {
+              $(".com-info").append('<div class = "crop"><img src="{% static "images/user.png" %}" alt="cannot load"/></div> ');
+              $(".com-info").append('<p class = "commenter">' + res.user + '</p><br><p class = "content">' + res.text +'</p>');
+              $(".com-info").append('<br>')
+              $(".com-info").append('<form action = "{% url "portal:delete_comment" id %}"class = "right-form" method = "post"><button type="submit" name = "delete" value = {{ind_comment.id}}><img src = "{% static "images/trash.svg"%}"></button></form>');
+              console.log(1551);
+            }
+        }, "JSON")
+    });
   </script>
 
 </div>

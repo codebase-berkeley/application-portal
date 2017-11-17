@@ -33,7 +33,7 @@
     font-weight: bold;
 
 }
-#basic-info, #rat-info, #com-info p{
+#basic-info, #rat-info p{
   font-size: 5px
 }
 
@@ -163,4 +163,7 @@
     display: inline-block;
     float: left;
     padding: 2px;
+}
+textarea
+  width: 50%;
 }
