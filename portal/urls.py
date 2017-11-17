@@ -33,6 +33,6 @@ urlpatterns = [
     url(r'login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
     url(r'search/(?P<term>[a-zA-Z]*)$', views.search, name="search_applicants"),
     url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
-    url(r'assign_user/(?P<app_pk>\d*)/',
+    url(r'assign_user/',
         views.assign_user, name='assign_user'),
 ]

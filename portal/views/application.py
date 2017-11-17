@@ -99,16 +99,15 @@ def change_rating(request, app_pk):
     application.save()
     return render_app(request, app_pk)
 
-def assign_user(request, app_pk):
+def assign_user(request):
     if request.method == 'POST':
-        application = Application.objects.get(pk = app_pk)
-        assigned_user = User.objects.get(pk = int(request.POST['chosen_user']))
-
+        application = Application.objects.get(pk = int(request.POST['app_pk']))
+        assigned_user = User.objects.get(pk = int(request.POST['user_pk']))
 
         list_assign = list(Assignment.objects.all())
         to_delete = []
         for assignment in list_assign:
-            if assignment.applicant.pk == int(app_pk) and assignment.exec_user.pk == int(request.POST['chosen_user']):
+            if assignment.applicant.pk == int(request.POST['app_pk']) and assignment.exec_user.pk == int(request.POST['user_pk']):
                 to_delete.append(assignment)
 
         if len(to_delete) == 0:
@@ -125,4 +124,4 @@ def assign_user(request, app_pk):
 
     else:
 
-        return render_app(request, app_pk)
+        return render_app(request, int(request.POST['app_pk']))
