@@ -135,11 +135,11 @@
         <form action="{% url 'portal:change_category' application.pk %}" method="POST">
           {% csrf_token %}
           {% if cat == category %}
-          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
+          <button class="dropdownElem catElem" type="submit" name="category" value="{{ cat }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
           </button><br>
           {% else %}
-          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
+          <button class="dropdownElem catElem" type="submit" name="category" value="{{ cat }}">
             {{ cat }}
           </button><br>
           {% endif %}
@@ -155,11 +155,11 @@
         <form action="{% url 'portal:assign_user' application.pk %}" method="POST">
           {% csrf_token %}
           {% if user in assigned_users %}
-          <button class="dropdownElem" type="submit" name="chosen_user" value="{{ user.pk }}">
+          <button id="{{ user.pk }}" class="dropdownElem userElem" type="submit" name="chosen_user" value="{{ user.pk }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ user }}
           </button><br>
           {% else %}
-          <button class="dropdownElem" type="submit" name="chosen_user" value="{{ user.pk }}">
+          <button id="{{ user.pk }}" class="dropdownElem userElem" type="submit" name="chosen_user" value="{{ user.pk }}"> 
             {{ user }}
           </button><br>
           {% endif %}
@@ -168,6 +168,7 @@
     </div>
   </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script type="text/javascript">
     /* When the user clicks on the button,
@@ -192,6 +193,48 @@
       }
     }
   </script>
+  
+  <script>
+  $(".userElem").on("click", function(event) {
+    event.preventDefault();
+
+    var user_pk = $(this).val()
+    console.log(user_pk)
+    var data = {
+      chosen_user: user_pk,
+      csrfmiddlewaretoken: "{{ csrf_token }}"
+    }
+    $.post("/portal/assign_user/"+ user_pk+"/", data, function(res) {
+      event.preventDefault();
+      
+      if (res.success) {
+        //var first = "{% for user in list_user %} <form action=\"{% url "
+        //var second = "'portal:assign_user'"
+        //var third = " application.pk %}\" method='POST'> {% csrf_token %} {% if user in assigned_users %} <button class='dropdownElem userElem' id='{{ user.pk }}' type='submit' name='chosen_user' value='{{ user.pk }}'><i class='fa fa-check' aria-hidden='true'></i> {{ user }}</button><br>{% else %}<button class='dropdownElem userElem' id='{{ user.pk }}' type='submit' name='chosen_user' value='{{ user.pk }}'>{{ user }}</button><br>{% endif %}</form>{% endfor %}"
+        $("#"+user_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
+          //$(#user_pk).show();
+          console.log("succeeded");
+        }
+    }, "JSON")
+    /**
+    var data = {
+        author: $("").val(),
+        text: $("#text").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+    };
+    console.log("clicked");
+    $.post("/animals/comment", data, function(res) {
+        event.preventDefault();
+        console.log("wtf");
+        if (res.success) {
+            $("#comments").append("<p><b>" + $("#author").val() + ":</b> " + $("#text").val() + "</p>");
+        }
+    }, "JSON")
+    **/
+  });
+  </script>
+  
+
 
 </div>
 </body>

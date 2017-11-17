@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 
 from .utils import get_dashboard_context
 
+from django.http import JsonResponse
+
 
 def str_to_list(txt):
     if txt is None:
@@ -98,21 +100,29 @@ def change_rating(request, app_pk):
     return render_app(request, app_pk)
 
 def assign_user(request, app_pk):
-    application = Application.objects.get(pk = app_pk)
-    assigned_user = User.objects.get(pk = int(request.POST['chosen_user']))
+    if request.method == 'POST':
+        application = Application.objects.get(pk = app_pk)
+        assigned_user = User.objects.get(pk = int(request.POST['chosen_user']))
 
 
-    list_assign = list(Assignment.objects.all())
-    to_delete = []
-    for assignment in list_assign:
-        if assignment.applicant.pk == int(app_pk) and assignment.exec_user.pk == int(request.POST['chosen_user']):
-            to_delete.append(assignment)
+        list_assign = list(Assignment.objects.all())
+        to_delete = []
+        for assignment in list_assign:
+            if assignment.applicant.pk == int(app_pk) and assignment.exec_user.pk == int(request.POST['chosen_user']):
+                to_delete.append(assignment)
 
-    if len(to_delete) == 0:
-        new_assignment = Assignment(applicant = application, exec_user = assigned_user)
-        new_assignment.save()
+        if len(to_delete) == 0:
+            new_assignment = Assignment(applicant = application, exec_user = assigned_user)
+            new_assignment.save()
+        else:
+            for assignment in to_delete:
+                assignment.delete() 
+
+        success = {
+            "success": True
+        }
+        return JsonResponse(success)
+
     else:
-        for assignment in to_delete:
-            assignment.delete() 
 
-    return render_app(request, app_pk)
+        return render_app(request, app_pk)
