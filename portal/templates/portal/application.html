@@ -119,6 +119,27 @@
     {% endfor %}
 </div>
 
+
+  <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
+  <textarea id ="text" type="text" name="text"></textarea> </br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    alert("HELOL");
+    var data = {
+        author: $("#author").val(),
+        text: $("#text").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+    };
+    $.post("/animals/comment", data, function(res) {
+        event.preventDefault();
+        if (res.success) {
+            $("#comments").append("<p><b>" + $("#author").val() + ":</b> " + $("#text").val() + "</p>");
+        }
+    }, "JSON")
+});
+</script>
 	<form action="{% url 'portal:create_comment' id %}" method = "POST">
 		{% csrf_token %}
 		<br>

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 @login_required
 def show_assignment(request, pk=''):
     context = get_dashboard_context(request.user.username, request.user.email)
