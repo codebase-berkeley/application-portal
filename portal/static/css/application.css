@@ -73,13 +73,9 @@
   font-size: 12px;
   margin-left: 5px;
 }
-.right-form {
+.right-form{
   display: inline-block;
   overflow: hidden;
-}
-#delete{
-  float: right;
-  clear: both;
 }
 
 
