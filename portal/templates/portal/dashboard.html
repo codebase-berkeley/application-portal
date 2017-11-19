@@ -23,13 +23,16 @@
 			</div>
 		</div>
 	</a>
-	<div class="execprof">
-		<img id="user" src="{% static 'images/user.svg' %}">
-		<b>{{ username }}</b><br>
-		<div class="tagline">
-			{{ email }}
+	<a class="nolinkstyle" href="{% url 'portal:show_assignments' %}">
+		<div class="execprof">
+			<img id="user" src="{% static 'images/user.svg' %}">
+			<b>{{ username }}</b><br>
+			<div class="tagline">
+				{{ email }}
+				View your assignments
+			</div>
 		</div>
-	</div>
+	</a>
 	<a href="{% url 'portal:logout' %}">
 		<div class="signout">
 			<button class="out">SIGN OUT</button>
