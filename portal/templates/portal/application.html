@@ -188,17 +188,16 @@
 </div>
   <script type="text/javascript">
   var curr_URL;
-var arr;
-var app;
+  var arr;
+  var app;
 
 $( document ).ready(function() {
-    console.log( "document loaded");
 
     curr_URL = window.location.href;
     arr = curr_URL.split('/');
     app = arr[arr.length-1];
 
-    $("#star-1").on('click',function(event) {
+    $(document).on('click', "#star-1",function(event) {
         event.preventDefault();
         var data = {
             rating: $("#star-1").val(),
@@ -216,12 +215,12 @@ $( document ).ready(function() {
                 for (j = rating + 1; j <= 5; j++) {
                     $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
                 }
+                $("#ratinfo").append('<br><br>');
             }
         }, "JSON")
     });
 
-    $("#star-2").on('click',function(event) {
-        console.log("click");
+    $(document).on('click', "#star-2",function(event) {
         event.preventDefault();
         var data = {
             rating: $("#star-2").val(),
@@ -239,12 +238,12 @@ $( document ).ready(function() {
                 for (j = rating + 1; j <= 5; j++) {
                     $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
                 }
+                $("#ratinfo").append('<br><br>');
             }
         }, "JSON")
     });
 
-    $("#star-3").on('click',function(event) {
-        console.log("click");
+    $(document).on('click', "#star-3",function(event) {
         event.preventDefault();
         var data = {
             rating: $("#star-3").val(),
@@ -262,12 +261,12 @@ $( document ).ready(function() {
                 for (j = rating + 1; j <= 5; j++) {
                     $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
                 }
+                $("#ratinfo").append('<br><br>');
             }
         }, "JSON")
     });
 
-    $("#star-4").on('click',function(event) {
-        console.log("click");
+    $(document).on('click', "#star-4", function(event) {
         event.preventDefault();
         var data = {
             rating: $("#star-4").val(),
@@ -285,12 +284,12 @@ $( document ).ready(function() {
                 for (j = rating + 1; j <= 5; j++) {
                     $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
                 }
+                $("#ratinfo").append('<br><br>');
             }
         }, "JSON")
     });
 
-    $("#star-5").on('click',function(event) {
-        console.log("click");
+    $(document).on('click', "#star-5",function(event) {
         event.preventDefault();
         var data = {
             rating: $("#star-5").val(),
@@ -308,6 +307,7 @@ $( document ).ready(function() {
                 for (j = rating + 1; j <= 5; j++) {
                     $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
                 }
+                $("#ratinfo").append('<br><br>');
             }
         }, "JSON")
     });
