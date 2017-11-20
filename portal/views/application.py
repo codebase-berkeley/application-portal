@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .utils import get_dashboard_context
+from django.http import JsonResponse
 
 
 def str_to_list(txt):
@@ -82,7 +83,14 @@ def delete_comment(request, app_pk):
     return render_app(request, app_pk)
 
 def change_rating(request, app_pk):
-    application = Application.objects.get(pk = app_pk)
-    application.rating = int(request.POST["rating"])
-    application.save()
-    return render_app(request, app_pk)
+    if request.method == 'POST': 
+        application = Application.objects.get(pk = app_pk)
+        rating = request.POST["rating"]
+        application.rating = int(rating)
+        application.save()
+        success = {
+            "success": True
+        }
+        return JsonResponse(success)
+    else:
+        return render_app(request, app_pk)
