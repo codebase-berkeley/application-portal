@@ -139,3 +139,23 @@ def change_category(request):
         return JsonResponse(success)
     else:
         return render_app(request, int(request.POST['app_pk']))
+
+@login_required 
+def change_multiple_category(request):
+    if request.method == 'POST':
+        print(request.POST.getlist('app_pks[]'))
+
+        app_pks = request.POST.getlist('app_pks[]')
+
+        for app_pk in app_pks:
+            application = Application.objects.get(pk = int(app_pk))
+            application.category = Category.objects.get(pk = int(request.POST['cat_pk']))
+            application.save()
+
+        success = {
+            "success": True
+        }
+        
+        return JsonResponse(success)
+    else:
+        return dashboard(request)
