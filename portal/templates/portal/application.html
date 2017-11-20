@@ -5,8 +5,6 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- <script src="{% static 'js/app.js' %}" type="text/javascript"></script> -->
-
 {% endblock dashboard_externals %}
 {% block dashboard_content %}
 <div id = "application">
@@ -99,37 +97,26 @@
     <br><br>
   </div>
 
-<div class = "com info">
+<div class = "com-info">
 <h2 id = "comment_title">Comments:</h2>
-
     {% for ind_comment in comments %}
-
-    	<div class = "comment">
-        	<div class = "crop">
-            	<img src="{% static "images/user.png" %}" alt="can't load"/>
+    <div id = "{{ind_comment.id}}">
+      <div class = "crop">
+            	<img src="{% static "images/user.png" %}" alt="cannot load"/>
         	</div>
       		<p class = "commenter">{{ind_comment.user.username}}</p>
       		<br>
-      		<p class = "content">{{ind_comment.comment_text}} <p>
-            <form action = "{% url 'portal:delete_comment' id %}" class = "right-form" method = "post">
-              {% csrf_token %}
-                <button type="submit" name = "delete" value = {{ind_comment.id}}>
-        	         <img src = "{% static 'images/trash.svg' %}">
-        	       </button>
-            </form>
-      	</div>
+      		<p class = "content">{{ind_comment.comment_text}} </p>
+          <form onsubmit = "return false" class = "right-form" >
+            <input class = "delete" type="image" id = "del" value = {{ind_comment.id}} src = "{% static "images/trash.svg"%}">
+          </form>
+    </div>
     {% endfor %}
 </div>
 
-	<form action="{% url 'portal:create_comment' id %}" method = "POST">
-		{% csrf_token %}
-		<br>
-		<br>
-		<input class = "add_comment" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
-		<textarea class = "comment_form" rows="5" cols="26" name="reply">Add a comment...</textarea><br>
-	</form>
-	<br>
 
+  <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
+  <textarea id ="text" placeholder = "Add a comment. . ."></textarea> </br>
   <div class="dropdown">
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="catDropdown" class="dropdown-content">
@@ -171,6 +158,32 @@
         }
       }
     }
+    $("#submit").on("click", function(event) {
+        event.preventDefault();
+        var data = {
+            text: $("#text").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("{% url 'portal:create_comment' id %}", data, function(res) {
+            event.preventDefault();
+            if (res.success) {
+              $(".com-info").append('<div id = ' + res.id + '><div class = "crop"><img src="{% static "images/user.png" %}" alt="cannot load"/></div><p class = "commenter">' + res.user + '</p><br><p class = "content">' + res.text +'</p><form onsubmit = "return false" class = "right-form" ><input class = "delete" type="image" id = "del" src = "{% static "images/trash.svg"%}" value = ' + res.id +'></form>');
+            }
+        }, "JSON")
+    });
+    $(document).on('click', '.delete', function() {
+      event.preventDefault();
+      var data = {
+        num: $(this).val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      }
+      $.post("{% url 'portal:delete_comment'%}", data, function(res) {
+          if (res.success){
+            console.log(res.id);
+            $(res.id).remove();
+          }
+      }, "JSON")
+    });
   </script>
 </div>
   <script type="text/javascript">

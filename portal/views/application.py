@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 from portal.models import *
 import ast
 
@@ -70,17 +71,31 @@ def render_app(request, app_pk):
 
 @login_required
 def create_comment(request, app_pk):
-    text = request.POST["reply"]
+    text = request.POST['text']
     comment = Comment(user=User.objects.get(username=request.user.username), comment_text=text,
                       published_date=localtime(now()), applicant=Application.objects.get(pk=app_pk))
     comment.save()
-    return render_app(request, app_pk)
+    success = {
+        "success": True,
+        "user": request.user.username,
+        "id": comment.id,
+        "text": comment.comment_text
+    }
+    return JsonResponse(success)
 
 
-def delete_comment(request, app_pk):
-    comment = Comment.objects.get(pk=int(request.POST["delete"]))
+
+def delete_comment(request):
+    comment = Comment.objects.get(pk=int(request.POST["num"]))
+    string_id = str(comment.id)
     comment.delete()
-    return render_app(request, app_pk)
+    success = {
+        "success": True,
+        "user": request.user.username,
+        "id": "#"+string_id,
+        "text": comment.comment_text
+    }
+    return JsonResponse(success)
 
 def change_rating(request, app_pk):
     if request.method == 'POST': 
