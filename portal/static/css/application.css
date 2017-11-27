@@ -33,7 +33,7 @@
     font-weight: bold;
 
 }
-#basic-info, #rat-info, #com-info p{
+#basic-info, #rat-info p{
   font-size: 5px
 }
 
@@ -54,7 +54,7 @@
     width: auto;
 }
 
-.comment {
+#comments {
     margin-bottom: 25px;
 }
 
@@ -73,13 +73,9 @@
   font-size: 12px;
   margin-left: 5px;
 }
-.right-form {
+.right-form{
   display: inline-block;
   overflow: hidden;
-}
-#delete{
-  float: right;
-  clear: both;
 }
 
 
@@ -163,4 +159,7 @@
     display: inline-block;
     float: left;
     padding: 2px;
+}
+textarea
+  width: 50%;
 }

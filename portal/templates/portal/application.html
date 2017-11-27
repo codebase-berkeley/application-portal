@@ -4,7 +4,7 @@
 {% block dashboard_externals %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock dashboard_externals %}
 {% block dashboard_content %}
 <div id = "application">
@@ -76,58 +76,47 @@
   </div>
     <hr>
 
-  <div id = "rat info">
-    <h3><b>Rating:</b></h3>
+  <h3><b>Rating:</b></h3>
+  <div id = "ratinfo">
     {% for i in filled_rating %}
-    <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
+    <!-- <form action="{% url 'portal:change_rating' application.pk %}" method="POST"> -->
       {% csrf_token %}
-      <button class="ratingStar" type="submit" name="rating" value={{ i }}>
+      <button class="ratingStar" id="star-{{ i }}" type="submit" name="rating" value={{ i }}>
         <i class="fa fa-star fa-2x" aria-hidden="true"></i>
       </button>
-    </form>
+    <!-- </form> -->
     {% endfor %}
     {% for i in empty_rating %}
-    <form action="{% url 'portal:change_rating' application.pk %}" method="POST">
+    <!-- <form action="{% url 'portal:change_rating' application.pk %}" method="POST"> -->
       {% csrf_token %}
-      <button class="ratingStar" type="submit" name="rating" value={{ i }}>
+      <button class="ratingStar" id="star-{{ i }}" type="submit" name="rating" value={{ i }}>
         <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
       </button>
-    </form>
+    <!-- </form> -->
     {% endfor %}
     <br><br>
   </div>
 
-<div class = "com info">
+<div class = "com-info">
 <h2 id = "comment_title">Comments:</h2>
-
     {% for ind_comment in comments %}
-
-    	<div class = "comment">
-        	<div class = "crop">
-            	<img src="{% static "images/user.png" %}" alt="can't load"/>
+    <div id = "{{ind_comment.id}}">
+      <div class = "crop">
+            	<img src="{% static "images/user.png" %}" alt="cannot load"/>
         	</div>
       		<p class = "commenter">{{ind_comment.user.username}}</p>
       		<br>
-      		<p class = "content">{{ind_comment.comment_text}} <p>
-            <form action = "{% url 'portal:delete_comment' id %}" class = "right-form" method = "post">
-              {% csrf_token %}
-                <button type="submit" name = "delete" value = {{ind_comment.id}}>
-        	         <img src = "{% static 'images/trash.svg' %}">
-        	       </button>
-            </form>
-      	</div>
+      		<p class = "content">{{ind_comment.comment_text}} </p>
+          <form onsubmit = "return false" class = "right-form" >
+            <input class = "delete" type="image" id = "del" value = {{ind_comment.id}} src = "{% static "images/trash.svg"%}">
+          </form>
+    </div>
     {% endfor %}
 </div>
 
-	<form action="{% url 'portal:create_comment' id %}" method = "POST">
-		{% csrf_token %}
-		<br>
-		<br>
-		<input class = "add_comment" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
-		<textarea class = "comment_form" rows="5" cols="26" name="reply">Add a comment...</textarea><br>
-	</form>
-	<br>
 
+  <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
+  <textarea id ="text" placeholder = "Add a comment. . ."></textarea> </br>
   <div class="dropdown">
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="catDropdown" class="dropdown-content">
@@ -169,8 +158,163 @@
         }
       }
     }
+    $("#submit").on("click", function(event) {
+        event.preventDefault();
+        var data = {
+            text: $("#text").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("{% url 'portal:create_comment' id %}", data, function(res) {
+            event.preventDefault();
+            if (res.success) {
+              $(".com-info").append('<div id = ' + res.id + '><div class = "crop"><img src="{% static "images/user.png" %}" alt="cannot load"/></div><p class = "commenter">' + res.user + '</p><br><p class = "content">' + res.text +'</p><form onsubmit = "return false" class = "right-form" ><input class = "delete" type="image" id = "del" src = "{% static "images/trash.svg"%}" value = ' + res.id +'></form>');
+            }
+        }, "JSON")
+    });
+    $(document).on('click', '.delete', function() {
+      event.preventDefault();
+      var data = {
+        num: $(this).val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+      }
+      $.post("{% url 'portal:delete_comment'%}", data, function(res) {
+          if (res.success){
+            console.log(res.id);
+            $(res.id).remove();
+          }
+      }, "JSON")
+    });
+  </script>
+</div>
+  <script type="text/javascript">
+  var curr_URL;
+  var arr;
+  var app;
+
+$( document ).ready(function() {
+
+    curr_URL = window.location.href;
+    arr = curr_URL.split('/');
+    app = arr[arr.length-1];
+
+    $(document).on('click', "#star-1",function(event) {
+        event.preventDefault();
+        var data = {
+            rating: $("#star-1").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("/portal/change_rating/" + app + "/", data, function(res) {
+            event.preventDefault();
+            var rating = parseInt($("#star-1").val());
+            if (res.success) {
+                $("#ratinfo").empty();
+                //for i in rating, append a filled star to the div
+                for (i = 1; i <= rating; i++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
+                };
+                for (j = rating + 1; j <= 5; j++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
+                }
+                $("#ratinfo").append('<br><br>');
+            }
+        }, "JSON")
+    });
+
+    $(document).on('click', "#star-2",function(event) {
+        event.preventDefault();
+        var data = {
+            rating: $("#star-2").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("/portal/change_rating/" + app + "/", data, function(res) {
+            event.preventDefault();
+            var rating = parseInt($("#star-2").val());
+            if (res.success) {
+                $("#ratinfo").empty();
+                //for i in rating, append a filled star to the div
+                for (i = 1; i <= rating; i++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
+                };
+                for (j = rating + 1; j <= 5; j++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
+                }
+                $("#ratinfo").append('<br><br>');
+            }
+        }, "JSON")
+    });
+
+    $(document).on('click', "#star-3",function(event) {
+        event.preventDefault();
+        var data = {
+            rating: $("#star-3").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("/portal/change_rating/" + app + "/", data, function(res) {
+            event.preventDefault();
+            var rating = parseInt($("#star-3").val());
+            if (res.success) {
+                $("#ratinfo").empty();
+                //for i in rating, append a filled star to the div
+                for (i = 1; i <= rating; i++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
+                };
+                for (j = rating + 1; j <= 5; j++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
+                }
+                $("#ratinfo").append('<br><br>');
+            }
+        }, "JSON")
+    });
+
+    $(document).on('click', "#star-4", function(event) {
+        event.preventDefault();
+        var data = {
+            rating: $("#star-4").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("/portal/change_rating/" + app + "/", data, function(res) {
+            event.preventDefault();
+            var rating = parseInt($("#star-4").val());
+            if (res.success) {
+                $("#ratinfo").empty();
+                //for i in rating, append a filled star to the div
+                for (i = 1; i <= rating; i++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
+                };
+                for (j = rating + 1; j <= 5; j++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
+                }
+                $("#ratinfo").append('<br><br>');
+            }
+        }, "JSON")
+    });
+
+    $(document).on('click', "#star-5",function(event) {
+        event.preventDefault();
+        var data = {
+            rating: $("#star-5").val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}"
+        };
+        $.post("/portal/change_rating/" + app + "/", data, function(res) {
+            event.preventDefault();
+            var rating = parseInt($("#star-5").val());
+            if (res.success) {
+                $("#ratinfo").empty();
+                //for i in rating, append a filled star to the div
+                for (i = 1; i <= rating; i++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
+                };
+                for (j = rating + 1; j <= 5; j++) {
+                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
+                }
+                $("#ratinfo").append('<br><br>');
+            }
+        }, "JSON")
+    });
+
+});
   </script>
 
-</div>
 </body>
+
 {% endblock dashboard_content %}

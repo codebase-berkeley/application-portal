@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
     url(r'search/(?P<term>[a-zA-Z]*)$', views.search, name="search_applicants"),
     url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
+    url(r'myassignments', views.show_assignments, name='myassignments'),
 ]
