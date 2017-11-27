@@ -19,7 +19,7 @@ AUTH = ('nkhatore', KEY)
 HEADERS = {'Content-Type': 'application/json'}
 
 
-@login_required
+
 def create_category(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
@@ -30,7 +30,7 @@ def create_category(request):
     list_cat = list(Category.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
-@login_required
+
 def delete_category(request, pk=''):
     category = Category.objects.get(pk=pk)
     category.delete()
@@ -38,7 +38,7 @@ def delete_category(request, pk=''):
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
 
-@login_required
+
 def edit_category(request, pk=''):
     category = Category.objects.get(pk=pk)
     list_cat = list(Category.objects.all())
