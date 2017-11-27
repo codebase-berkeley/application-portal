@@ -43,5 +43,16 @@ def save_app(request):
             answer.answer_text = request.POST[str(question.pk)]
 
         answer.save()
-
+    all_assignments = list(Assignment.objects.all())
+    count = {}
+    for ex in list(User.objects.all()):
+        count[ex.pk] = 0
+    for assignment in all_assignments:
+        exec_user = assignment.exec_user
+        count[exec_user.pk] += 1
+    least_assigned = min(count, key = lambda x: count[x])
+    new_assignment = Assignment()
+    new_assignment.exec_user = User.objects.get(pk=least_assigned)
+    new_assignment.applicant = app
+    new_assignment.save()
     return render(request, "portal/application_views/thanks.html")

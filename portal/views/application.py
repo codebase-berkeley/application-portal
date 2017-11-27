@@ -83,8 +83,7 @@ def create_comment(request, app_pk):
     }
     return JsonResponse(success)
 
-
-
+@login_required
 def delete_comment(request):
     comment = Comment.objects.get(pk=int(request.POST["num"]))
     string_id = str(comment.id)
@@ -97,6 +96,7 @@ def delete_comment(request):
     }
     return JsonResponse(success)
 
+@login_required
 def change_rating(request, app_pk):
     if request.method == 'POST': 
         application = Application.objects.get(pk = app_pk)
