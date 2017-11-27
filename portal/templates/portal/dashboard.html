@@ -14,6 +14,12 @@
 
 
 {% block content %}
+
+	<!-- hidden buttons to store pks for responsive move to category -->
+	{% for cat in list_cat %}
+  		<button class = "category_pks" value = "{{cat.pk}}" hidden = "true"></button>
+	{% endfor %}
+
 	<a class="nolinkstyle" href="{% url 'portal:form' %}">
 		<div class="clicktoedit">
 			<img id="edit" src="{% static 'images/file-text.svg' %}">
@@ -65,7 +71,7 @@
 					{% endif %}</a>
 
 				</div>
-				</div>
+			</div>
 			{% endfor %}
 			<div class="new_category">
 				<div class="category_text">
@@ -74,46 +80,72 @@
 				</div>
 			</div>
 		</div>
-
-
-
 	</div>
 
 	<div class="right">
-
-
 		<div class="searchbar">
 			<div class="searchbox">
 				<i id="searchicon" class="fa fa-search"></i>
 				<input type="text" class="searchTerm" placeholder="Search Applications...">
 			</div>
+
+
+
 			<div class="dropdown">
-				<button class="dropbtn" >Move to Category<i class="fa fa-angle-down" aria-hidden="true"></i></button>
-				{% for cat in list_cat %}
-				<div class="dropdown-content">
-					<a href="#">{{ cat }}</a>
-				</div>
-				{% endfor %}
-			</div>
+    			<button onclick="dropdownFunc()" class="dropbtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    			<div id="catDropdown" class="dropdown-content">
+      			{% for cat in list_cat %}
+         			 <button id = "dash{{ cat.pk }}" class="dropdownElem catElemDashboard" name="category" value="{{ cat.pk }}">
+            		{{ cat }}
+          			</button><br>
+      			{% endfor %}
+    			</div>
+  			</div>
 		</div>
 		{% block dashboard_content %}
 		{% endblock dashboard_content %}
     	<a href="{% url 'portal:display_app' %}"><button class="dropbtn" >View Public Form</button></a>
 	</div>
-</div>
 
+<script>
+	$(".catElemDashboard").on("click", function(event) {
+    event.preventDefault();
 
-	<script>
-	$(document).ready(function() {
-		$("div.selection_box").click(function() {
-			if ($(this).find('img').length) {
-				$(this).html('');
-			} else {
-				$(this).html('<img src="{% static "images/check.svg" %}" width="17px" height="17px">');
-			}
-		});
+    var currcat_pk = $(this).val();
+    var selected = [];
+	$('#selected_apps input:checked').each(function() {
+    	selected.push($(this).val());
 	});
-	</script>
+
+	console.log(selected);
+
+    var data = {
+      app_pks: selected,
+      cat_pk: currcat_pk,
+      csrfmiddlewaretoken: "{{ csrf_token }}"
+    }
+
+    console.log(data);
+
+    $.post("/portal/assign_multiple_category/", data, function(res) {
+      event.preventDefault();
+      if (res.success) {
+
+      	console.log("success")
+
+      	var all_cat = document.getElementsByClassName("category_pks");
+
+        for (var i=0; i<all_cat.length;i++) {
+          $("#dash"+all_cat[i].value).children("i").remove();
+        }
+
+        $("#dash"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");   
+      }
+
+    }, "JSON") 
+
+  });
+</script>
 
 
 {% endblock content %}

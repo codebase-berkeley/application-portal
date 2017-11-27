@@ -1,13 +1,20 @@
 {% extends 'portal/dashboard.html' %}
-
+{% load static from staticfiles %}
 {% block titletext %}Dashboard{% endblock %}
+{% block dashboard_externals %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard_main.css' %}">
+
+{% endblock dashboard_externals %}
+
 {% block dashboard_content %}
 <div class="applications">
 
+    <div id = "selected_apps">
+
     {% for app in list_app %}
     <div class="applicant">
-        <div name="checkbox" class="selection_box">
-        </div>
+        <input value="{{app.pk}}" type="checkbox" class = "selection_box">
         <div class="applicant_name">
             {% if app.read == False %}
             <a href="{% url 'portal:get_application' app.pk %}"> <b> {{ app.first_name }} {{ app.last_name }} </b> </a>
@@ -19,8 +26,11 @@
         <div class="applicant_date">
             Today
         </div>
+        <br>
     </div>
     {% endfor %}
+
+    </div>
 </div>
 
 {% endblock %}

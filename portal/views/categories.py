@@ -10,6 +10,7 @@ import json, requests
 
 from django.utils.timezone import localtime, now
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .utils import get_dashboard_context
 
@@ -125,9 +126,36 @@ def search(request, term):
 
 
 @login_required 
-def change_category(request, app_pk):
-    application = Application.objects.get(pk = app_pk)
-    print(str(request.POST['category']))
-    application.category = Category.objects.get(name=str(request.POST['category']))
-    application.save()
-    return render_app(request, app_pk)
+def change_category(request):
+    if request.method == 'POST':
+        application = Application.objects.get(pk = int(request.POST['app_pk']))
+        application.category = Category.objects.get(pk = int(request.POST['cat_pk']))
+        application.save()
+
+        success = {
+            "success": True
+        }
+        
+        return JsonResponse(success)
+    else:
+        return render_app(request, int(request.POST['app_pk']))
+
+@login_required 
+def change_multiple_category(request):
+    if request.method == 'POST':
+        print(request.POST.getlist('app_pks[]'))
+
+        app_pks = request.POST.getlist('app_pks[]')
+
+        for app_pk in app_pks:
+            application = Application.objects.get(pk = int(app_pk))
+            application.category = Category.objects.get(pk = int(request.POST['cat_pk']))
+            application.save()
+
+        success = {
+            "success": True
+        }
+        
+        return JsonResponse(success)
+    else:
+        return dashboard(request)

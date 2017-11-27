@@ -7,14 +7,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% endblock dashboard_externals %}
 {% block dashboard_content %}
+
+<!-- hidden buttons to store pks for responsive move to category and assign user -->
+<button id = "application_pk" value = "{{application.pk}}" hidden = "true"></button>
+
+{% for cat in list_cat %}
+  <button class = "category_pks" value = "{{cat.pk}}" hidden = "true"></button>
+{% endfor %}
+
 <div id = "application">
-    <br>
-    <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
-    <div id="head">
-    	<h2> {{first_name}} {{last_name}} &nbsp;<button class="blueBtn" type = "button"
-        onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
-    </div>
-    <hr>
+  <br>
+  <h1> You are viewing {{first_name}} {{last_name}}'s application for CodeBase. </h1>
+  <div id="head">
+    <h2> {{first_name}} {{last_name}} &nbsp;<button class="blueBtn" type = "button"
+      onclick="window.location.href='mailto:{{email}}'">{{email}}</button></h2>
+  </div>
+  <hr>
 
 	<div id = "basic info">
 		{% for question,answer,option_list in qa_tuple%}
@@ -74,7 +82,7 @@
 			{% endif %}
 		{% endfor %}
   </div>
-    <hr>
+  <hr>
 
   <h3><b>Rating:</b></h3>
   <div id = "ratinfo">
@@ -97,6 +105,7 @@
     <br><br>
   </div>
 
+
 <div class = "com-info">
 <h2 id = "comment_title">Comments:</h2>
     {% for ind_comment in comments %}
@@ -112,7 +121,7 @@
           </form>
     </div>
     {% endfor %}
-</div>
+  </div>
 
 
   <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
@@ -121,81 +130,153 @@
     <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="catDropdown" class="dropdown-content">
       {% for cat in list_cat %}
-        <form action="{% url 'portal:change_category' application.pk %}" method="POST">
-          {% csrf_token %}
-          {% if cat == category %}
-          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
+        {% if cat == category %}
+          <button id = "{{ cat.pk }}" class="dropdownElem catElem" name="category" value="{{ cat.pk }}">
             <i class="fa fa-check" aria-hidden="true"></i> {{ cat }}
           </button><br>
-          {% else %}
-          <button class="dropdownElem" type="submit" name="category" value="{{ cat }}">
+        {% else %}
+          <button id = "{{ cat.pk }}" class="dropdownElem catElem" name="category" value="{{ cat.pk }}">
             {{ cat }}
           </button><br>
-          {% endif %}
-        </form>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 
-  <script type="text/javascript">
-    /* When the user clicks on the button,
-    toggle between hiding and showing the dropdown content */
-    function dropdownFunc() {
-        document.getElementById("catDropdown").classList.toggle("show");
-    }
-
-    // Close the dropdown menu if the user clicks outside of it
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn')) {
-
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-    $("#submit").on("click", function(event) {
-        event.preventDefault();
-        var data = {
-            text: $("#text").val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}"
-        };
-        $.post("{% url 'portal:create_comment' id %}", data, function(res) {
-            event.preventDefault();
-            if (res.success) {
-              $(".com-info").append('<div id = ' + res.id + '><div class = "crop"><img src="{% static "images/user.png" %}" alt="cannot load"/></div><p class = "commenter">' + res.user + '</p><br><p class = "content">' + res.text +'</p><form onsubmit = "return false" class = "right-form" ><input class = "delete" type="image" id = "del" src = "{% static "images/trash.svg"%}" value = ' + res.id +'></form>');
-            }
-        }, "JSON")
-    });
-    $(document).on('click', '.delete', function() {
-      event.preventDefault();
-      var data = {
-        num: $(this).val(),
-        csrfmiddlewaretoken: "{{ csrf_token }}"
-      }
-      $.post("{% url 'portal:delete_comment'%}", data, function(res) {
-          if (res.success){
-            console.log(res.id);
-            $(res.id).remove();
-          }
-      }, "JSON")
-    });
-  </script>
+  <div class="dropdown">
+    <button onclick="dropdownFunc()" class="dropbtn blueBtn">Assign to User <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <div id="userDropdown" class="dropdown-content">
+      {% for user in list_user %}
+        {% if user in assigned_users %}
+          <button id="{{ user.pk }}" class="dropdownElem userElem" name="chosen_user" value="{{ user.pk }}">
+            <i class="fa fa-check" aria-hidden="true"></i> {{ user }}
+          </button><br>
+        {% else %}
+          <button id="{{ user.pk }}" class="dropdownElem userElem"  name="chosen_user" value="{{ user.pk }}"> 
+            {{ user }}
+          </button><br>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
 </div>
-  <script type="text/javascript">
-  var curr_URL;
-  var arr;
-  var app;
+
+<script>
+var curr_URL;
+var arr;
+var app;
+  /* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function dropdownFunc() {
+    document.getElementById("catDropdown").classList.toggle("show");
+    document.getElementById("userDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+$(".userElem").on("click", function(event) {
+  event.preventDefault();
+
+  var curruser_pk = $(this).val()
+  var currapp_pk = $("#application_pk").val()
+
+  var data = {
+    app_pk: currapp_pk,
+    user_pk: curruser_pk,
+    csrfmiddlewaretoken: "{{ csrf_token }}"
+  }
+  $.post("/portal/assign_user/", data, function(res) {
+    event.preventDefault();
+    if (res.success) {
+      var has_check = ($("#"+curruser_pk).has("i").length ? true : false);
+
+      if (has_check) {
+        $("#"+curruser_pk).children("i").remove();
+      } else {
+        $("#"+curruser_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
+      }
+        
+    }
+  }, "JSON")
+});
+
+$(".catElem").on("click", function(event) {
+  event.preventDefault();
+
+  var currcat_pk = $(this).val()
+  var currapp_pk = $("#application_pk").val()
+
+  var data = {
+    app_pk: currapp_pk,
+    cat_pk: currcat_pk,
+    csrfmiddlewaretoken: "{{ csrf_token }}"
+  }
+
+  $.post("/portal/assign_category/", data, function(res) {
+    event.preventDefault();
+    if (res.success) {
+
+      var all_cat = document.getElementsByClassName("category_pks");
+
+      for (var i=0; i<all_cat.length;i++) {
+        $("#"+all_cat[i].value).children("i").remove();
+      }
+        
+      $("#"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
+
+      for (var i=0; i<all_cat.length;i++) {
+        $("#dash"+all_cat[i].value).children("i").remove();
+      }
+        
+      $("#dash"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
+        
+    }
+  }, "JSON")
+});  
+$("#submit").on("click", function(event) {
+    event.preventDefault();
+    var data = {
+        text: $("#text").val(),
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+    };
+    $.post("{% url 'portal:create_comment' id %}", data, function(res) {
+        event.preventDefault();
+        if (res.success) {
+          $(".com-info").append('<div id = ' + res.id + '><div class = "crop"><img src="{% static "images/user.png" %}" alt="cannot load"/></div><p class = "commenter">' + res.user + '</p><br><p class = "content">' + res.text +'</p><form onsubmit = "return false" class = "right-form" ><input class = "delete" type="image" id = "del" src = "{% static "images/trash.svg"%}" value = ' + res.id +'></form>');
+        }
+    }, "JSON")
+});
+$(document).on('click', '.delete', function() {
+  event.preventDefault();
+  var data = {
+    num: $(this).val(),
+    csrfmiddlewaretoken: "{{ csrf_token }}"
+  }
+  $.post("{% url 'portal:delete_comment'%}", data, function(res) {
+      if (res.success){
+        console.log(res.id);
+        $(res.id).remove();
+      }
+  }, "JSON")
+});
 
 $( document ).ready(function() {
 
     curr_URL = window.location.href;
     arr = curr_URL.split('/');
-    app = arr[arr.length-1];
+    app = arr[arr.length-1]; // hacky way of getting the current application's ID on the clientside.
 
     $(document).on('click', "#star-1",function(event) {
         event.preventDefault();
@@ -313,8 +394,6 @@ $( document ).ready(function() {
     });
 
 });
-  </script>
-
-</body>
+</script>
 
 {% endblock dashboard_content %}

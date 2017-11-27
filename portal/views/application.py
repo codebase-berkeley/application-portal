@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from .utils import get_dashboard_context
 from django.http import JsonResponse
 
+from django.http import JsonResponse
+
 
 def str_to_list(txt):
     if txt is None:
@@ -53,6 +55,14 @@ def render_app(request, app_pk):
     list_cat = list(Category.objects.all())
     category = application.category
 
+    list_user = list(User.objects.all())
+    list_assign = list(Assignment.objects.all())
+
+    assigned_users = []
+    for assignment in list_assign:
+        if assignment.applicant == application:
+            assigned_users.append(assignment.exec_user)
+
     context["first_name"] = first_name
     context["last_name"] = last_name
     context["email"] = email
@@ -67,6 +77,8 @@ def render_app(request, app_pk):
     context["application"] = application
     context["id"] = app_pk
     context["read"] = Application.objects.get(pk = app_pk).read
+    context["list_user"] = list_user
+    context["assigned_users"] = assigned_users
     return render(request, "portal/application.html", context)
 
 @login_required
@@ -98,14 +110,33 @@ def delete_comment(request):
 
 @login_required
 def change_rating(request, app_pk):
-    if request.method == 'POST': 
-        application = Application.objects.get(pk = app_pk)
-        rating = request.POST["rating"]
-        application.rating = int(rating)
-        application.save()
+    application = Application.objects.get(pk = app_pk)
+    application.rating = int(request.POST["rating"])
+    application.save()
+    return render_app(request, app_pk)
+
+@login_required
+def assign_user(request):
+    if request.method == 'POST':
+        application = Application.objects.get(pk = int(request.POST['app_pk']))
+        assigned_user = User.objects.get(pk = int(request.POST['user_pk']))
+
+        list_assign = list(Assignment.objects.all())
+        to_delete = []
+        for assignment in list_assign:
+            if assignment.applicant.pk == int(request.POST['app_pk']) and assignment.exec_user.pk == int(request.POST['user_pk']):
+                to_delete.append(assignment)
+
+        if len(to_delete) == 0:
+            new_assignment = Assignment(applicant = application, exec_user = assigned_user)
+            new_assignment.save()
+        else:
+            for assignment in to_delete:
+                assignment.delete() 
         success = {
             "success": True
         }
         return JsonResponse(success)
     else:
-        return render_app(request, app_pk)
+        return render_app(request, int(request.POST['app_pk']))
+
