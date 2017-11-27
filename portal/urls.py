@@ -37,4 +37,5 @@ urlpatterns = [
     url(r'logout/$', auth_views.logout, {'template_name': 'registration/logout.html'}, name='logout'),
     url(r'assign_user/',
         views.assign_user, name='assign_user'),
+    url(r'myassignments', views.show_assignments, name='myassignments'),
 ]

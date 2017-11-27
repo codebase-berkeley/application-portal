@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import HttpResponse
+from django.http import JsonResponse
 from portal.models import *
 import ast
 
@@ -9,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .utils import get_dashboard_context
+from django.http import JsonResponse
 
 from django.http import JsonResponse
 
@@ -81,24 +83,39 @@ def render_app(request, app_pk):
 
 @login_required
 def create_comment(request, app_pk):
-    text = request.POST["reply"]
+    text = request.POST['text']
     comment = Comment(user=User.objects.get(username=request.user.username), comment_text=text,
                       published_date=localtime(now()), applicant=Application.objects.get(pk=app_pk))
     comment.save()
-    return render_app(request, app_pk)
+    success = {
+        "success": True,
+        "user": request.user.username,
+        "id": comment.id,
+        "text": comment.comment_text
+    }
+    return JsonResponse(success)
 
-
-def delete_comment(request, app_pk):
-    comment = Comment.objects.get(pk=int(request.POST["delete"]))
+@login_required
+def delete_comment(request):
+    comment = Comment.objects.get(pk=int(request.POST["num"]))
+    string_id = str(comment.id)
     comment.delete()
-    return render_app(request, app_pk)
+    success = {
+        "success": True,
+        "user": request.user.username,
+        "id": "#"+string_id,
+        "text": comment.comment_text
+    }
+    return JsonResponse(success)
 
+@login_required
 def change_rating(request, app_pk):
     application = Application.objects.get(pk = app_pk)
     application.rating = int(request.POST["rating"])
     application.save()
     return render_app(request, app_pk)
 
+@login_required
 def assign_user(request):
     if request.method == 'POST':
         application = Application.objects.get(pk = int(request.POST['app_pk']))
@@ -116,12 +133,10 @@ def assign_user(request):
         else:
             for assignment in to_delete:
                 assignment.delete() 
-
         success = {
             "success": True
         }
         return JsonResponse(success)
-
     else:
-
         return render_app(request, int(request.POST['app_pk']))
+
