@@ -75,13 +75,12 @@ def create_comment(request, app_pk):
     comment.save()
     return render_app(request, app_pk)
 
-@login_required
+
 def delete_comment(request, app_pk):
     comment = Comment.objects.get(pk=int(request.POST["delete"]))
     comment.delete()
     return render_app(request, app_pk)
 
-@login_required
 def change_rating(request, app_pk):
     application = Application.objects.get(pk = app_pk)
     application.rating = int(request.POST["rating"])
