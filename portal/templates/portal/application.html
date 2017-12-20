@@ -128,7 +128,7 @@
   <textarea id ="text" placeholder = "Add a comment. . ."></textarea> </br>
   <div class="dropdown">
     <button id="catDropBtn" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
-    <div id="catDropdown" class="dropdown-content">
+    <div id="catDropdown" class="cat-dropdown dropdown-content">
       {% for cat in list_cat %}
         {% if cat == category %}
           <button id = "{{ cat.pk }}" class="dropdownElem catElem" name="category" value="{{ cat.pk }}">
@@ -140,6 +140,7 @@
           </button><br>
         {% endif %}
       {% endfor %}
+
     </div>
   </div>
 
@@ -168,15 +169,20 @@ var app;
 
 /* Handles dropdowns (you can only see one at a time) */
 $("#catDropBtn").hover(function() {
-  console.log("Hello");
   $("#userDropdown").hide();
-  $("#catDropdown").show();
-}); 
+  $(".cat-dropdown").show();
+}, function(){return;}); 
 
 $("#userDropBtn").hover(function() {
-  $("#catDropdown").hide();
+  $(".cat-dropdown").hide();
   $("#userDropdown").show();
-});
+}, function(){return});
+
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    $(".dropdown-content").hide();
+  }
+}
 
 $(".userElem").on("click", function(event) {
   event.preventDefault();

@@ -73,11 +73,11 @@
   font-size: 12px;
   margin-left: 5px;
 }
+
 .right-form{
   display: inline-block;
   overflow: hidden;
 }
-
 
 .comment_form {
   height:40px;
@@ -95,53 +95,7 @@
   margin-left: 15px;
 }
 
-/* Dropdown Button */
-.dropbtn {
-    padding: 14px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-}
 
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #879fb0;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 150px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content button:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
-/* Move to Category dropdown elements styling */
-.dropdownElem {
-    border: solid;
-    border-width: 1px;
-    border-color: white;
-    color: black;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    display: inline-block;
-    min-width: 150px;
-}
 
 #application h3 {
   font-weight: bold;
@@ -159,6 +113,8 @@
     float: left;
     padding: 2px;
 }
-textarea
+
+textarea {
   width: 50%;
 }
+
