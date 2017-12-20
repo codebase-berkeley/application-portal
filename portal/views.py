@@ -5,7 +5,6 @@ from portal.models import Question
 from portal.models import Category, Application
 import ast
 
-# Create your views here.
 
 def advanced_hello(request, first_name):
     return render(request, "portal/hello.html", { "first_name": first_name })
@@ -65,12 +64,6 @@ def create_question(request, q_text, q_type, options):
     else:
         new_question = Question(question_text=q_text, question_type=q_type)
     new_question.save()
-    return redirect('portal:form')
-
-
-def delete_question(request):
-    question = Question.objects.get(pk=request.POST["to_delete"])
-    question.delete()
     return redirect('portal:form')
 
 

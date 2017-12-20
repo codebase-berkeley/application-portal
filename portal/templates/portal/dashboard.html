@@ -84,15 +84,18 @@
 
 	<div class="right">
 		<div class="searchbar">
+        
 			<div class="searchbox">
 				<i id="searchicon" class="fa fa-search"></i>
 				<input type="text" class="searchTerm" placeholder="Search Applications...">
 			</div>
 
-
-
 			<div class="dropdown">
-    			<button onclick="dropdownFunc()" class="dropbtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    			<button onclick="dropdownFunc()" class="dropbtn">
+                    Move to Category 
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </button>
+
     			<div id="catDropdown" class="dropdown-content">
       			{% for cat in list_cat %}
          			 <button id = "dash{{ cat.pk }}" class="dropdownElem catElemDashboard" name="category" value="{{ cat.pk }}">

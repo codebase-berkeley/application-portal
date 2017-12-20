@@ -127,7 +127,7 @@
   <input class = "add_comment" id = "submit" type="image" src="{% static "images/add_comment.png" %}" alt="Submit Form" />
   <textarea id ="text" placeholder = "Add a comment. . ."></textarea> </br>
   <div class="dropdown">
-    <button onclick="dropdownFunc()" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <button id="catDropBtn" class="dropbtn blueBtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="catDropdown" class="dropdown-content">
       {% for cat in list_cat %}
         {% if cat == category %}
@@ -144,7 +144,7 @@
   </div>
 
   <div class="dropdown">
-    <button onclick="dropdownFunc()" class="dropbtn blueBtn">Assign to User <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+    <button id="userDropBtn" class="dropbtn blueBtn">Assign to User <i class="fa fa-angle-down" aria-hidden="true"></i></button>
     <div id="userDropdown" class="dropdown-content">
       {% for user in list_user %}
         {% if user in assigned_users %}
@@ -165,32 +165,26 @@
 var curr_URL;
 var arr;
 var app;
-  /* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function dropdownFunc() {
-    document.getElementById("catDropdown").classList.toggle("show");
-    document.getElementById("userDropdown").classList.toggle("show");
-}
 
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+/* Handles dropdowns (you can only see one at a time) */
+$("#catDropBtn").hover(function() {
+  console.log("Hello");
+  $("#userDropdown").hide();
+  $("#catDropdown").show();
+}); 
+
+$("#userDropBtn").hover(function() {
+  $("#catDropdown").hide();
+  $("#userDropdown").show();
+});
 
 $(".userElem").on("click", function(event) {
   event.preventDefault();
 
   var curruser_pk = $(this).val()
-  var currapp_pk = $("#application_pk").val()
+  var currapp_pk = $("#application_pk").val();
+
+  console.log("userElem");
 
   var data = {
     app_pk: currapp_pk,
@@ -214,7 +208,7 @@ $(".userElem").on("click", function(event) {
 
 $(".catElem").on("click", function(event) {
   event.preventDefault();
-
+  console.log("cat Elem");
   var currcat_pk = $(this).val()
   var currapp_pk = $("#application_pk").val()
 
