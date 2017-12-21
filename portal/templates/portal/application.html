@@ -136,7 +136,7 @@
           </button><br>
         {% else %}
           <button id = "{{ cat.pk }}" class="dropdownElem catElem" name="category" value="{{ cat.pk }}">
-            {{ cat }}
+            <i class="hidden fa fa-check" aria-hidden="true"></i> {{ cat }}
           </button><br>
         {% endif %}
       {% endfor %}
@@ -154,7 +154,7 @@
           </button><br>
         {% else %}
           <button id="{{ user.pk }}" class="dropdownElem userElem"  name="chosen_user" value="{{ user.pk }}"> 
-            {{ user }}
+            <i class="hidden fa fa-check" aria-hidden="true"></i> {{ user }}
           </button><br>
         {% endif %}
       {% endfor %}
@@ -185,38 +185,25 @@ window.onclick = function(event) {
 }
 
 $(".userElem").on("click", function(event) {
-  event.preventDefault();
-
   var curruser_pk = $(this).val()
   var currapp_pk = $("#application_pk").val();
-
-  console.log("userElem");
+  var button = $(this);
 
   var data = {
     app_pk: currapp_pk,
     user_pk: curruser_pk,
     csrfmiddlewaretoken: "{{ csrf_token }}"
   }
-  $.post("/portal/assign_user/", data, function(res) {
-    event.preventDefault();
-    if (res.success) {
-      var has_check = ($("#"+curruser_pk).has("i").length ? true : false);
 
-      if (has_check) {
-        $("#"+curruser_pk).children("i").remove();
-      } else {
-        $("#"+curruser_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
-      }
-        
-    }
-  }, "JSON")
+  button.find("i").toggleClass("hidden");  // Responsively changes whether or not the user has a checkmark next to them
+
+  $.post("/portal/assign_user/", data, function(res) {});
 });
 
 $(".catElem").on("click", function(event) {
-  event.preventDefault();
-  console.log("cat Elem");
   var currcat_pk = $(this).val()
   var currapp_pk = $("#application_pk").val()
+  var button = $(this);
 
   var data = {
     app_pk: currapp_pk,
@@ -224,26 +211,11 @@ $(".catElem").on("click", function(event) {
     csrfmiddlewaretoken: "{{ csrf_token }}"
   }
 
-  $.post("/portal/assign_category/", data, function(res) {
-    event.preventDefault();
-    if (res.success) {
-
-      var all_cat = document.getElementsByClassName("category_pks");
-
-      for (var i=0; i<all_cat.length;i++) {
-        $("#"+all_cat[i].value).children("i").remove();
-      }
-        
-      $("#"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
-
-      for (var i=0; i<all_cat.length;i++) {
-        $("#dash"+all_cat[i].value).children("i").remove();
-      }
-        
-      $("#dash"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");
-        
-    }
-  }, "JSON")
+  /* Responsively changes whether or not the category has a checkmark next to it */
+  $(".catElem").find("i").addClass("hidden")
+  button.find("i").removeClass("hidden"); 
+  $.post("/portal/assign_category/", data, function(res) {});
+  
 });  
 $("#submit").on("click", function(event) {
     event.preventDefault();

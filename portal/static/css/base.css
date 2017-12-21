@@ -2,7 +2,7 @@ html, body {
     font-family: sans-serif;
 }
 .hidden {
-	display: none;
+	display: none !important;
 }
 .navbar > .container {
     margin-top: 50px;
