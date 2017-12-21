@@ -86,20 +86,14 @@
   <h3><b>Rating:</b></h3>
   <div id = "ratinfo">
     {% for i in filled_rating %}
-    <!-- <form action="{% url 'portal:change_rating' application.pk %}" method="POST"> -->
-      {% csrf_token %}
       <button class="ratingStar" id="star-{{ i }}" type="submit" name="rating" value={{ i }}>
         <i class="fa fa-star fa-2x" aria-hidden="true"></i>
       </button>
-    <!-- </form> -->
     {% endfor %}
     {% for i in empty_rating %}
-    <!-- <form action="{% url 'portal:change_rating' application.pk %}" method="POST"> -->
-      {% csrf_token %}
       <button class="ratingStar" id="star-{{ i }}" type="submit" name="rating" value={{ i }}>
         <i class="fa fa-star-o fa-2x" aria-hidden="true"></i>
       </button>
-    <!-- </form> -->
     {% endfor %}
     <br><br>
   </div>
@@ -166,129 +160,35 @@ var curr_URL;
 var arr;
 var app;
 
+$(".ratingStar").click(function() {
+  /* Needs to be changed later */
+  curr_URL = window.location.href;
+  var arr = curr_URL.split('/');
+  app = arr[arr.length-1]; // hacky way of getting the current application's ID on the clientside.  
 
-
-$( document ).ready(function() {
-
-    curr_URL = window.location.href;
-    arr = curr_URL.split('/');
-    app = arr[arr.length-1]; // hacky way of getting the current application's ID on the clientside.
-
-    $(document).on('click', "#star-1",function(event) {
-        event.preventDefault();
-        var data = {
-            rating: $("#star-1").val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}"
-        };
-        $.post("/portal/change_rating/" + app + "/", data, function(res) {
-            event.preventDefault();
-            var rating = parseInt($("#star-1").val());
-            if (res.success) {
-                $("#ratinfo").empty();
-                //for i in rating, append a filled star to the div
-                for (i = 1; i <= rating; i++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
-                };
-                for (j = rating + 1; j <= 5; j++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
-                }
-                $("#ratinfo").append('<br><br>');
-            }
-        }, "JSON")
-    });
-
-    $(document).on('click', "#star-2",function(event) {
-        event.preventDefault();
-        var data = {
-            rating: $("#star-2").val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}"
-        };
-        $.post("/portal/change_rating/" + app + "/", data, function(res) {
-            event.preventDefault();
-            var rating = parseInt($("#star-2").val());
-            if (res.success) {
-                $("#ratinfo").empty();
-                //for i in rating, append a filled star to the div
-                for (i = 1; i <= rating; i++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
-                };
-                for (j = rating + 1; j <= 5; j++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
-                }
-                $("#ratinfo").append('<br><br>');
-            }
-        }, "JSON")
-    });
-
-    $(document).on('click', "#star-3",function(event) {
-        event.preventDefault();
-        var data = {
-            rating: $("#star-3").val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}"
-        };
-        $.post("/portal/change_rating/" + app + "/", data, function(res) {
-            event.preventDefault();
-            var rating = parseInt($("#star-3").val());
-            if (res.success) {
-                $("#ratinfo").empty();
-                //for i in rating, append a filled star to the div
-                for (i = 1; i <= rating; i++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
-                };
-                for (j = rating + 1; j <= 5; j++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
-                }
-                $("#ratinfo").append('<br><br>');
-            }
-        }, "JSON")
-    });
-
-    $(document).on('click', "#star-4", function(event) {
-        event.preventDefault();
-        var data = {
-            rating: $("#star-4").val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}"
-        };
-        $.post("/portal/change_rating/" + app + "/", data, function(res) {
-            event.preventDefault();
-            var rating = parseInt($("#star-4").val());
-            if (res.success) {
-                $("#ratinfo").empty();
-                //for i in rating, append a filled star to the div
-                for (i = 1; i <= rating; i++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
-                };
-                for (j = rating + 1; j <= 5; j++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
-                }
-                $("#ratinfo").append('<br><br>');
-            }
-        }, "JSON")
-    });
-
-    $(document).on('click', "#star-5",function(event) {
-        event.preventDefault();
-        var data = {
-            rating: $("#star-5").val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}"
-        };
-        $.post("/portal/change_rating/" + app + "/", data, function(res) {
-            event.preventDefault();
-            var rating = parseInt($("#star-5").val());
-            if (res.success) {
-                $("#ratinfo").empty();
-                //for i in rating, append a filled star to the div
-                for (i = 1; i <= rating; i++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-'+ i + '"type="submit" name="rating" value=' + i + ' ><i class="fa fa-star fa-2x" aria-hidden="true"></i></button>');
-                };
-                for (j = rating + 1; j <= 5; j++) {
-                    $("#ratinfo").append('<button class="ratingStar" id="star-' + j + '"type="submit" name="rating" value=' + j + '><i class="fa fa-star-o fa-2x" aria-hidden="true"></i></button>');
-                }
-                $("#ratinfo").append('<br><br>');
-            }
-        }, "JSON")
-    });
-
+  var rating = $(this).val();
+  var data = {
+      rating: rating,
+      csrfmiddlewaretoken: "{{ csrf_token }}"
+  };
+  console.log(rating);
+  rating = parseInt(rating);
+  var $ratInfo = $("#ratinfo");
+  console.log(rating);
+  var i = 0;
+  $ratInfo.find("i").each(function() {
+     if (i < rating) {
+      $(this).removeClass("fa-star-o");
+      $(this).addClass("fa-star");
+      console.log("here");
+    } else {
+      $(this).removeClass("fa-star");
+      $(this).addClass("fa-star-o"); 
+      console.log("there");
+    }
+    i += 1;
+  });
+  $.post("/portal/change_rating/" + app + "/", data, function(res) {});
 });
 </script>
 
