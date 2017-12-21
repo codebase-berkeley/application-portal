@@ -143,8 +143,6 @@ def change_category(request):
 @login_required 
 def change_multiple_category(request):
     if request.method == 'POST':
-        print(request.POST.getlist('app_pks[]'))
-
         app_pks = request.POST.getlist('app_pks[]')
 
         for app_pk in app_pks:

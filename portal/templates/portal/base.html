@@ -5,6 +5,9 @@
 <head>
 	<title>{% block titletext %} {% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script type="text/javascript" src="{% static 'scripts/configure-csrf.js' %}"></script>
 	{% block externals %} {% endblock %}
 </head>
 <body>
