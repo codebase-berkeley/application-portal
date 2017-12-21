@@ -73,3 +73,32 @@ $(document).on('click', '.delete', function() {
       }
   }, "JSON")
 });
+
+$(".ratingStar").click(function() {
+
+  // ******* Needs to be changed later **************** 
+  curr_URL = window.location.href;
+  var arr = curr_URL.split('/');
+  app = arr[arr.length-1]; // hacky way of getting the current application's ID on the clientside.
+  // **************************************************  
+
+  var rating = $(this).val();
+  var data = {
+      rating: rating,
+      csrfmiddlewaretoken: csrftoken
+  };
+  rating = parseInt(rating);
+  var $ratInfo = $("#ratinfo");
+  var i = 0;
+  $ratInfo.find("i").each(function() {
+     if (i < rating) {
+      $(this).removeClass("fa-star-o");
+      $(this).addClass("fa-star");
+    } else {
+      $(this).removeClass("fa-star");
+      $(this).addClass("fa-star-o"); 
+    }
+    i += 1;
+  });
+  $.post("/portal/change_rating/" + app + "/", data, function(res) {});
+});

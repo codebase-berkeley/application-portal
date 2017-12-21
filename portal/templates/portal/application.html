@@ -155,43 +155,6 @@
   </div>
 </div>
 
-<script>
-var curr_URL;
-var arr;
-var app;
-
-$(".ratingStar").click(function() {
-  /* Needs to be changed later */
-  curr_URL = window.location.href;
-  var arr = curr_URL.split('/');
-  app = arr[arr.length-1]; // hacky way of getting the current application's ID on the clientside.  
-
-  var rating = $(this).val();
-  var data = {
-      rating: rating,
-      csrfmiddlewaretoken: "{{ csrf_token }}"
-  };
-  console.log(rating);
-  rating = parseInt(rating);
-  var $ratInfo = $("#ratinfo");
-  console.log(rating);
-  var i = 0;
-  $ratInfo.find("i").each(function() {
-     if (i < rating) {
-      $(this).removeClass("fa-star-o");
-      $(this).addClass("fa-star");
-      console.log("here");
-    } else {
-      $(this).removeClass("fa-star");
-      $(this).addClass("fa-star-o"); 
-      console.log("there");
-    }
-    i += 1;
-  });
-  $.post("/portal/change_rating/" + app + "/", data, function(res) {});
-});
-</script>
-
 <script type="text/javascript" src="{% static 'scripts/application-changes.js' %}"></script>
 {% endblock dashboard_content %}
 
