@@ -14,11 +14,6 @@ from django.http import JsonResponse
 
 from .utils import get_dashboard_context
 
-URL = "https://us17.api.mailchimp.com/3.0"
-KEY = "e1a1bff19a0cecf9447238a56a1efa9f-us17"
-AUTH = ('nkhatore', KEY)
-HEADERS = {'Content-Type': 'application/json'}
-
 
 @login_required
 def create_category(request):
@@ -31,6 +26,7 @@ def create_category(request):
     list_cat = list(Category.objects.all())
     return render(request, "portal/dashboard/dashboard-skeleton.html", {"list_cat": list_cat, "list_app": list_app})
 
+
 @login_required
 def delete_category(request, pk=''):
     category = Category.objects.get(pk=pk)
@@ -38,6 +34,7 @@ def delete_category(request, pk=''):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
     return render(request, "portal/dashboard/dashboard-skeleton.html", {"list_cat": list_cat, "list_app": list_app})
+
 
 @login_required
 def edit_category(request, pk=''):
@@ -51,6 +48,7 @@ def edit_category(request, pk=''):
     list_cat = list(Category.objects.all())
     return render(request, "portal/dashboard/dashboard-skeleton.html", {"list_cat": list_cat, "list_app": list_app})
 
+
 @login_required
 def show_category(request, pk=''):
     context = get_dashboard_context(request.user.username, request.user.email)
@@ -60,6 +58,7 @@ def show_category(request, pk=''):
     context["curr_category"] = category
     return render(request, "portal/category/category.html", context)
 
+
 @login_required
 def dashboard(request):
     context = get_dashboard_context(request.user.username, request.user.email)
@@ -67,10 +66,18 @@ def dashboard(request):
     context["category"] = "all"
     return render(request, "portal/dashboard/dashboard_main.html", context)
 
+
+URL = "https://us17.api.mailchimp.com/3.0"
+KEY = "e1a1bff19a0cecf9447238a56a1efa9f-us17"
+AUTH = ('nkhatore', KEY)
+HEADERS = {'Content-Type': 'application/json'}
+
+
 @login_required
 def create_massemail(request, pk=''):
     category = Category.objects.get(pk=pk)
     return render(request, "portal/evaluator/massemail.html", {"category": category})
+
 
 @login_required
 def send_massemail(request, pk=''):
@@ -139,6 +146,7 @@ def change_category(request):
         return JsonResponse(success)
     else:
         return render_app(request, int(request.POST['app_pk']))
+
 
 @login_required 
 def change_multiple_category(request):

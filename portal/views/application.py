@@ -21,6 +21,7 @@ def str_to_list(txt):
     out =  [a.replace("'", "") for a in txt[1:-1].split(',')]
     return [a.strip() for a in out]
 
+
 @login_required
 def render_app(request, app_pk):
     context = get_dashboard_context(request.user.username, request.user.email)
@@ -81,6 +82,7 @@ def render_app(request, app_pk):
     context["assigned_users"] = assigned_users
     return render(request, "portal/dashboard/application.html", context)
 
+
 @login_required
 def create_comment(request, app_pk):
     text = request.POST['text']
@@ -95,6 +97,7 @@ def create_comment(request, app_pk):
     }
     return JsonResponse(success)
 
+
 @login_required
 def delete_comment(request):
     comment = Comment.objects.get(pk=int(request.POST["num"]))
@@ -108,12 +111,14 @@ def delete_comment(request):
     }
     return JsonResponse(success)
 
+
 @login_required
 def change_rating(request, app_pk):
     application = Application.objects.get(pk = app_pk)
     application.rating = int(request.POST["rating"])
     application.save()
     return render_app(request, app_pk)
+
 
 @login_required
 def assign_user(request):
@@ -139,4 +144,3 @@ def assign_user(request):
         return JsonResponse(success)
     else:
         return render_app(request, int(request.POST['app_pk']))
-

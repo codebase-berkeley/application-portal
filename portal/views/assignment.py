@@ -1,14 +1,9 @@
 from django.shortcuts import render
-from django.shortcuts import redirect
-from django.http import HttpResponse
-from portal.models import *
-from portal.models import Question, Answer
-from portal.models import Category, Application
+from portal.models import Category, Application, Assignment
 from portal.views.application import render_app
-import ast
-import json, requests
 from .utils import get_dashboard_context
 from django.contrib.auth.decorators import login_required
+
 
 @login_required
 def show_assignments(request):

@@ -23,6 +23,7 @@ def form(request):
     context["questions"] = questions_and_options
     return render(request, "portal/question_forms/edit_form.html", context)
 
+
 @login_required
 def create_question(request):
     question_text = request.POST.get("question_text")
@@ -40,6 +41,7 @@ def create_question(request):
         q = Paragraph.create(question_text)
     q.save()
     return redirect('portal:form')
+
 
 @login_required
 def delete_question(request):
