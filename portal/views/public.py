@@ -15,7 +15,7 @@ def display_app(request):
         questions = Question.objects.all()
         for question in questions:
             questions_and_options.append([question, question.get_options_list()])
-        return render(request, "portal/application_views/apply.html", {"questions_and_options": questions_and_options})
+        return render(request, "portal/public_application/apply.html", {"questions_and_options": questions_and_options})
 
 
 def save_app(request):
@@ -55,4 +55,4 @@ def save_app(request):
     new_assignment.exec_user = User.objects.get(pk=least_assigned)
     new_assignment.applicant = app
     new_assignment.save()
-    return render(request, "portal/application_views/thanks.html")
+    return render(request, "portal/public_application/thanks.html")

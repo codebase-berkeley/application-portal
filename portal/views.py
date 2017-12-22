@@ -5,10 +5,6 @@ from portal.models import Question
 from portal.models import Category, Application
 import ast
 
-
-def advanced_hello(request, first_name):
-    return render(request, "portal/hello.html", { "first_name": first_name })
-
   
 def render_app(request,app_pk):
     application = Application.objects.get(pk = app_pk)
@@ -32,7 +28,7 @@ def render_app(request,app_pk):
     "qa_tuple":qa_tuple,
     "comments": comments,
     "answers": answers}
-    return render(request, "portal/application.html", dict_out)
+    return render(request, "portal/dashboard/application.html", dict_out)
   
 def str_to_list(txt):
     return [a.replace("'", "") for a in txt[1:-1].split(',')]
@@ -86,14 +82,10 @@ def edit_question(request, pk=''):
     question.options = options
     question.save()
     return redirect('portal:form')
-
-def testcategories(request):
-    listy = list(Category.objects.all())
-    apps = list(Application.objects.all())
-    return render(request, "portal/testcategories.html", {"categories": listy, 'apps': apps})
+    
 
 def dashboard(request):
     list_cat = list(Category.objects.all())
     list_app = list(Application.objects.all())
-    return render(request, "portal/dashboard.html", {"list_cat": list_cat, "list_app": list_app})
+    return render(request, "portal/dashboard/dashboard-skeleton.html", {"list_cat": list_cat, "list_app": list_app})
 

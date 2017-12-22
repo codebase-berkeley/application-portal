@@ -79,7 +79,7 @@ def render_app(request, app_pk):
     context["read"] = Application.objects.get(pk = app_pk).read
     context["list_user"] = list_user
     context["assigned_users"] = assigned_users
-    return render(request, "portal/application.html", context)
+    return render(request, "portal/dashboard/application.html", context)
 
 @login_required
 def create_comment(request, app_pk):

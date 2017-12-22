@@ -18,4 +18,4 @@ def show_assignments(request):
     	if assignment.exec_user == request.user:
     		my_assigns.append(assignment)
     context["my_assigns"] = my_assigns
-    return render(request, "portal/myassignments.html", context)
+    return render(request, "portal/dashboard/myassignments.html", context)

@@ -37,25 +37,12 @@
 			{% for category in list_cat %}
 			<div class="category">
 				<div class="category_text">
-					{% if category == chosencat %}
 					<form action="{% url 'portal:edit_category' category.pk %}" method="post">
 						{% csrf_token %}
 	    				<input id="c_text" type="text" name="cat_name" value="{{ category.name }}"> <input type="submit" value="ok"></p>
-	    			{% else %}
-	    			<a href="{% url 'portal:delete_category' category.pk %}">
-					    <button type="submit" class="delete-button">
-					    <img src="{% static 'images/trash-2.svg' %}" height = "12em" width = "10em">
-					    </button>
-					<a>
-	    			<a href="{% url 'portal:edit_category' category.pk %}">
-					    <button type="submit" class="edit-button">
-					    <img src="{% static 'images/edit-2.svg' %}" height = "12em" width = "10em">
-					    </button>
-					</a>
-					<a href = "/category/{{category.pk}}">{{ category }}</a>
-					{% endif %}
 				</div>
 				</div>
+			<!-- otherwise display rest as normal -->
 			{% endfor %}
 			<div class="new_category">
 				<div class="category_text">
@@ -73,32 +60,36 @@
 
 
 		<div class="searchbar">
-
-				<!-- <div class="applicant_name">
+			<div class="selectall">
+				<div class="selection_box">
+				</div>
+				<div class="applicant_name">
 					Select All
-				</div> -->
-
-
-				<i id="searchicon" class="fa fa-search"></i>
-      	<input type="text" class="searchTerm" placeholder="Search Applications...">
-
+				</div>
+			</div>
+			<span>
+			<div class="wrapper-search">
+   			<div class="search">
+      		<input type="text" class="searchTerm" placeholder="Search Applicants...">
+					<i id="searchicon" class="fa fa-search"></i>
+     			</button>
+   			</div>
+			</div>
+			<div class="wrapper-dropdown">
 				<div class="dropdown">
- 						<button class="dropbtn" style="height:35px;width:85px;font-size:10px">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
+ 						<button class="dropbtn">Move to Category <i class="fa fa-angle-down" aria-hidden="true"></i></button>
  						<div class="dropdown-content">
 							{% for cat in list_cat %}
 							<a href="#">{{ cat }}</a>
 							{% endfor %}
  					</div>
 				</div>
+			</div>
+			<div class ="wrapper-publicform">
+				<button class="dropbtn">View Public Form</button>
+			</div>
 
-
-				<button class="dropbtn" style="height:35px;width:85px;font-size:10px">View Public Form</button>
-
-				<!-- <div class="selectall">
-					<div class="selection_box" Select All>Select All</div>
-				</div> -->
-
-		</div>
+			</span>
 		</div>
 
 
