@@ -110,45 +110,4 @@
     	<a href="{% url 'portal:display_app' %}"><button class="dropbtn" >View Public Form</button></a>
 	</div>
 
-<script>
-	$(".catElemDashboard").on("click", function(event) {
-    event.preventDefault();
-
-    var currcat_pk = $(this).val();
-    var selected = [];
-	$('#selected_apps input:checked').each(function() {
-    	selected.push($(this).val());
-	});
-
-	console.log(selected);
-
-    var data = {
-      app_pks: selected,
-      cat_pk: currcat_pk,
-      csrfmiddlewaretoken: "{{ csrf_token }}"
-    }
-
-    console.log(data);
-
-    $.post("/portal/assign_multiple_category/", data, function(res) {
-      event.preventDefault();
-      if (res.success) {
-
-      	console.log("success")
-
-      	var all_cat = document.getElementsByClassName("category_pks");
-
-        for (var i=0; i<all_cat.length;i++) {
-          $("#dash"+all_cat[i].value).children("i").remove();
-        }
-
-        $("#dash"+currcat_pk).prepend("<i class='fa fa-check' aria-hidden='true'></i>");   
-      }
-
-    }, "JSON") 
-
-  });
-</script>
-
-
 {% endblock content %}

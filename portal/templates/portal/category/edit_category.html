@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 {% endblock %}
 
-
 {% block content %}
 	<div class="clicktoedit">
 		<img id="edit" src="{% static 'images/file-text.svg' %}">
@@ -108,19 +107,5 @@
 			{% endfor %}
 		</div>
 
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script>
-	$(document).ready(function() {
-		$("div.selection_box").click(function() {
-			if ($(this).find('img').length) {
-				$(this).html('');
-			} else {
-				$(this).html('<img src="{% static "images/check.svg" %}" width="17px" height="17px">');
-			}
-		});
-	});
-	</script>
-
-
+<script type="text/javascript" src="{% static 'scripts/checkbox.js' %}"></script>
 {% endblock %}
