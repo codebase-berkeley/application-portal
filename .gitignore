@@ -112,3 +112,8 @@ media
 
 *.DS_Store
 .DS_Store
+
+# CLIENT javascript stuff
+client/node_modules
+client/src/constants/Config.js
+client/npm-debug.log
