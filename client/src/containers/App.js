@@ -5,6 +5,9 @@ import { initAuth } from "../actions/AuthedActions";
 import { initEnv } from "../actions/EnvActions";
 import { initNav } from "../actions/NavActions";
 
+import DashboardContainer from "../containers/DashboardContainer";
+import NavContainer from "../containers/NavContainer";
+
 
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -34,6 +37,8 @@ class App extends Component {
         const { height, isMobile, width } = this.props;
         return (
             <div>
+                <NavContainer />
+                <DashboardContainer />
                 {this.renderContent()}
             </div>
         );
