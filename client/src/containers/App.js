@@ -25,21 +25,12 @@ class App extends Component {
         dispatch(initNav()); //set browser back buttons and history to work with the app.
     }
 
-    renderContent() {
-        const { path } = this.props;
-        switch (path[0]) {
-            default:
-                return (<div></div>);
-        }
-    }
-
     render() {
         const { height, isMobile, width } = this.props;
         return (
             <div>
                 <NavContainer />
                 <DashboardContainer />
-                {this.renderContent()}
             </div>
         );
     }

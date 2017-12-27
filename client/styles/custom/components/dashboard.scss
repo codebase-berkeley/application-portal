@@ -1,0 +1,11 @@
+.dash {
+  background-color: $blue-mid;
+  color: white;
+  height: 100%;
+  &-body {
+    .container {
+      height: 100%;
+      @include flex(flex-start, space-between);
+    }
+  }
+}

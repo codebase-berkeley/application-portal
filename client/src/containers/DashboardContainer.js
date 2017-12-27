@@ -1,25 +1,84 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 
-import Dashboard from "../components/Dashboard";
+import Link from "../components/Link";
+import Popover from "../components/Popover";
+import DashToolbar from "../components/DashToolbar";
+import DashSidebar from "../components/DashSidebar";
+import ApplicationView from "../components/ApplicationView";
+import ApplicationList from "../components/ApplicationList";
+import FormView from "../components/FormView";
 
-const propTypes = {};
+import { fetchForms } from "../actions/FormActions";
+
+const propTypes = {
+  categories: PropTypes.object.isRequired,
+  dashboard: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  forms: PropTypes.object.isRequired,
+  nav: PropTypes.object.isRequired,
+};
 
 class DashboardContainer extends Component {
-    render() {
-        return <Dashboard {...this.props} />;
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+      const { dispatch } = this.props;
+      //fetch the forms to be displayed on the dashboard.
+      dispatch(fetchForms());
     }
+
+  renderContent() {
+    const { nav, dispatch } = this.props;
+    const { path } = nav.route;
+    switch (path[0]) {
+      case "dashboard":
+        return <ApplicationList dispatch={dispatch} />;
+      case "application":
+        return <ApplicationView dispatch={dispatch} />;
+      case "form":
+        return <FormView dispatch={dispatch} />;
+      default:
+        return (<div></div>);
+    }
+  }
+
+  render() {
+    const { categories, dashboard, dispatch, forms, nav } = this.props;
+    const { currentFormId } = dashboard;
+    const currentForm = currentFormId ? forms[currentFormId] : null;
+
+    return (
+      <div>
+        <DashToolbar {...this.props} />
+        <div className="dash-body">
+          <div className="container clearfix">
+            <DashSidebar
+              categories={categories}
+              form={currentForm}
+              dispatch={dispatch}
+              nav={nav} />
+            {this.renderContent()}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 DashboardContainer.propTypes = propTypes;
 
 function mapStateToProps(state) {
-    const { env, nav } = state;
-    const { isMobile } = env;
+    const { dashboard, entities, nav } = state;
+    const { categories, forms } = entities;
 
     return {
-        isMobile,
-        nav,
+      categories,
+      dashboard,
+      forms,
+      nav,
     };
 }
 

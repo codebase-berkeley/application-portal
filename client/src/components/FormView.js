@@ -3,10 +3,16 @@ import Link from "../components/Link";
 import Popover from "../components/Popover";
 
 const propTypes = {
-    dispatch: PropTypes.func.isRequired,
+  form: PropTypes.object.isRequired, // the form object to be displayed.
+  dispatch: PropTypes.func.isRequired,
 };
 
-class Inbox extends Component {
+/*
+FormView Component
+
+View and edit page for an application form.
+*/
+class FormView extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,6 +25,6 @@ class Inbox extends Component {
   }
 }
 
-Inbox.propTypes = propTypes;
+FormView.propTypes = propTypes;
 
-export default Inbox;
+export default FormView;

@@ -12,7 +12,7 @@ const propTypes = {
 class Nav extends Component {
     constructor(props) {
         super(props);
-        
+
     }
 
     /*
@@ -67,7 +67,7 @@ class Nav extends Component {
                   <Link
                     className="nav-item-link active"
                     dispatch={dispatch}
-                    route={{ path: ["portal", "dashboard"] }}
+                    route={{ path: ["dashboard"] }}
                   >
                     BearApps
                   </Link>

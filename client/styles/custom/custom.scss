@@ -23,6 +23,7 @@ svg,
 path,
 g,
 canvas {
+	font-family: sans-serif;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -34,6 +35,10 @@ canvas {
 	position: relative;
 }
 
+@import 'components/button';
+@import 'components/dashboard';
+@import 'components/dashsidebar';
+@import 'components/dashtoolbar';
 @import 'components/link';
 @import 'components/nav';
 @import 'components/popover';
