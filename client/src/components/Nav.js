@@ -69,7 +69,7 @@ class Nav extends Component {
                     dispatch={dispatch}
                     route={{ path: ["dashboard"] }}
                   >
-                    BearApps
+                    BEARAPPS
                   </Link>
                 </div>
                 <div className="nav-pull-right">

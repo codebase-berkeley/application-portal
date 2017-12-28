@@ -35,6 +35,10 @@ canvas {
 	position: relative;
 }
 
+body {
+	background-color: $blue-off-white;
+}
+
 @import 'components/button';
 @import 'components/dashboard';
 @import 'components/dashsidebar';

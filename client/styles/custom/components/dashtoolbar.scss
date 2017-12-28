@@ -1,8 +1,12 @@
 .dash-bar {
   height: 60px;
-  background-color: $blue-mid;
-  color: white;
+  color: $blue-mid;
   border-bottom: 1px solid $grey-off-white;
+
+  .btn {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
   .container {
     height: 100%;

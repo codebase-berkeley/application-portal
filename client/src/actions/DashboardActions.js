@@ -6,3 +6,10 @@ export function changeCurrentFormId(formId) {
     formId
   };
 }
+
+export function changeCurrentCategoryId(categoryId) {
+  return {
+    type: types.CHANGE_CURRENT_CATEGORY_ID,
+    categoryId,
+  };
+}

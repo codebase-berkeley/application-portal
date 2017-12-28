@@ -4,7 +4,7 @@ import Popover from "../components/Popover";
 
 const propTypes = {
   applications: PropTypes.object.isRequired, // set of application entities by ID
-  applicationList: PropTypes.arrayOf(PropTypes.number).isRequired, // array of application IDs to be displayed in order
+  applicationIds: PropTypes.arrayOf(PropTypes.number).isRequired, // array of application IDs to be displayed in order
   dispatch: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired, // set of user entities by ID
 };
@@ -21,9 +21,19 @@ class ApplicationList extends Component {
   }
 
   render() {
+    const { applications, applicationIds } = this.props;
+    const applicationList = applicationIds.map((applicationId) => {
+      const application = applications[applicationId];
+      return (
+        <li key={applicationId}>
+          {`${application.first_name} ${application.last_name}`}
+        </li>
+      );
+    });
     return (
-      <div>
-      </div>
+      <ul>
+        {applicationList}
+      </ul>
     );
   }
 }

@@ -12,6 +12,7 @@ import FormView from "../components/FormView";
 import { fetchForms } from "../actions/FormActions";
 
 const propTypes = {
+  applications: PropTypes.object.isRequired,
   categories: PropTypes.object.isRequired,
   dashboard: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
@@ -31,11 +32,19 @@ class DashboardContainer extends Component {
     }
 
   renderContent() {
-    const { nav, dispatch } = this.props;
+    const { applications, categories, dashboard, nav, dispatch } = this.props;
     const { path } = nav.route;
     switch (path[0]) {
       case "dashboard":
-        return <ApplicationList dispatch={dispatch} />;
+        const { currentCategoryId } = dashboard;
+        const currentCategory = currentCategoryId ? categories[currentCategoryId] : null;
+        const applicationIds = currentCategory ? currentCategory.applications : [];
+        return (
+          <ApplicationList
+          applications={applications}
+          applicationIds={applicationIds}
+          dispatch={dispatch} />
+        );
       case "application":
         return <ApplicationView dispatch={dispatch} />;
       case "form":
@@ -57,6 +66,7 @@ class DashboardContainer extends Component {
           <div className="container clearfix">
             <DashSidebar
               categories={categories}
+              dashboard={dashboard}
               form={currentForm}
               dispatch={dispatch}
               nav={nav} />
@@ -72,9 +82,10 @@ DashboardContainer.propTypes = propTypes;
 
 function mapStateToProps(state) {
     const { dashboard, entities, nav } = state;
-    const { categories, forms } = entities;
+    const { applications, categories, forms } = entities;
 
     return {
+      applications,
       categories,
       dashboard,
       forms,

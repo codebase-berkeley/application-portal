@@ -15,20 +15,23 @@ export function fetchCategories(formId) {
   return (dispatch, getState) => {
     const { authed } = getState();
 
-    const receivedCategories = EXAMPLE_CATEGORIES.categories;
-    const formId = EXAMPLE_CATEGORIES.form;
-    /*
-    Preprocess the categories in the category list and normalize the results.
-    */
-    const normalized = normalize(receivedCategories, arrayOf(categorySchema));
-    const categoryIds = normalized.result;
+    // Replace the following line with a request to the server for categories.
+    return Promise.resolve(EXAMPLE_CATEGORIES).then((json) => {
+      const receivedCategories = json.categories;
+      const formId = json.form;
+      /*
+      Preprocess the categories in the category list and normalize the results.
+      */
+      const normalized = normalize(receivedCategories, arrayOf(categorySchema));
+      const categoryIds = normalized.result;
 
-    dispatch(receiveCategories({
-      categoryIds,
-      formId,
-      entities: normalized.entities
-    }));
-  }
+      dispatch(receiveCategories({
+        categoryIds,
+        formId,
+        entities: normalized.entities
+      }));
+    });
+  };
 }
 
 /*

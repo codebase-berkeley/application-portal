@@ -5,6 +5,7 @@ import Popover from "../components/Popover";
 const propTypes = {
   form: PropTypes.object, // the form object associated with the sidebar's categories. if null, display a placeholder.
   categories: PropTypes.object.isRequired, //set of category entities.
+  dashboard: PropTypes.object.isRequired, // dashboard view info.
   dispatch: PropTypes.func.isRequired,
   nav: PropTypes.object.isRequired,
 };
@@ -18,12 +19,14 @@ class DashSidebar extends Component {
   }
 
   renderCategories() {
-    const { form, categories } = this.props;
+    const { form, categories, dashboard } = this.props;
     if (form) {
       return form.categoryIds.map((categoryId) => {
         const category = categories[categoryId];
         return (
-          <div key={category.name}>
+          <div
+            key={category.name}
+            className={`dash-side-cat ${category.id == dashboard.currentCategoryId ? "active" : ""}`}>
             {category.name}
           </div>
         );

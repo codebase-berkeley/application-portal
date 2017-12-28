@@ -1,5 +1,8 @@
 .nav {
   height: 80px;
+  background-color: $blue-mid;
+  color: white;
+
   .container {
     height: 100%;
     @include flex(center, space-between);
@@ -10,13 +13,14 @@
     display: inline-block;
     color: rgba(255,255,255, 0.5);
     letter-spacing: 2px;
+    font-weight: bold;
 
     &:hover {
       text-decoration: none;
     }
 
     &.active {
-      color: $bronze;
+      color: white;
       text-decoration: none;
     }
   }

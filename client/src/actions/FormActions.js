@@ -5,7 +5,7 @@ import * as types from "../constants/ActionTypes";
 import { EXAMPLE_FORMS } from "../constants/ExampleData";
 
 import { fetchCategories } from "../actions/CategoryActions";
-import { changeCurrentFormId } from "../actions/DashboardActions";
+import { changeCurrentFormId, changeCurrentCategoryId } from "../actions/DashboardActions";
 
 /*
 action fetchForms
@@ -21,8 +21,12 @@ export function fetchForms() {
     const normalized = normalize(receivedForms, arrayOf(formSchema));
     const formIds = normalized.result;
     dispatch(receiveForms({ formIds, entities: normalized.entities }));
-    dispatch(fetchCategories(formIds[0]));
-    dispatch(changeCurrentFormId(formIds[0]));
+    dispatch(fetchCategories(formIds[0])).then(() => {
+      const { forms } = getState().entities;
+      const firstCategoryId = forms[formIds[0]].categoryIds[0];
+      dispatch(changeCurrentFormId(formIds[0]));
+      dispatch(changeCurrentCategoryId(firstCategoryId));
+    });
   }
 }
 
