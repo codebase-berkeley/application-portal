@@ -1,8 +1,8 @@
-import * as types from "../constants/ActionTypes";
+import * as types from '../constants/ActionTypes';
 
 const initalState = {
-    currentFormId: null, // the id of the current form being displayed.
-    currentCategoryId: null, // the id of the current category being displayed.
+  currentFormId: null, // the id of the current form being displayed.
+  currentCategoryId: null, // the id of the current category being displayed.
 };
 
 export default function dashboard(state = initalState, action) {

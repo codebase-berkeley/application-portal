@@ -1,11 +1,11 @@
-import { arrayOf, normalize } from "normalizr";
-import { formSchema } from "../constants/schemas";
+import { arrayOf, normalize } from 'normalizr';
+import { formSchema } from '../constants/schemas';
 
-import * as types from "../constants/ActionTypes";
-import { EXAMPLE_FORMS } from "../constants/ExampleData";
+import * as types from '../constants/ActionTypes';
+import { EXAMPLE_FORMS } from '../constants/ExampleData';
 
-import { fetchCategories } from "../actions/CategoryActions";
-import { changeCurrentFormId, changeCurrentCategoryId } from "../actions/DashboardActions";
+import { fetchCategories } from '../actions/CategoryActions';
+import { changeCurrentFormId, changeCurrentCategoryId } from '../actions/DashboardActions';
 
 /*
 action fetchForms
@@ -27,7 +27,7 @@ export function fetchForms() {
       dispatch(changeCurrentFormId(formIds[0]));
       dispatch(changeCurrentCategoryId(firstCategoryId));
     });
-  }
+  };
 }
 
 /*

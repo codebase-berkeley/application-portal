@@ -1,4 +1,4 @@
-import * as types from "../constants/ActionTypes";
+import * as types from '../constants/ActionTypes';
 
 /*
 Creates a pagination reducer for a given paginated entity.
@@ -18,7 +18,7 @@ export default function createPaginationReducer(mapActionToKey) {
           ...state,
           [key]: {
             ...state[key],
-            currentPage: action.page
+            currentPage: action.page,
           },
         };
       case types.REQUEST_PAGE:

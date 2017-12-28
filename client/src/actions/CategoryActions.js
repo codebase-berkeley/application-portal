@@ -1,8 +1,8 @@
-import { arrayOf, normalize } from "normalizr";
-import { categorySchema, questionSchema } from "../constants/schemas";
+import { arrayOf, normalize } from 'normalizr';
+import { categorySchema, questionSchema } from '../constants/schemas';
 
-import * as types from "../constants/ActionTypes";
-import { EXAMPLE_CATEGORIES } from "../constants/ExampleData";
+import * as types from '../constants/ActionTypes';
+import { EXAMPLE_CATEGORIES } from '../constants/ExampleData';
 
 
 /*
@@ -28,7 +28,7 @@ export function fetchCategories(formId) {
       dispatch(receiveCategories({
         categoryIds,
         formId,
-        entities: normalized.entities
+        entities: normalized.entities,
       }));
     });
   };

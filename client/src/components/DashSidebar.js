@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from "react";
-import Link from "../components/Link";
-import Popover from "../components/Popover";
+import React, { Component, PropTypes } from 'react';
+import Link from '../components/Link';
+import Popover from '../components/Popover';
 
 const propTypes = {
   form: PropTypes.object, // the form object associated with the sidebar's categories. if null, display a placeholder.
-  categories: PropTypes.object.isRequired, //set of category entities.
+  categories: PropTypes.object.isRequired, // set of category entities.
   dashboard: PropTypes.object.isRequired, // dashboard view info.
   dispatch: PropTypes.func.isRequired,
   nav: PropTypes.object.isRequired,
@@ -26,7 +26,8 @@ class DashSidebar extends Component {
         return (
           <div
             key={category.name}
-            className={`dash-side-cat ${category.id == dashboard.currentCategoryId ? "active" : ""}`}>
+            className={`dash-side-cat ${category.id == dashboard.currentCategoryId ? 'active' : ''}`}
+          >
             {category.name}
           </div>
         );

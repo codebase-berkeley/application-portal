@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack -p --config ./webpack.prod.config.js",
-    "lint": "eslint scripts",
+    "lint": "eslint --fix src",
     "start": "webpack-dev-server --progress --colors --hot --content-base ./public --config ./webpack.config.js --host 0.0.0.0",
     "test": "mocha --compilers js:babel-core/register --recursive -r mock-local-storage",
     "prebuild": "sed -i.bak \"s/'.*'/'${SOUND_REDUX_PROD:-XX}'/\" ./src/constants/config.js",

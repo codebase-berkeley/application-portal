@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from "react";
-import Link from "../components/Link";
-import Popover from "../components/Popover";
+import React, { Component, PropTypes } from 'react';
+import Link from '../components/Link';
+import Popover from '../components/Popover';
 
 const propTypes = {
   application: PropTypes.object.isRequired, // the application object to be displayed.
