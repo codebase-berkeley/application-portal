@@ -39,6 +39,7 @@ body {
 	background-color: $blue-off-white;
 }
 
+@import 'components/applicationlist';
 @import 'components/button';
 @import 'components/dashboard';
 @import 'components/dashsidebar';

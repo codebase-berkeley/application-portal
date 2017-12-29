@@ -25,15 +25,17 @@ class ApplicationList extends Component {
     const applicationList = applicationIds.map((applicationId) => {
       const application = applications[applicationId];
       return (
-        <li key={applicationId}>
+        <li key={applicationId} className="applist-item">
           {`${application.first_name} ${application.last_name}`}
         </li>
       );
     });
     return (
-      <ul>
-        {applicationList}
-      </ul>
+      <div className="applist">
+        <ul>
+          {applicationList}
+        </ul>
+      </div>
     );
   }
 }
