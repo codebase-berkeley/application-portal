@@ -3,15 +3,23 @@ from django.contrib.auth.models import User
 import ast
 
 
-# Create your models here.
+class Form(models.Model):
+    name = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    archived = models.BooleanField()
+    published = models.BooleanField()
+
+
 class Category(models.Model):
     name = models.CharField(max_length=40)
+    form = models.ForeignKey(Form, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
 
 
 class Application(models.Model):
+    form = models.ForeignKey(Form, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     email = models.CharField(max_length=40)
@@ -57,6 +65,7 @@ class Question(models.Model):
         :return: True if the question is a <Question class>, else false.
         """
         return question.question_type == cls.__name__
+    form = models.ForeignKey(Form, on_delete=models.CASCADE)
     question_text = models.TextField()
     question_type = models.TextField() # added this to make determining the Question easier. Use same string as the class name
     options = models.TextField(null=True, blank=True)
