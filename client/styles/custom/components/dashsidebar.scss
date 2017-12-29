@@ -1,0 +1,11 @@
+.dash-side {
+  flex: 1;
+  padding-top: 15px;
+  &-cat {
+    line-height: 150%;
+    &.active {
+      font-weight: bold;
+      color: $blue-mid;
+    }
+  }
+}

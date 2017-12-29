@@ -1,0 +1,50 @@
+@import 'constants/constants';
+@import 'utils/utils';
+
+//usual reset stuff
+*,
+*:before,
+*:after,
+ul,
+li,
+a,
+button,
+input,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+img,
+image,
+svg,
+path,
+g,
+canvas {
+	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: transparent;
+	border: none;
+	text-decoration: none;
+	user-select: none;
+	list-style: none;
+	position: relative;
+}
+
+body {
+	background-color: $blue-off-white;
+}
+
+@import 'components/applicationlist';
+@import 'components/button';
+@import 'components/dashboard';
+@import 'components/dashsidebar';
+@import 'components/dashtoolbar';
+@import 'components/link';
+@import 'components/nav';
+@import 'components/popover';
+@import 'components/reset';

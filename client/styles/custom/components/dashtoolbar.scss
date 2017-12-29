@@ -1,0 +1,37 @@
+.dash-bar {
+  height: 60px;
+  color: $blue-mid;
+  border-bottom: 1px solid $grey-off-white;
+
+  .btn {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .container {
+    height: 100%;
+    @include flex(center, space-between);
+  }
+
+  &-sec {
+    &-sm {
+      flex: 1;
+    }
+    &-md {
+      flex: 2;
+    }
+    &-lg {
+      flex: 3;
+    }
+  }
+
+  &-pull-left {
+    /* Pulls content in this div all the way to the left. */
+    @include flex(center, flex-start);
+  }
+
+  &-pull-right {
+    /* Pulls content in this div all the way to the right. */
+    @include flex(center, flex-end);
+  }
+}
