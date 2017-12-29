@@ -1,50 +1,35 @@
 import { arrayOf, normalize } from 'normalizr';
-import { categorySchema, questionSchema } from '../constants/schemas';
+import { categorySchema, applicationSchema } from '../constants/schemas';
 
 import * as types from '../constants/ActionTypes';
-import { EXAMPLE_CATEGORIES } from '../constants/ExampleData';
+import { EXAMPLE_CAT1_PAGE1, EXAMPLE_CAT2_PAGE1, EXAMPLE_CAT3_PAGE1 } from '../constants/ExampleData';
 
-
-/*
-action fetchCategories
-
-Fetches the categories for the given form.
-Each category will also come with the first page of results for applications in that category.
-*/
-export function fetchCategories(formId) {
+export function fetchCategoryPage(categoryId, page) {
   return (dispatch, getState) => {
-    const { authed } = getState();
+    const pageData = EXAMPLE_CAT1_PAGE1;
+    const normalized = normalize(pageData.applications, arrayOf(applicationSchema));
+    const ids = normalized.result;
 
-    // Replace the following line with a request to the server for categories.
-    return Promise.resolve(EXAMPLE_CATEGORIES).then((json) => {
-      const receivedCategories = json.categories;
-      const formId = json.form;
-      /*
-      Preprocess the categories in the category list and normalize the results.
-      */
-      const normalized = normalize(receivedCategories, arrayOf(categorySchema));
-      const categoryIds = normalized.result;
-
-      dispatch(receiveCategories({
-        categoryIds,
-        formId,
-        entities: normalized.entities,
-      }));
-    });
+    dispatch(receiveCategoryPage({
+      categoryId,
+      page,
+      entities: normalized.entities,
+      ids,
+    }))
   };
 }
 
-/*
-action receiveCategories
-
-Sets the categories of the given form to the ordered list categoryIds, and
-adds any associated entities.
-*/
-export function receiveCategories({ categoryIds, formId, entities }) {
+export function receiveCategoryPage({
+  categoryId, // ID of the category associated with this page.
+  page, // page number.
+  entities, // set of entities associated with the page.
+  ids, // ordered list of IDs of the items on the page.
+}) {
   return {
-    type: types.RECEIVE_CATEGORIES,
-    categoryIds,
-    formId,
+    type: types.RECEIVE_PAGE,
+    pagePrefix: `/category?id=${categoryId}&p=`,
+    page,
     entities,
+    ids,
   };
 }

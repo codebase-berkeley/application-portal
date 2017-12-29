@@ -28,11 +28,11 @@ class App extends Component {
   render() {
     const { height, isMobile, width } = this.props;
     return (
-            <div>
-                <NavContainer />
-                <DashboardContainer />
-            </div>
-        );
+      <div>
+        <NavContainer />
+        <DashboardContainer />
+      </div>
+    );
   }
 }
 

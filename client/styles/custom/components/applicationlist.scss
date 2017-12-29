@@ -1,3 +1,19 @@
 .applist {
   flex: 3;
+  &-item {
+    border-bottom: 1px solid $grey-mid;
+    padding: 12px 5px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    
+    &.unread {
+      background-color: white;
+      font-weight: bold;
+    }
+    &-checkbox {
+      margin: 0px 8px;
+    }
+  }
 }

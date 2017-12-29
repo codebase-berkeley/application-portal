@@ -13,7 +13,7 @@ const propTypes = {
 ApplicationList Component
 
 The list of applications for some category. Displays a given list of applications.
-Pagination is handled elsewhere!
+NOTE: This is a dumb component. Pagination is handled elsewhere!
 */
 class ApplicationList extends Component {
   constructor(props) {
@@ -24,9 +24,11 @@ class ApplicationList extends Component {
     const { applications, applicationIds } = this.props;
     const applicationList = applicationIds.map((applicationId) => {
       const application = applications[applicationId];
+      const itemClass = `applist-item ${application.read ? "" : "unread"}`;
       return (
-        <li key={applicationId} className="applist-item">
-          {`${application.first_name} ${application.last_name}`}
+        <li key={applicationId} className={itemClass}>
+          <input type="checkbox" className="applist-item-checkbox" />
+          <span>{`${application.first_name} ${application.last_name}`}</span>
         </li>
       );
     });

@@ -4,7 +4,6 @@ import Popover from '../components/Popover';
 
 const propTypes = {
   forms: PropTypes.object.isRequired, // set of form entities
-  dashboard: PropTypes.object.isRequired, // object describing current dashboard state
   dispatch: PropTypes.func.isRequired,
   nav: PropTypes.object.isRequired,
 };
@@ -14,16 +13,54 @@ class DashToolbar extends Component {
     super(props);
   }
 
+  renderFormList() {
+    const { forms, dispatch, nav } = this.props;
+    const formIds = Object.keys(forms);
+
+    // sort by descending date order, newest first
+    formIds.sort((a, b) => {
+      if (a.created_at > b.created_at) {
+        return -1;
+      } else if (a.created_at < b.created_at) {
+        return 1;
+      }
+      return 0;
+    });
+    return formIds.map((formId) => {
+      const defaultCategoryId = forms[formId].categories[0];
+      return (
+        <li key={formId}>
+          <Link
+            className="dash-bar-form-select-dropdown-item"
+            dispatch={dispatch}
+            route={{ path: ["dashboard"], query: { formId: formId, categoryId: defaultCategoryId }}}
+          >
+            {forms[formId].name}
+          </Link>
+        </li>
+      );
+
+    });
+  }
+
   render() {
-    const { forms, dashboard } = this.props;
-    const { currentFormId } = dashboard;
+    const { forms, nav } = this.props;
+    const { query } = nav.route;
+    const currentFormId = query && ("formId" in query) ? query.formId : null;
     return (
       <div className="dash-bar">
         <div className="container clearfix">
           <div className="dash-bar-sec-sm dash-bar-pull-left">
-            <div className="dash-bar-form-name">
-              {currentFormId ? forms[currentFormId].name : null}
-            </div>
+            <Popover className="dash-bar-form-select">
+              <div className="dash-bar-form-name">
+                <span>{currentFormId ? forms[currentFormId].name : null}</span>
+                <i className="icon ion-chevron-down" />
+                <i className="icon ion-chevron-up" />
+              </div>
+              <ul className="dash-bar-form-select-dropdown popover-content">
+                {this.renderFormList()}
+              </ul>
+            </Popover>
           </div>
           <div className="dash-bar-sec-lg dash-bar-pull-left">
             <div className="dash-bar-control">

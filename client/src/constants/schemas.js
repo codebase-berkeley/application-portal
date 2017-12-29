@@ -5,11 +5,9 @@ const category = new Schema('categories');
 const question = new Schema('questions');
 const form = new Schema('forms');
 
-category.define({
-  applications: arrayOf(application),
-});
 form.define({
   questions: arrayOf(question),
+  categories: arrayOf(category),
 });
 
 export const applicationSchema = application;
