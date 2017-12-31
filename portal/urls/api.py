@@ -4,6 +4,5 @@ from django.contrib.auth import views as auth_views
 import portal.views as views
 
 urlpatterns = [
-    url(r'apply', views.display_app, name="display_app"),
-    url(r'thanks', views.save_app, name="save_app"),
+    url(r'forms', views.forms, name="forms"),
 ]
