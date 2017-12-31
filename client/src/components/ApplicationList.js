@@ -21,14 +21,19 @@ class ApplicationList extends Component {
   }
 
   render() {
-    const { applications, applicationIds } = this.props;
+    const { applications, applicationIds, dispatch } = this.props;
     const applicationList = applicationIds.map((applicationId) => {
       const application = applications[applicationId];
       const itemClass = `applist-item ${application.read ? "" : "unread"}`;
       return (
         <li key={applicationId} className={itemClass}>
           <input type="checkbox" className="applist-item-checkbox" />
-          <span>{`${application.first_name} ${application.last_name}`}</span>
+          <Link
+            dispatch={dispatch}
+            route={{ path: ["application", applicationId.toString()]}}
+            >
+            <span>{`${application.first_name} ${application.last_name}`}</span>
+          </Link>
         </li>
       );
     });

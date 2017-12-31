@@ -14,6 +14,7 @@ export const EXAMPLE_FORMS = {
           'question_text': 'Check the classes you have taken:',
           'question_type': 'Checkbox',
           'options': "['CS61A', 'CS61B', 'CS61C']",
+          'order_number': 0,
         },
         {
           'id': 2,
@@ -21,6 +22,7 @@ export const EXAMPLE_FORMS = {
           'question_text': 'Why CodeBase?',
           'question_type': 'Paragraph',
           'options': '',
+          'order_number': 1,
         },
       ],
       'categories': [
@@ -53,6 +55,7 @@ export const EXAMPLE_FORMS = {
           'question_text': 'Check the classes you have taken:',
           'question_type': 'Checkbox',
           'options': "['CS61A', 'CS61B', 'CS61C']",
+          'order_number': 0,
         },
         {
           'id': 4,
@@ -60,6 +63,7 @@ export const EXAMPLE_FORMS = {
           'question_text': 'Why CodeBase?',
           'question_type': 'Paragraph',
           'options': '',
+          'order_number': 1,
         },
       ],
       'categories': [
@@ -92,6 +96,7 @@ export const EXAMPLE_FORMS = {
           'question_text': 'Check the classes you have taken:',
           'question_type': 'Checkbox',
           'options': "['CS170', 'CS162', 'CS189']",
+          'order_number': 1,
         },
       ],
       'categories': [
@@ -119,6 +124,7 @@ export const EXAMPLE_FORMS = {
           'question_text': "What's something that technology could improve?",
           'question_type': 'Paragraph',
           'options': '',
+          'order_number': 1,
         },
       ],
       'categories': [
@@ -139,8 +145,11 @@ export const EXAMPLE_FORMS = {
 
 /*
 Page 1 of applications for category 1.
+"/applications?category=1&page=1"
 */
 export const EXAMPLE_CAT1_PAGE1 = {
+  'page': 1,
+  'num_pages': 3,
   'applications': [
     {
       'id': 1,
@@ -211,74 +220,82 @@ export const EXAMPLE_CAT1_PAGE1 = {
   ]
 };
 
-export const EXAMPLE_CAT1_PAGE2 = [
-  {
-    'id': 4,
-    'category': 2,
-    'email': 'akhare@berkeley.edu',
-    'first_name': 'Abhishyant',
-    'last_name': 'Khare',
-    'read': true,
-    'answers': {
-      '7': {
-        'id': 7,
-        'application': 4,
-        'question': 1,
-        'answer_text': "['CS61A', 'CS61B', 'CS61C']",
-      },
-      '8': {
-        'id': 8,
-        'application': 4,
-        'question': 2,
-        'answer_text': 'Because I am the president',
-      },
-    },
-  },
-  {
-    'id': 5,
-    'category': 2,
-    'email': 'ivonliu@berkeley.edu',
-    'first_name': 'Ivon',
-    'last_name': 'Liu',
-    'read': true,
-    'answers': {
-      '9': {
-        'id': 9,
-        'application': 5,
-        'question': 1,
-        'answer_text': "['CS61A', 'CS61B']",
-      },
-      '10': {
-        'id': 10,
-        'application': 5,
-        'question': 2,
-        'answer_text': 'I do whatever the fuck I want',
+export const EXAMPLE_CAT1_PAGE2 = {
+  'page': 2,
+  'num_pages': 3,
+  'applications': [
+    {
+      'id': 4,
+      'category': 2,
+      'email': 'akhare@berkeley.edu',
+      'first_name': 'Abhishyant',
+      'last_name': 'Khare',
+      'read': true,
+      'answers': {
+        '7': {
+          'id': 7,
+          'application': 4,
+          'question': 1,
+          'answer_text': "['CS61A', 'CS61B', 'CS61C']",
+        },
+        '8': {
+          'id': 8,
+          'application': 4,
+          'question': 2,
+          'answer_text': 'Because I am the president',
+        },
       },
     },
-  },
-];
+    {
+      'id': 5,
+      'category': 2,
+      'email': 'ivonliu@berkeley.edu',
+      'first_name': 'Ivon',
+      'last_name': 'Liu',
+      'read': true,
+      'answers': {
+        '9': {
+          'id': 9,
+          'application': 5,
+          'question': 1,
+          'answer_text': "['CS61A', 'CS61B']",
+        },
+        '10': {
+          'id': 10,
+          'application': 5,
+          'question': 2,
+          'answer_text': 'I do whatever the fuck I want',
+        },
+      },
+    },
+  ]
+};
 
-export const EXAMPLE_CAT1_PAGE3 = [
-  {
-    'id': 6,
-    'category': 3,
-    'email': 'kunalkak@berkeley.edu',
-    'first_name': 'Kunal',
-    'last_name': 'Kak',
-    'read': true,
-    'answers': {
-      '11': {
-        'id': 11,
-        'application': 6,
-        'question': 1,
-        'answer_text': "['CS61B']",
-      },
-      '12': {
-        'id': 12,
-        'application': 6,
-        'question': 2,
-        'answer_text': 'Poopy butthole',
+export const EXAMPLE_CAT1_PAGE3 = {
+  'page': 3,
+  'num_pages': 3,
+  'applications': [
+    {
+      'id': 6,
+      'category': 3,
+      'email': 'kunalkak@berkeley.edu',
+      'first_name': 'Kunal',
+      'last_name': 'Kak',
+      'read': true,
+      'answers': {
+        '11': {
+          'id': 11,
+          'application': 6,
+          'question': 1,
+          'answer_text': "['CS61B']",
+        },
+        '12': {
+          'id': 12,
+          'application': 6,
+          'question': 2,
+          'answer_text': 'Poopy butthole',
+        },
       },
     },
-  },
-];
+  ]
+};

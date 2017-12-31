@@ -55,7 +55,10 @@ class DashboardContainer extends Component {
         }
 
       case 'application':
-        return <ApplicationView dispatch={dispatch} />;
+        const applicationId = path[1];
+        const application = applications[applicationId];
+        const form = forms[categories[application.category].form];
+        return <ApplicationView application={application} form={form} />;
       case 'form':
         return <FormView dispatch={dispatch} />;
       default:
