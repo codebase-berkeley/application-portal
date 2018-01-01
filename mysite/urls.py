@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic import RedirectView
+
+favicon_view = RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'), permanent=False)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^portal/', include('portal.urls', namespace='portal'))
+    url(r'^portal/', include('portal.urls', namespace='portal')),
+    url(r'^favicon\.ico$', favicon_view, name='favicon'),
 ]
