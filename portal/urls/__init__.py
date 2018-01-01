@@ -9,5 +9,5 @@ urlpatterns = url1
 urlpatterns += url2
 urlpatterns += url3
 urlpatterns += url4
-urlpatterns += url6
 urlpatterns += url5
+urlpatterns += url6
