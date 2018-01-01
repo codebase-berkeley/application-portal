@@ -1,10 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+
 import Link from '../components/Link';
 import Popover from '../components/Popover';
 
 const propTypes = {
   form: PropTypes.object.isRequired, // the form object to be displayed.
   dispatch: PropTypes.func.isRequired,
+  questions: PropTypes.object.isRequired,
 };
 
 /*
@@ -27,4 +30,12 @@ class FormView extends Component {
 
 FormView.propTypes = propTypes;
 
-export default FormView;
+function mapStateToProps(state) {
+  const { entities } = state;
+  const { questions } = entities;
+  return {
+    questions,
+  };
+}
+
+export default connect(mapStateToProps)(FormView);

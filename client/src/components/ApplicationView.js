@@ -29,9 +29,10 @@ class ApplicationView extends Component {
   renderAnswer(answer) {
     const { questions } = this.props;
     return (
-      <div>
-        <Answer answer={answer} question={questions[answer.question]} />
-      </div>
+        <Answer
+          answer={answer}
+          question={questions[answer.question]}
+          className="appview-answer" />
     );
   }
 
@@ -59,7 +60,15 @@ class ApplicationView extends Component {
     const { application } = this.props;
 
     return (
-      <div>
+      <div className="appview">
+        <div className="appview-applicant">
+          <h1 className="appview-applicant-name">
+            {`${application.first_name} ${application.last_name}`}
+          </h1>
+          <span className="appview-applicant-email">
+            {application.email}
+          </span>
+        </div>
         {this.renderAnswerList()}
       </div>
     );

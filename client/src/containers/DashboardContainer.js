@@ -55,13 +55,17 @@ class DashboardContainer extends Component {
           return <div>Loading...</div>;
         }
 
-      case 'application':
+      case 'application': {
         const applicationId = Number(query.applicationId);
         const application = applications[applicationId];
         const form = forms[query.formId];
         return <ApplicationView application={application} form={form} />;
-      case 'form':
-        return <FormView dispatch={dispatch} />;
+      }
+
+      case 'form': {
+        const form = forms[query.formId];
+        return <FormView dispatch={dispatch} form={forms[query.formId]} />;
+      }
       default:
         return (<div></div>);
     }
