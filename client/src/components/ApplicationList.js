@@ -26,15 +26,23 @@ class ApplicationList extends Component {
       const application = applications[applicationId];
       const itemClass = `applist-item ${application.read ? "" : "unread"}`;
       return (
-        <li key={applicationId} className={itemClass}>
-          <input type="checkbox" className="applist-item-checkbox" />
-          <Link
-            dispatch={dispatch}
-            route={{ path: ["application", applicationId.toString()]}}
-            >
+        <Link
+          key={applicationId}
+          dispatch={dispatch}
+          route={{
+            path: ["application"],
+            query: {
+              applicationId: applicationId.toString(),
+              formId: application.form.toString(),
+              categoryId: application.category.toString(),
+            },
+          }}
+          >
+          <li className={itemClass}>
+            <input type="checkbox" className="applist-item-checkbox" />
             <span>{`${application.first_name} ${application.last_name}`}</span>
-          </Link>
-        </li>
+          </li>
+        </Link>
       );
     });
     return (

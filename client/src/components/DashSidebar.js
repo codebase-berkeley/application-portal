@@ -28,11 +28,11 @@ class DashSidebar extends Component {
         const category = categories[categoryId];
         return (
           <Link
+            key={category.name}
             dispatch={dispatch}
             route={{ path: ["dashboard"], query: { categoryId: categoryId.toString(), formId: currentFormId }}}
           >
             <div
-              key={category.name}
               className={`dash-side-cat ${category.id == currentCategoryId ? 'active' : ''}`}>
               {category.name}
             </div>

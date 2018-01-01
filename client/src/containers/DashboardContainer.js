@@ -49,15 +49,16 @@ class DashboardContainer extends Component {
           // user went to the base dashboard URL.
           // by default, the base dashboard URL redirects to the first form and category.
           dispatch(navigateHome());
+          return;
         } else {
           // we don't have forms to redirect to, so display a placeholder.
           return <div>Loading...</div>;
         }
 
       case 'application':
-        const applicationId = path[1];
+        const applicationId = Number(query.applicationId);
         const application = applications[applicationId];
-        const form = forms[categories[application.category].form];
+        const form = forms[query.formId];
         return <ApplicationView application={application} form={form} />;
       case 'form':
         return <FormView dispatch={dispatch} />;

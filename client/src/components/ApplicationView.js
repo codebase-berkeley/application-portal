@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import Answer from '../components/Answer';
 import Link from '../components/Link';
 import Popover from '../components/Popover';
 
@@ -29,7 +30,7 @@ class ApplicationView extends Component {
     const { questions } = this.props;
     return (
       <div>
-        {answer.answer_text}
+        <Answer answer={answer} question={questions[answer.question]} />
       </div>
     );
   }
