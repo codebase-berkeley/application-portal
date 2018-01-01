@@ -13,7 +13,7 @@ export const EXAMPLE_FORMS = {
           'form': 4,
           'question_text': 'Check the classes you have taken:',
           'question_type': 'Checkbox',
-          'options': "['CS61A', 'CS61B', 'CS61C']",
+          'options': '["CS61A","CS61B","CS61C"]',
           'order_number': 0,
         },
         {
@@ -54,7 +54,7 @@ export const EXAMPLE_FORMS = {
           'form': 3,
           'question_text': 'Check the classes you have taken:',
           'question_type': 'Checkbox',
-          'options': "['CS61A', 'CS61B', 'CS61C']",
+          'options': '["CS61A","CS61B","CS61C"]',
           'order_number': 0,
         },
         {
@@ -95,7 +95,7 @@ export const EXAMPLE_FORMS = {
           'form': 2,
           'question_text': 'Check the classes you have taken:',
           'question_type': 'Checkbox',
-          'options': "['CS170', 'CS162', 'CS189']",
+          'options': '["CS170","CS162","CS189"]',
           'order_number': 1,
         },
       ],
@@ -154,6 +154,7 @@ export const EXAMPLE_CAT1_PAGE1 = {
     {
       'id': 1,
       'category': 1,
+      'form': 4,
       'email': 'andrewkchan@berkeley.edu',
       'first_name': 'Andrew',
       'last_name': 'Chan',
@@ -163,7 +164,7 @@ export const EXAMPLE_CAT1_PAGE1 = {
           'id': 1,
           'application': 1,
           'question': 1,
-          'answer_text': "['CS61A', 'CS61B']",
+          'answer_text': '["CS61A","CS61B"]',
         },
         '2': {
           'id': 2,
@@ -176,6 +177,7 @@ export const EXAMPLE_CAT1_PAGE1 = {
     {
       'id': 2,
       'category': 1,
+      'form': 4,
       'email': 'bdeleonardis@berkeley.edu',
       'first_name': 'Brian',
       'last_name': 'DeLeonardis',
@@ -185,7 +187,7 @@ export const EXAMPLE_CAT1_PAGE1 = {
           'id': 3,
           'application': 2,
           'question': 1,
-          'answer_text': "['CS61A']",
+          'answer_text': '["CS61A"]',
         },
         '4': {
           'id': 4,
@@ -198,6 +200,7 @@ export const EXAMPLE_CAT1_PAGE1 = {
     {
       'id': 3,
       'category': 1,
+      'form': 4,
       'email': 'kushrast@berkeley.edu',
       'first_name': 'Kush',
       'last_name': 'Rastogi',
@@ -207,7 +210,7 @@ export const EXAMPLE_CAT1_PAGE1 = {
           'id': 5,
           'application': 3,
           'question': 1,
-          'answer_text': "['CS61A', 'CS61B', 'CS61C']",
+          'answer_text': '["CS61A","CS61B","CS61C"]',
         },
         '6': {
           'id': 6,
@@ -226,7 +229,8 @@ export const EXAMPLE_CAT1_PAGE2 = {
   'applications': [
     {
       'id': 4,
-      'category': 2,
+      'category': 1,
+      'form': 4,
       'email': 'akhare@berkeley.edu',
       'first_name': 'Abhishyant',
       'last_name': 'Khare',
@@ -236,7 +240,7 @@ export const EXAMPLE_CAT1_PAGE2 = {
           'id': 7,
           'application': 4,
           'question': 1,
-          'answer_text': "['CS61A', 'CS61B', 'CS61C']",
+          'answer_text': '["CS61A","CS61B","CS61C"]',
         },
         '8': {
           'id': 8,
@@ -248,7 +252,8 @@ export const EXAMPLE_CAT1_PAGE2 = {
     },
     {
       'id': 5,
-      'category': 2,
+      'category': 1,
+      'form': 4,
       'email': 'ivonliu@berkeley.edu',
       'first_name': 'Ivon',
       'last_name': 'Liu',
@@ -258,7 +263,7 @@ export const EXAMPLE_CAT1_PAGE2 = {
           'id': 9,
           'application': 5,
           'question': 1,
-          'answer_text': "['CS61A', 'CS61B']",
+          'answer_text': '["CS61A","CS61B"]',
         },
         '10': {
           'id': 10,
@@ -277,7 +282,8 @@ export const EXAMPLE_CAT1_PAGE3 = {
   'applications': [
     {
       'id': 6,
-      'category': 3,
+      'category': 1,
+      'form': 4,
       'email': 'kunalkak@berkeley.edu',
       'first_name': 'Kunal',
       'last_name': 'Kak',
@@ -287,7 +293,7 @@ export const EXAMPLE_CAT1_PAGE3 = {
           'id': 11,
           'application': 6,
           'question': 1,
-          'answer_text': "['CS61B']",
+          'answer_text': '["CS61B"]',
         },
         '12': {
           'id': 12,
