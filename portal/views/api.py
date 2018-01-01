@@ -30,22 +30,27 @@ def forms(request):
 def applications(request):
     APPS_PER_PAGE = 10
     if request.method == 'GET':
-        if 'category' in request.GET and 'page' in request.GET:
-            request_category = request.GET['category']
-            request_page = request.GET['page']
+        query = request.GET['q'] if 'q' in request.GET else ''
+        request_page = request.GET['page'] if 'page' in request.GET else 1
 
-            applications = Application.objects.filter(category=request_category)
-            paginator = Paginator(applications, APPS_PER_PAGE)
-            if int(request_page) > paginator.num_pages:
-                return HttpResponse('empty page', content_type="application/json")
+        applications = Application.objects.filter(email__icontains=query)
+        applications |= Application.objects.filter(first_name__contains=query)
+        applications |= Application.objects.filter(last_name__icontains=query)
 
-            output = {'page': request_page, 'num_pages': paginator.num_pages}
-            app_data = []
-            for app in paginator.page(request_page).object_list.values():
-                app['answers'] = [a for a in Answer.objects.filter(application=app['id']).values()]
-                app_data.append(app)
-            output['applications'] = app_data
-            output = json.dumps(output, indent=4)
-            return HttpResponse(output, content_type="application/json")
+        if 'category' in request.GET:
+            applications = applications.filter(category=request.GET['category'])
+
+        paginator = Paginator(applications, APPS_PER_PAGE)
+        if int(request_page) > paginator.num_pages:
+            return HttpResponse('empty page', content_type="application/json")
+
+        app_data = []
+        for app in paginator.page(request_page).object_list.values():
+            app['answers'] = [a for a in Answer.objects.filter(application=app['id']).values()]
+            app_data.append(app)
+        output = {'page': request_page, 'num_pages': paginator.num_pages, 'applications': app_data}
+        output = json.dumps(output, indent=4)
+
+        return HttpResponse(output, content_type="application/json")
     return HttpResponse('invalid parameters', content_type="application/json")
 
