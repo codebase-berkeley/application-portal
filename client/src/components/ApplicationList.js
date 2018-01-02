@@ -18,6 +18,14 @@ NOTE: This is a dumb component. Pagination is handled elsewhere!
 class ApplicationList extends Component {
   constructor(props) {
     super(props);
+
+    // Initialize states
+    const state = { selected : {} }
+    const applications = props.applications;
+    for (var applicationId in applications) {
+      state.selected[applicationId] = false
+    }
+    this.state = state
   }
 
   render() {
@@ -27,7 +35,7 @@ class ApplicationList extends Component {
       const itemClass = `applist-item ${application.read ? "" : "unread"}`;
       return (
         <li className={itemClass} key={applicationId}>
-          <input type="checkbox" className="applist-item-checkbox" />
+          <input type="checkbox" className="applist-item-checkbox" value={this.state[applicationId]} onChange={this.props.handleSelectionChange(applicationId, this)}/>
           <Link
             className="applist-item-link"
             dispatch={dispatch}

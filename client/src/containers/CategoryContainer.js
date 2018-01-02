@@ -43,7 +43,8 @@ class CategoryContainer extends Component {
       return <ApplicationList
         applications={applications}
         applicationIds={pagination[pageURN].ids}
-        dispatch={dispatch} />;
+        dispatch={dispatch} 
+        handleSelectionChange={this.props.handleSelectionChange}/>;
     }
     // page not yet fetched. display placeholder.
     return  (

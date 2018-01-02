@@ -23,13 +23,71 @@ const propTypes = {
 class DashboardContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {}
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
-      // fetch the forms to be displayed on the dashboard.
+    // fetch the forms to be displayed on the dashboard.
     dispatch(fetchForms());
+
+    // Initialize state variables
+    this.state.applicationIsSelected = false; // True iff any applications are selected
+    this.state.selectedApplications = []; // List of selected applications
   }
+
+  /**
+   * Handles all changes to selections on the applications
+   * @param {String} applicationId Id of the modified application
+   * @param {Object} applicationList the ApplicationList wrapper
+   */
+  handleSelectionChange(applicationId, applicationList) {
+    const dashboardContainer = this;
+    return function(e) {
+      // Update the state of the application list
+      applicationList.setState((prevState) => {
+        const newState = JSON.parse(JSON.stringify(prevState)) // Testing
+        newState.selected[applicationId] = !prevState.selected[applicationId];
+        return newState;
+      }, () => {
+        // Update the state of the Dashboard container
+        dashboardContainer.setState((prevState, props) => {
+          const newState = JSON.parse(JSON.stringify(prevState))
+          if (applicationList.state.selected[applicationId] == true) {
+            newState.applicationIsSelected = true
+            if (!(newState.selectedApplications.indexOf(applicationId) >= 0)) {
+              newState.selectedApplications.push(applicationId)
+            }
+          } else {
+            if (newState.selectedApplications.indexOf(applicationId) >= 0) {
+              newState.selectedApplications.splice(newState.selectedApplications.indexOf(applicationId), 1)
+            }
+
+            if (newState.selectedApplications.length > 0) {
+              newState.applicationIsSelected = true 
+            } else {
+              newState.applicationIsSelected = false
+            }
+          }
+
+          console.log("State for DashboardContainer = " , newState)
+
+          return newState;
+        });      
+      });
+    }
+  }
+
+  /**
+   * Resets the state
+   */
+  resetSelections() {
+    this.setState({
+      applicationIsSelected : false,
+      selectedApplications : []
+    })
+  }
+
 
   /*
   ROUTER.
@@ -44,7 +102,7 @@ class DashboardContainer extends Component {
           // display category page.
           const categoryId = Number(query.categoryId);
           const page = ('page' in query) ? Number(query.page) : 1;
-          return <CategoryContainer categoryId={categoryId} page={page} />;
+          return <CategoryContainer categoryId={categoryId} page={page} handleSelectionChange={this.handleSelectionChange.bind(this)}/>;
         } else if (Object.keys(forms).length !== 0) {
           // user went to the base dashboard URL.
           // by default, the base dashboard URL redirects to the first form and category.
