@@ -44,7 +44,7 @@ class DashToolbar extends Component {
   }
 
   render() {
-    const { forms, nav } = this.props;
+    const { dispatch, forms, nav } = this.props;
     const { query } = nav.route;
     const currentFormId = query && ("formId" in query) ? query.formId : null;
     return (
@@ -75,10 +75,14 @@ class DashToolbar extends Component {
               </div>
             </div>
             <div className="dash-bar-control">
-              <div className="btn">
+              <Link
+                className="btn"
+                dispatch={dispatch}
+                route={{ path: ['form'], query: { formId: currentFormId }}}
+              >
                 Edit Public Form
                 <i className="ion-document-text" />
-              </div>
+              </Link>
             </div>
           </div>
         </div>

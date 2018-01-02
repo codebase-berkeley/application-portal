@@ -30,6 +30,7 @@ class ApplicationView extends Component {
     const { questions } = this.props;
     return (
         <Answer
+          key={answer.id}
           answer={answer}
           question={questions[answer.question]}
           className="appview-answer" />
