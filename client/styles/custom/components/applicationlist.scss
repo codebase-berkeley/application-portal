@@ -1,13 +1,21 @@
 .applist {
   flex: 3;
   &-item {
+    @include flex(center, flex-start);
     border-bottom: 1px solid $grey-mid;
     padding: 12px 5px;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     cursor: pointer;
-    
+
+    &-link {
+      flex: 1;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
     &.unread {
       background-color: white;
       font-weight: bold;

@@ -5,6 +5,8 @@ import Answer from '../components/Answer';
 import Link from '../components/Link';
 import Popover from '../components/Popover';
 
+import { setReadStatus } from '../actions/ApplicationActions';
+
 const propTypes = {
   application: PropTypes.object.isRequired, // the application object to be displayed.
   dispatch: PropTypes.func.isRequired,
@@ -23,15 +25,24 @@ class ApplicationView extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    const { application, dispatch } = this.props;
+    if (!application.read) {
+      dispatch(setReadStatus(application.id, true));
+    }
+  }
+
   /*
   Renders an answer in the context of its question.
   */
   renderAnswer(answer) {
     const { questions } = this.props;
     return (
-      <div>
-        <Answer answer={answer} question={questions[answer.question]} />
-      </div>
+        <Answer
+          key={answer.id}
+          answer={answer}
+          question={questions[answer.question]}
+          className="appview-answer" />
     );
   }
 
@@ -59,7 +70,15 @@ class ApplicationView extends Component {
     const { application } = this.props;
 
     return (
-      <div>
+      <div className="appview">
+        <div className="appview-applicant">
+          <h1 className="appview-applicant-name">
+            {`${application.first_name} ${application.last_name}`}
+          </h1>
+          <span className="appview-applicant-email">
+            {application.email}
+          </span>
+        </div>
         {this.renderAnswerList()}
       </div>
     );

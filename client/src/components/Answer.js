@@ -8,10 +8,11 @@ import RadiobuttonAnswer from '../components/RadiobuttonAnswer';
 const propTypes = {
   answer: PropTypes.object.isRequired, // the answer to display.
   question: PropTypes.object.isRequired, // the question associated with the answer.
+  className: PropTypes.string, // containing div CSS class.
 };
 
 class Answer extends Component {
-  render() {
+  renderAnswerContent() {
     const { question } = this.props;
     switch (question.question_type) {
       case 'Checkbox':
@@ -25,6 +26,18 @@ class Answer extends Component {
       default:
         return (<div>Invalid question type</div>);
     }
+  }
+
+  render() {
+    const { question, className } = this.props;
+    return (
+      <div className={className}>
+        <h2 className="question-text">
+          {question.question_text}
+        </h2>
+        {this.renderAnswerContent()}
+      </div>
+    );
   }
 }
 
