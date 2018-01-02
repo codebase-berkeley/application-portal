@@ -7,3 +7,5 @@ export const RECEIVE_PAGE = 'RECEIVE_PAGE';
 export const CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE';
 
 export const RECEIVE_FORMS = 'RECEIVE_FORMS';
+
+export const SET_READ_STATUS = 'SET_READ_STATUS';

@@ -5,6 +5,8 @@ import Answer from '../components/Answer';
 import Link from '../components/Link';
 import Popover from '../components/Popover';
 
+import { setReadStatus } from '../actions/ApplicationActions';
+
 const propTypes = {
   application: PropTypes.object.isRequired, // the application object to be displayed.
   dispatch: PropTypes.func.isRequired,
@@ -21,6 +23,13 @@ A single application view.
 class ApplicationView extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    const { application, dispatch } = this.props;
+    if (!application.read) {
+      dispatch(setReadStatus(application.id, true));
+    }
   }
 
   /*
