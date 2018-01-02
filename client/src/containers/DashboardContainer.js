@@ -63,7 +63,8 @@ class DashboardContainer extends Component {
       case 'form':
         return <FormView dispatch={dispatch} />;
       default:
-        return (<div></div>);
+        // Will need to create a 404 component.
+        return (<div><h2> 404 - Page not found </h2></div>);
     }
   }
 
