@@ -58,7 +58,6 @@ class DashboardContainer extends Component {
           }
         } else {
           if (newValue == false) {
-            console.log("removing something")
             _.remove(newState.selectedApplications, (v) => {return v == applicationId})
           } else {
             console.log("Something went wrong");
@@ -71,7 +70,6 @@ class DashboardContainer extends Component {
           newState.applicationIsSelected = true;
         }
 
-        console.log("new DashboardContainer state = " , newState)
         return newState;
       });
     }
