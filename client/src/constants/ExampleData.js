@@ -305,3 +305,90 @@ export const EXAMPLE_CAT1_PAGE3 = {
     },
   ]
 };
+
+/**
+ * Added by Saurav in order to have different applications
+ * show up for received / accepted / rejected for testing
+ */
+export const EXAMPLE_CAT2_PAGE1 = {
+  'page': 2,
+  'num_pages': 3,
+  'applications': [
+    {
+      'id': 4,
+      'category': 1,
+      'form': 4,
+      'email': 'akhare@berkeley.edu',
+      'first_name': 'Abhishyant',
+      'last_name': 'Khare',
+      'read': false,
+      'answers': {
+        '7': {
+          'id': 7,
+          'application': 4,
+          'question': 1,
+          'answer_text': '["CS61A","CS61B","CS61C"]',
+        },
+        '8': {
+          'id': 8,
+          'application': 4,
+          'question': 2,
+          'answer_text': 'Because I am the president',
+        },
+      },
+    },
+    {
+      'id': 5,
+      'category': 1,
+      'form': 4,
+      'email': 'ivonliu@berkeley.edu',
+      'first_name': 'Ivon',
+      'last_name': 'Liu',
+      'read': false,
+      'answers': {
+        '9': {
+          'id': 9,
+          'application': 5,
+          'question': 1,
+          'answer_text': '["CS61A","CS61B"]',
+        },
+        '10': {
+          'id': 10,
+          'application': 5,
+          'question': 2,
+          'answer_text': 'I do whatever the fuck I want',
+        },
+      },
+    },
+  ]
+};
+
+export const EXAMPLE_CAT3_PAGE1 = {
+  'page': 3,
+  'num_pages': 3,
+  'applications': [
+    {
+      'id': 6,
+      'category': 1,
+      'form': 4,
+      'email': 'kunalkak@berkeley.edu',
+      'first_name': 'Kunal',
+      'last_name': 'Kak',
+      'read': false,
+      'answers': {
+        '11': {
+          'id': 11,
+          'application': 6,
+          'question': 1,
+          'answer_text': '["CS61B"]',
+        },
+        '12': {
+          'id': 12,
+          'application': 6,
+          'question': 2,
+          'answer_text': 'Poopy butthole',
+        },
+      },
+    },
+  ]
+};

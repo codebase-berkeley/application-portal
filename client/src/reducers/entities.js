@@ -1,4 +1,4 @@
-import merge from 'lodash';
+import _ from 'lodash'; 
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
 
 export default function entities(state = initialState, action) {
   if (action.entities) {
-    let newState = merge.merge({}, state, action.entities);
+    let newState = _.merge({}, state, action.entities);
     switch (action.type) {
       default:
         return newState;

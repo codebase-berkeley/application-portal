@@ -2,11 +2,19 @@ import { arrayOf, normalize } from 'normalizr';
 import { categorySchema, applicationSchema } from '../constants/schemas';
 
 import * as types from '../constants/ActionTypes';
-import { EXAMPLE_CAT1_PAGE1, EXAMPLE_CAT2_PAGE1, EXAMPLE_CAT3_PAGE1 } from '../constants/ExampleData';
+import { EXAMPLE_CAT1_PAGE1, EXAMPLE_CAT1_PAGE2, EXAMPLE_CAT1_PAGE3, EXAMPLE_CAT2_PAGE1, EXAMPLE_CAT3_PAGE1 } from '../constants/ExampleData';
 
 export function fetchCategoryPage(categoryId, page) {
   return (dispatch, getState) => {
-    const pageData = EXAMPLE_CAT1_PAGE1;
+    var pageData = {};
+    if (categoryId == 1) {
+      pageData = EXAMPLE_CAT1_PAGE1;
+    } else if (categoryId == 2) {
+      pageData = EXAMPLE_CAT2_PAGE1;
+    } else {
+      pageData = EXAMPLE_CAT3_PAGE1;      
+    }
+
     const normalized = normalize(pageData.applications, arrayOf(applicationSchema));
     const ids = normalized.result;
 

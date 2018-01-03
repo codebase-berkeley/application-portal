@@ -20,7 +20,7 @@ export function fetchForms() {
     const normalized = normalize(receivedForms, arrayOf(formSchema));
     const formIds = normalized.result;
     dispatch(receiveForms({ formIds, entities: normalized.entities }));
-    dispatch(navigateHome());
+//  dispatch(navigateHome());
   };
 }
 

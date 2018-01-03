@@ -20,6 +20,14 @@ Wrapper for ApplicationList. Handles pagination of applications for a container
 and fetching of paginated application data.
 */
 class CategoryContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    // Provide defaults for prop functions
+    this.passSelectionChange = this.props.passSelectionChange === undefined ? () => {} : this.props.passSelectionChange;
+    this.resetSelections     = this.props.resetSelections     === undefined ? () => {} : this.props.resetSelections;    
+  }
+
   componentWillMount() {
     const { categoryId, dispatch, page } = this.props;
     // fetch page content if needed.
@@ -43,7 +51,9 @@ class CategoryContainer extends Component {
       return <ApplicationList
         applications={applications}
         applicationIds={pagination[pageURN].ids}
-        dispatch={dispatch} />;
+        dispatch={dispatch} 
+        passSelectionChange={this.passSelectionChange}
+        resetSelections={this.resetSelections}/>;
     }
     // page not yet fetched. display placeholder.
     return  (
