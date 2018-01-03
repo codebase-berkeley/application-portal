@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import QuestionContainer from '../containers/QuestionContainer';
 import Answer from '../components/Answer';
 import Link from '../components/Link';
 import Popover from '../components/Popover';
@@ -25,18 +26,12 @@ class FormView extends Component {
   Renders a question object as one of Paragraph, Dropdown, Radiobutton, Checkbox.
   */
   renderQuestion(question) {
-    const dummyAnswer = {
-      id: 0,
-      application: 0,
-      question: question.id,
-      answer_text: question.question_type == 'Paragraph' ? '' : '[]'
-    };
+    const { dispatch } = this.props;
     return (
-      <Answer
+      <QuestionContainer
         key={question.id}
-        question={question}
-        answer={dummyAnswer}
-        className="form-question" />
+        dispatch={dispatch}
+        question={question} />
     );
   }
 

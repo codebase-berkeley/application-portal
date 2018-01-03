@@ -1,0 +1,13 @@
+.focusfield {
+  min-width: 300px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  &:focus {
+    border: 1px solid $grey-mid;
+    background-color: $grey-off-white;
+  }
+  &:hover {
+    background-color: $grey-off-white;
+  }
+}
