@@ -49,6 +49,9 @@ class ApplicationList extends Component {
     }
   }
 
+  /**
+   * Resets the states of ApplicationList and DashboardContainer
+   */
   resetApplicationListSelections() {
     // Push the reset up
     this.resetSelections();

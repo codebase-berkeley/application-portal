@@ -138,7 +138,9 @@ class DashboardContainer extends Component {
 
     return (
       <div>
-        <DashToolbar {...this.props} />
+        <DashToolbar 
+          {...this.props}
+          applicationIsSelected={this.state.applicationIsSelected} />
         <div className="dash-body">
           <div className="container clearfix">
             <DashSidebar

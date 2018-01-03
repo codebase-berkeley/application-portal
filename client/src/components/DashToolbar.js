@@ -43,10 +43,42 @@ class DashToolbar extends Component {
     });
   }
 
+  getDeleteButton() {
+    if (this.props.applicationIsSelected === true) {
+      return (
+        <div className="dash-bar-control">
+            <div className="btn">
+              Delete Applications
+              <i className="ion-trash-a" />
+            </div>
+        </div>
+      );
+    } else {
+      return (<div> </div>);
+    }
+  }
+
+  getMoveButton() {
+    if (this.props.applicationIsSelected === true) {
+      return (
+        <div className="dash-bar-control">
+          <div className="btn">
+            Move Applications
+            <i className="ion-shuffle" />
+          </div>
+        </div>
+      );
+    } else {
+      return (<div> </div>);
+    }      
+  }
+
   render() {
     const { dispatch, forms, nav } = this.props;
     const { query } = nav.route;
     const currentFormId = query && ("formId" in query) ? query.formId : null;
+    const deleteButton = this.getDeleteButton();
+    const moveButton   = this.getMoveButton();
     return (
       <div className="dash-bar">
         <div className="container clearfix">
@@ -84,6 +116,8 @@ class DashToolbar extends Component {
                 <i className="ion-document-text" />
               </Link>
             </div>
+            {moveButton}
+            {deleteButton}
           </div>
         </div>
       </div>
