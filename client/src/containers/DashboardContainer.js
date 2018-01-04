@@ -36,7 +36,7 @@ class DashboardContainer extends Component {
 
     // Initialize state variables. No need for setState()
     this.state.applicationIsSelected = false; // True iff any applications are selected
-    this.state.selectedApplications = []; // List of selected applications
+    this.state.selectedApplications = {}; // Selected applications
   }
 
   /**
@@ -44,30 +44,30 @@ class DashboardContainer extends Component {
    * @param {String} applicationId Id of the modified application
    * @param {Object} newState new state of the selected checkbox for applicationId
    */
-  handleSelectionChange(applicationId, newState) {
-    const dashboardContainer = this;
-    const newValue = newState;
+  handleSelectionChange(applicationId, newValue) {
+    const dashboardContainer = this
     return function(e) {
       dashboardContainer.setState((prevState, props) => {
-        newState = JSON.parse(JSON.stringify(prevState));
-        if (prevState.selectedApplications.indexOf(applicationId) === -1) {
-          if (newValue == true) {
-            newState.selectedApplications.push(applicationId)
-          } else {
-            console.log("Something went wrong");
-          }
+        var newSelectedApplications = {}
+        var newApplicationIsSelected = false
+
+        if (newValue == true) {
+          newSelectedApplications = {...prevState.selectedApplications}
+          newSelectedApplications[applicationId] = true
         } else {
-          if (newValue == false) {
-            _.remove(newState.selectedApplications, (v) => {return v == applicationId})
-          } else {
-            console.log("Something went wrong");
-          }
+          newSelectedApplications = {...prevState.selectedApplications}
+          delete newSelectedApplications[applicationId]
         }
 
-        if (newState.selectedApplications.length === 0) {
-          newState.applicationIsSelected = false;
+        if (Object.keys(newSelectedApplications).length === 0) {
+          newApplicationIsSelected = false
         } else {
-          newState.applicationIsSelected = true;
+          newApplicationIsSelected = true
+        }
+        
+        const newState = { 
+          applicationIsSelected : newApplicationIsSelected, 
+          selectedApplications : newSelectedApplications 
         }
 
         return newState;
@@ -80,10 +80,10 @@ class DashboardContainer extends Component {
    * Called when ApplicationList containers mount or dismount.
    */
   resetSelections() {
-    if (this.state.applicationIsSelected !== false || this.state.selectedApplications.length !== 0) {
+    if (this.state.applicationIsSelected !== false || Object.keys(this.state.selectedApplications).length !== 0) {
       this.setState({
         applicationIsSelected : false,
-        selectedApplications : []
+        selectedApplications : {}
       })  
     }
   }
@@ -101,7 +101,11 @@ class DashboardContainer extends Component {
           // display category page.
           const categoryId = Number(query.categoryId);
           const page = ('page' in query) ? Number(query.page) : 1;
-          return <CategoryContainer categoryId={categoryId} page={page} resetSelections={this.resetSelections.bind(this)} passSelectionChange={this.handleSelectionChange.bind(this)}/>;
+          return <CategoryContainer 
+                    categoryId={categoryId} 
+                    page={page} 
+                    resetSelections={this.resetSelections.bind(this)} 
+                    passSelectionChange={this.handleSelectionChange.bind(this)} />;
         } else if (Object.keys(forms).length !== 0) {
           // user went to the base dashboard URL.
           // by default, the base dashboard URL redirects to the first form and category.
