@@ -1,12 +1,15 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-
 import QuestionEdit from '../components/QuestionEdit';
 
+import { saveUpdatedQuestion } from '../actions/FormActions';
+
 const propTypes = {
+  index: PropTypes.number.isRequired, // the index (order) of the card on the form
+  moveCard: PropTypes.func.isRequired, // (dragIndex: int, hoverIndex: int) => any
   dispatch: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired, // the question object to display
 };
+
 
 /*
 QuestionContainer Container
@@ -78,6 +81,17 @@ class QuestionContainer extends Component {
     // TODO
   }
 
+  onSaveQuestion() {
+    const { dispatch, question } = this.props;
+    const { questionText, questionType, optionsList } = this.state;
+    dispatch(saveUpdatedQuestion({
+      ...question,
+      question_text: questionText,
+      question_type: questionType,
+      options: JSON.stringify(optionsList),
+    }));
+  }
+
   /*
   Called whenever a contained element is blurred.
   */
@@ -92,7 +106,7 @@ class QuestionContainer extends Component {
       if (this.state.isActive) {
         this.setState({
           isActive: false,
-        });
+        }, this.onSaveQuestion);
       }
     }, 0);
   }
@@ -111,6 +125,7 @@ class QuestionContainer extends Component {
 
 
   render() {
+    const { connectDragSource, connectDropTarget } = this.props;
     return (
       <QuestionEdit
         {...this.state}

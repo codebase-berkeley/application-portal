@@ -36,3 +36,29 @@ export function receiveForms({ formIds, entities }) {
     entities,
   };
 }
+
+/*
+action saveUpdatedQuestion
+
+Edits an existing question's details, saving the new question details and
+sending them to the server.
+*/
+export function saveUpdatedQuestion(question) {
+  return (dispatch, getState) => {
+    // optimistically update local question
+    dispatch(updateQuestion(question));
+    // send to server (TODO)...
+    // and receive response
+  }
+}
+
+export function updateQuestion(question) {
+  return {
+    type: types.UPDATE_QUESTION,
+    entities: {
+      questions: {
+        [question.id]: question,
+      },
+    },
+  };
+}

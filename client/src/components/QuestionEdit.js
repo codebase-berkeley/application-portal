@@ -14,6 +14,7 @@ const propTypes = {
   onEditQuestionText: PropTypes.func.isRequired, // type: (qText: str) => any
   onEditQuestionType: PropTypes.func.isRequired, // type: (qType: str) => any
   onDeleteQuestion: PropTypes.func.isRequired, // type: () => any
+  onSaveQuestion: PropTypes.func.isRequired, // type: () => any
 }
 
 class QuestionEdit extends Component {
@@ -86,9 +87,13 @@ class QuestionEdit extends Component {
     return (
       <div
         className={`qedit ${isActive ? "active" : ""}`}
+        tabIndex="1"
         onBlur={onBlur}
         onFocus={onFocus}
       >
+        <div className="qedit-drag">
+          <i className="ion-drag" />
+        </div>
         <FocusField
           className="qedit-qtext"
           onChange={(e) => { onEditQuestionText(e.target.value); }}

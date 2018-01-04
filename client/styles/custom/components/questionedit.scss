@@ -3,14 +3,40 @@
   min-width: 480px;
   border-radius: 5px;
   padding: 20px 15px;
+  -webkit-transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  -moz-transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  -ms-transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &-drag {
+    position: absolute;
+    top: 5px;
+    @include flex(center, center);
+    display: none;
+    width: 100%;
+  }
 
   &.active {
     box-shadow: $container-shadow;
     background-color: white;
+    .qedit-drag {
+      display: flex;
+    }
   }
 
   &:hover {
     background-color: white;
+    .qedit-drag {
+      display: flex;
+    }
   }
 
   &-qtext {
@@ -25,4 +51,5 @@
     width: 100%;
     padding: 15px 0px;
   }
+
 }
