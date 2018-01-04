@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import FocusField from '../components/FocusField';
 
+import { getEmptyImage } from 'react-dnd-html5-backend';
+
 const propTypes = {
+  connectDragSource: PropTypes.func.isRequired, // function to indicate drag handle
+  connectDragPreview: PropTypes.func.isRequired, // function to pass in drag preview
   isActive: PropTypes.bool.isRequired,
   questionText: PropTypes.string.isRequired,
   questionType: PropTypes.string.isRequired,
@@ -18,6 +22,13 @@ const propTypes = {
 }
 
 class QuestionEdit extends Component {
+  componentDidMount() {
+    // use empty image as drag preview
+    this.props.connectDragPreview(getEmptyImage(), {
+      // IE fallback
+      captureDraggingState: true,
+    });
+  }
   renderQuestionContent() {
     const { questionType } = this.props;
     if (questionType === 'Paragraph') {
@@ -78,6 +89,7 @@ class QuestionEdit extends Component {
 
   render() {
     const {
+      connectDragSource,
       isActive,
       questionText,
       onBlur,
@@ -91,9 +103,11 @@ class QuestionEdit extends Component {
         onBlur={onBlur}
         onFocus={onFocus}
       >
-        <div className="qedit-drag">
-          <i className="ion-drag" />
-        </div>
+        {connectDragSource(
+          <div className="qedit-drag">
+            <i className="ion-drag" />
+          </div>
+        )}
         <FocusField
           className="qedit-qtext"
           onChange={(e) => { onEditQuestionText(e.target.value); }}

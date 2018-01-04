@@ -4,6 +4,8 @@ import QuestionEdit from '../components/QuestionEdit';
 import { saveUpdatedQuestion } from '../actions/FormActions';
 
 const propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  connectDragPreview: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired, // the index (order) of the card on the form
   moveCard: PropTypes.func.isRequired, // (dragIndex: int, hoverIndex: int) => any
   dispatch: PropTypes.func.isRequired,
@@ -38,6 +40,7 @@ class QuestionContainer extends Component {
     this.onEditQuestionText = this.onEditQuestionText.bind(this);
     this.onEditQuestionType = this.onEditQuestionType.bind(this);
     this.onDeleteQuestion = this.onDeleteQuestion.bind(this);
+    this.onSaveQuestion = this.onSaveQuestion.bind(this);
   }
 
   onAddOption() {
@@ -125,10 +128,12 @@ class QuestionContainer extends Component {
 
 
   render() {
-    const { connectDragSource, connectDropTarget } = this.props;
+    const { connectDragSource, connectDragPreview } = this.props;
     return (
       <QuestionEdit
         {...this.state}
+        connectDragSource={connectDragSource}
+        connectDragPreview={connectDragPreview}
         onBlur={this.onBlur}
         onFocus={this.onFocus}
         onAddOption={this.onAddOption}
@@ -137,6 +142,7 @@ class QuestionContainer extends Component {
         onEditQuestionText={this.onEditQuestionText}
         onEditQuestionType={this.onEditQuestionType}
         onDeleteQuestion={this.onDeleteQuestion}
+        onSaveQuestion={this.onSaveQuestion}
       />
     );
   }

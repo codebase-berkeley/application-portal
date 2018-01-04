@@ -17,6 +17,7 @@
     box-shadow 0.15s ease-in-out;
 
   &-drag {
+    cursor: move;
     position: absolute;
     top: 5px;
     @include flex(center, center);

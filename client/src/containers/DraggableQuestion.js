@@ -3,19 +3,31 @@ import ReactDOM from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
 import QuestionContainer from '../containers/QuestionContainer';
 
+import ItemTypes from '../constants/ItemTypes';
+
 const propTypes = {
   connectDragSource: PropTypes.func.isRequired,
+  connectDragPreview: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired, // the index (order) of the card on the form
   moveCard: PropTypes.func.isRequired, // (dragIndex: int, hoverIndex: int) => any
   dispatch: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired, // the question object to display
+  initialOffset: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }), // offset when start dragging (in px)
+  currentOffset: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }), // current offset (in px)
 };
 
 const cardSource = {
   beginDrag(props) {
     return {
       index: props.index,
+      question: props.question,
     };
   },
 };
@@ -60,7 +72,10 @@ const cardTarget = {
 const cardSourceCollect = (connect, monitor) => {
   return {
     connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
     isDragging: monitor.isDragging(),
+    initialOffset: monitor.getInitialSourceClientOffset(),
+    currentOffsetY: monitor.getSourceClientOffset(),
   };
 }
 
@@ -69,10 +84,6 @@ const cardTargetCollect = (connect) => {
     connectDropTarget: connect.dropTarget(),
   };
 }
-
-const ItemTypes = {
-  CARD: "CARD",
-};
 
 /*
 DraggableQuestion container
@@ -83,21 +94,24 @@ class DraggableQuestion extends Component {
   render() {
     const {
       connectDragSource,
+      connectDragPreview,
       connectDropTarget,
       index,
       moveCard,
       dispatch,
       question,
     } = this.props;
-    return connectDropTarget(connectDragSource(
+    return connectDropTarget(
       <div className="qedit-wrapper">
         <QuestionContainer
+          connectDragSource={connectDragSource}
+          connectDragPreview={connectDragPreview}
           index={index}
           moveCard={moveCard}
           dispatch={dispatch}
           question={question} />
       </div>
-    ));
+    );
   }
 }
 
