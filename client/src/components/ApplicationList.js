@@ -68,7 +68,7 @@ class ApplicationList extends Component {
 
     if (shouldUpdateState) {
       newSelected = {}
-      for (var applicationId in this.state.selected) {
+      for (var applicationId in this.props.applicationIds) {
         newSelected[applicationId] = false
       }
       this.setState({selected : newSelected});
