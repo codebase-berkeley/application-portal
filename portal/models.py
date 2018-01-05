@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import ast
+import json
 
 
 class Form(models.Model):
@@ -89,7 +90,7 @@ class Question(models.Model):
         """
         if not isinstance(options_list, list):
             raise Exception("Question.set_options_list requires a list")
-        self.options = options_list.__str__()
+        self.options = json.dumps(options_list)
 
     def __str__(self):
         return self.question_text[0:40]
@@ -106,7 +107,7 @@ class Radiobutton(Question):
         q = cls(
             question_text=question_text,
             question_type=cls.__name__,
-            options=options.__str__()
+            options=json.dumps(options)
         )
         return q
     def __str__(self):
@@ -125,7 +126,7 @@ class Checkbox(Question):
         q = cls(
             question_text=question_text,
             question_type=cls.__name__,
-            options=options.__str__()
+            options=json.dumps(options)
         )
         return q
     def __str__(self):
@@ -144,7 +145,7 @@ class Dropdown(Question):
         q = cls(
             question_text=question_text,
             question_type=cls.__name__,
-            options=options.__str__()
+            options=json.dumps(options)
         )
         return q
     def __str__(self):
