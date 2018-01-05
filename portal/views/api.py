@@ -44,7 +44,7 @@ def applications(request):
         applications = [a for a in Application.objects.all().values() if fuzzy_match_app(a, query, 50)]
 
         if 'category' in request.GET:
-            applications = applications.filter(category=request.GET['category'])
+            applications = [a for a in applications if a['category_id'] == int(request.GET['category'])]
 
         paginator = Paginator(applications, APPS_PER_PAGE)
         if int(request_page) > paginator.num_pages:
