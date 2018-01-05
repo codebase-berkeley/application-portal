@@ -43,7 +43,7 @@ class Popover extends Component {
     const localNode = ReactDOM.findDOMNode(this);
     let source = e.target;
 
-      // close the popover menu if user clicks on original button.
+    // close the popover menu if user clicks on original button.
     while (source.parentNode) {
       if (source === localNode) {
         return;

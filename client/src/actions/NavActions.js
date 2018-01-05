@@ -3,6 +3,30 @@ import { constructUrl, parseUrl } from '../utils/RouteUtils';
 import { initialRoute } from '../reducers/nav';
 
 /*
+Navigates to a default route, specifically /dashboard?formId=<>categoryId=<>,
+where formId and categoryId are set to be defaults.
+*/
+export function navigateHome() {
+  return (dispatch, getState) => {
+    const { entities } = getState();
+    const { forms } = entities;
+    const formIds = Object.keys(forms);
+    if (formIds.length === 0) {
+      dispatch(navigateTo({ path: ["dashboard"] }));
+    }
+    // get the latest form.
+    const defaultFormId = formIds.reduce((latestFormId, formId) => {
+      if (forms[formId].created_at > forms[latestFormId].created_at) {
+        return formId;
+      }
+      return latestFormId;
+    }, formIds[0]);
+    const defaultCategoryId = forms[defaultFormId].categories[0];
+    dispatch(navigateTo({ path: ["dashboard"], query: { formId: defaultFormId, categoryId: defaultCategoryId }}));
+  };
+}
+
+/*
  * Set browser back buttons and route navigation to work with our app.
  */
 export function initNav() {

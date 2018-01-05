@@ -1,0 +1,23 @@
+.form {
+  flex: 3;
+  padding: 15px;
+
+  &-question {
+    margin: 20px 0px;
+  }
+
+  input {
+    margin: 5px 10px;
+  }
+  textarea {
+    min-width: 480px;
+    padding: 10px;
+    background-color: white;
+    border-bottom: 1px solid $grey-mid;
+    border-radius: 5px;
+  }
+
+  .question-text {
+    margin-bottom: 15px;
+  }
+}

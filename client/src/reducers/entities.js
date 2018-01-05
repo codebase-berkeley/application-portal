@@ -1,4 +1,4 @@
-import merge from 'lodash';
+import _ from 'lodash';
 import * as types from '../constants/ActionTypes';
 
 const initialState = {
@@ -11,13 +11,28 @@ const initialState = {
 
 export default function entities(state = initialState, action) {
   if (action.entities) {
-    let newState = merge.merge({}, state, action.entities);
+    let newState = null;
     switch (action.type) {
-      case types.RECEIVE_CATEGORIES:
-        // note mutation here is only of a temporary variable.
-        newState.forms[action.formId].categoryIds = action.categoryIds;
+      case types.UPDATE_FORM:
+        newState = {
+          ...state,
+          forms: {
+            ...state.forms,
+            ...action.entities.forms,
+          },
+        };
+        return newState;
+      case types.UPDATE_QUESTION:
+        newState = {
+          ...state,
+          questions: {
+            ...state.questions,
+            ...action.entities.questions,
+          },
+        };
         return newState;
       default:
+        newState = _.merge({}, state, action.entities);
         return newState;
     }
   }

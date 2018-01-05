@@ -25,6 +25,10 @@
     }
   }
 
+  &-user-link {
+    cursor: pointer;
+  }
+
   &-pull-left {
     /* Pulls content in this div all the way to the left. */
     flex: 1;

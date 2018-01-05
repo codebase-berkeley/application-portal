@@ -1,0 +1,74 @@
+.qedit {
+  margin: 20px 0px;
+  min-width: 480px;
+  border-radius: 5px;
+  padding: 20px 15px;
+  -webkit-transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  -moz-transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  -ms-transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  transition:
+    background-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+
+  &-drag {
+    cursor: move;
+    position: absolute;
+    top: 5px;
+    @include flex(center, center);
+    display: none;
+    width: 100%;
+  }
+
+  &.active {
+    box-shadow: $container-shadow;
+    background-color: white;
+    .qedit-drag {
+      display: flex;
+    }
+    .qedit-option {
+      &-del {
+        cursor: pointer;
+        display: inline-block;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1.0;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background-color: white;
+    .qedit-drag {
+      display: flex;
+    }
+  }
+
+  &-qtext {
+    font-size: 20px;
+    min-width: 400px;
+    margin-bottom: 15px;
+  }
+
+  &-meta {
+    margin-top: 10px;
+    border-top: 1px solid $grey-mid;
+    width: 100%;
+    padding: 15px 0px;
+    @include flex(center, space-between);
+  }
+
+  &-option {
+    &-del {
+      cursor: pointer;
+      display: none;
+    }
+  }
+
+}

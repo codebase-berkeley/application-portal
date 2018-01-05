@@ -5,7 +5,6 @@ import Popover from '../components/Popover';
 const propTypes = {
   form: PropTypes.object, // the form object associated with the sidebar's categories. if null, display a placeholder.
   categories: PropTypes.object.isRequired, // set of category entities.
-  dashboard: PropTypes.object.isRequired, // dashboard view info.
   dispatch: PropTypes.func.isRequired,
   nav: PropTypes.object.isRequired,
 };
@@ -19,20 +18,29 @@ class DashSidebar extends Component {
   }
 
   renderCategories() {
-    const { form, categories, dashboard } = this.props;
+    const { form, categories, dispatch, nav } = this.props;
+    const { query } = nav.route;
+    const currentCategoryId = query && ("categoryId" in query) ? query.categoryId : null;
+    const currentFormId = query && ("formId" in query) ? query.formId : null;
+
     if (form) {
-      return form.categoryIds.map((categoryId) => {
+      return form.categories.map((categoryId) => {
         const category = categories[categoryId];
         return (
-          <div
+          <Link
             key={category.name}
-            className={`dash-side-cat ${category.id == dashboard.currentCategoryId ? 'active' : ''}`}
+            dispatch={dispatch}
+            route={{ path: ["dashboard"], query: { categoryId: categoryId.toString(), formId: currentFormId }}}
           >
-            {category.name}
-          </div>
+            <div
+              className={`dash-side-cat ${category.id == currentCategoryId ? 'active' : ''}`}>
+              {category.name}
+            </div>
+          </Link>
         );
       });
     }
+    // TODO: Placeholder while forms are loading.
     return null;
   }
 

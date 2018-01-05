@@ -13,6 +13,50 @@
     @include flex(center, space-between);
   }
 
+  &-form {
+    &-select {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      &-dropdown {
+        min-width: 250px;
+        padding: 15px 0px;
+        &::before {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          border: 7px solid transparent;
+          border-bottom-color: #CCCCCC;
+          top: -14px;
+        }
+        &::after {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          border: 7px solid transparent;
+          border-bottom-color: white;
+          top: -14px;
+        }
+        &-item {
+          display: block;
+          padding: 5px 20px;
+          &:hover {
+            background-color: $blue-mid;
+            color: white;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+    &-name {
+      cursor: pointer;
+      font-size: 18px;
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+
   &-sec {
     &-sm {
       flex: 1;
