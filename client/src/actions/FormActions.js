@@ -20,7 +20,6 @@ export function fetchForms() {
     const normalized = normalize(receivedForms, arrayOf(formSchema));
     const formIds = normalized.result;
     dispatch(receiveForms({ formIds, entities: normalized.entities }));
-//  dispatch(navigateHome());
   };
 }
 
@@ -34,6 +33,17 @@ export function receiveForms({ formIds, entities }) {
     type: types.RECEIVE_FORMS,
     formIds,
     entities,
+  };
+}
+
+export function updateForm(form) {
+  return {
+    type: types.UPDATE_FORM,
+    entities: {
+      forms: {
+        [form.id]: form,
+      },
+    },
   };
 }
 
@@ -61,4 +71,56 @@ export function updateQuestion(question) {
       },
     },
   };
+}
+
+/*
+action tryDeleteQuestion
+
+Attempts to delete a question from the server and locally.
+*/
+export function tryDeleteQuestion(questionId) {
+  return (dispatch, getState) => {
+    // optimistically delete local question from its form
+    // (don't need to delete the question from the set of questions)
+    const { questions, forms } = getState().entities;
+    const form = forms[questions[questionId].form];
+    const newForm = {
+      ...form,
+      questions: [...form.questions],
+    };
+    newForm.questions.splice(form.questions.indexOf(questionId), 1);
+    dispatch(updateForm(newForm));
+    // send to server (TODO)...
+  };
+}
+
+/*
+action tryUpdateFormQuestions
+
+Attempts to update a form's question list to a new ordered list of question IDs,
+sending the new ordered list to the server as well.
+*/
+export function tryUpdateFormQuestions(questionIds, formId) {
+  return (dispatch, getState) => {
+    const { forms } = getState().entities;
+    const form = forms[formId];
+    const newForm = {
+      ...form,
+      questions: questionIds,
+    };
+    dispatch(updateForm(newForm));
+    // send to server (TODO)...
+  };
+}
+
+/*
+action tryAddNewQuestion
+
+Attempts to add a new question and associate it with the given form.
+*/
+export function tryAddNewQuestion(formId) {
+  return (dispatch, getState) => {
+    // request server for new question ID associated with formId (TODO)
+    // ...
+  }
 }

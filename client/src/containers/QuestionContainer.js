@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import QuestionEdit from '../components/QuestionEdit';
 
-import { saveUpdatedQuestion } from '../actions/FormActions';
+import { saveUpdatedQuestion, tryDeleteQuestion } from '../actions/FormActions';
 
 const propTypes = {
   connectDragSource: PropTypes.func.isRequired,
@@ -81,7 +81,8 @@ class QuestionContainer extends Component {
   }
 
   onDeleteQuestion() {
-    // TODO
+    const { dispatch, question } = this.props;
+    dispatch(tryDeleteQuestion(question.id));
   }
 
   onSaveQuestion() {

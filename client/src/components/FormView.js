@@ -8,6 +8,8 @@ import Answer from '../components/Answer';
 import Link from '../components/Link';
 import Popover from '../components/Popover';
 
+import { tryUpdateFormQuestions } from '../actions/FormActions';
+
 const propTypes = {
   form: PropTypes.object.isRequired, // the form object to be displayed.
   dispatch: PropTypes.func.isRequired,
@@ -25,24 +27,25 @@ class FormView extends Component {
 
     const { form } = this.props;
 
-    this.state = {
-      questionIds: form.questions,
-    };
     this.moveCard = this.moveCard.bind(this);
+  }
+
+  addQuestion() {
+    const { dispatch } = this.props;
   }
 
   // swaps the cards at dragIndex and hoverIndex.
   // dragIndex - index of the card currently being dragged.
   // hoverIndex - index of the card being hovered over.
   moveCard(dragIndex, hoverIndex) {
-    const { questionIds } = this.state;
+    const { dispatch, form } = this.props;
+    const questionIds = form.questions;
     const dragQuestionId = questionIds[dragIndex]; // id of question being dragged
     const newQuestionIds = [...questionIds];
     newQuestionIds.splice(dragIndex, 1);
     newQuestionIds.splice(hoverIndex, 0, dragQuestionId);
-    this.setState({
-      questionIds: newQuestionIds,
-    });
+    dispatch(tryUpdateFormQuestions(newQuestionIds, form.id));
+    console.log(`reorderquestions ${newQuestionIds}`);
   }
 
   /*
@@ -64,8 +67,8 @@ class FormView extends Component {
   Renders the questions in correct order.
   */
   renderQuestionList() {
-    const { questions } = this.props;
-    const { questionIds } = this.state;
+    const { questions, form } = this.props;
+    const questionIds = form.questions;
     const questionElements = questionIds.map((questionId, i) => this.renderQuestion(questions[questionId], i));
     return questionElements;
   }

@@ -21,6 +21,10 @@
         font-size: 11px;
     }
 
+    &.narrow {
+      padding: 12px 0px;
+    }
+
     &:hover {
         background-color: $blue-hl;
         text-decoration: none;

@@ -31,6 +31,16 @@
     .qedit-drag {
       display: flex;
     }
+    .qedit-option {
+      &-del {
+        cursor: pointer;
+        display: inline-block;
+        opacity: 0.5;
+        &:hover {
+          opacity: 1.0;
+        }
+      }
+    }
   }
 
   &:hover {
@@ -51,6 +61,14 @@
     border-top: 1px solid $grey-mid;
     width: 100%;
     padding: 15px 0px;
+    @include flex(center, space-between);
+  }
+
+  &-option {
+    &-del {
+      cursor: pointer;
+      display: none;
+    }
   }
 
 }

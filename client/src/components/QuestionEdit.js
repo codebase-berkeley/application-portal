@@ -41,7 +41,11 @@ class QuestionEdit extends Component {
   Renders delete button, change type dropdown etc. at the bottom of the question.
   */
   renderQuestionMeta() {
-    const { questionType, onEditQuestionType } = this.props;
+    const {
+      questionType,
+      onEditQuestionType,
+      onDeleteQuestion,
+    } = this.props;
     const TYPES = ['Paragraph', 'Dropdown', 'Radiobutton', 'Checkbox'];
     const typeOptions = TYPES.map((type, i) => {
       return (
@@ -59,27 +63,68 @@ class QuestionEdit extends Component {
         >
           {typeOptions}
         </select>
+        <div
+          onClick={ (e) => { onDeleteQuestion(); } }
+          className="qedit-meta-delete btn"
+          title="delete">
+          <i className="ion-trash-b" />
+        </div>
       </div>
     );
   }
 
   renderOptionsList() {
     const {
+      isActive,
       optionsList,
       questionType,
+      onAddOption,
       onEditOption,
       onDeleteOption,
     } = this.props;
+    let optionDecoration = null;
+    switch (questionType) {
+      case 'Checkbox':
+        optionDecoration = (<input type="checkbox" disabled={true} />);
+        break;
+      case 'Radiobutton':
+        optionDecoration = (<input type="radio" disabled={true} />);
+        break;
+      default:
+        break;
+    }
     const optionElements = optionsList.map((optionText, i) => {
       return (
         <li key={i}>
+          {optionDecoration}
           <FocusField
             className="qedit-option"
             onChange={(e) => { onEditOption(e.target.value, i); }}
             value={optionText} />
+          <div
+            onClick={ (e) => { onDeleteOption(i); } }
+            className="qedit-option-del"
+            title="Delete option">
+            <i className="ion-close" />
+          </div>
         </li>
       );
     });
+    if (isActive) {
+      optionElements.push((
+        <li key={optionElements.length}>
+          <a
+            className="qedit-option-add"
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              onAddOption();
+            }}>
+            Add an option
+          </a>
+        </li>
+      ));
+    }
     return (
       <ul className="qedit-oplist">
         {optionElements}
