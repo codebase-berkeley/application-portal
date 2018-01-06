@@ -5,6 +5,8 @@ import * as types from '../constants/ActionTypes';
 import { EXAMPLE_FORMS } from '../constants/ExampleData';
 
 import { navigateHome } from "../actions/NavActions";
+import { constructUrl } from '../utils/RouteUtils';
+import { API_PREFIX } from '../constants/config';
 
 /*
 action fetchForms
@@ -15,11 +17,16 @@ export function fetchForms() {
   return (dispatch, getState) => {
     const { authed } = getState();
 
-    const receivedForms = EXAMPLE_FORMS.forms;
+    const formsUrl = constructUrl({ path: ['api', 'forms'] });
+    fetch(API_PREFIX + formsUrl, { credentials: 'include' })
+      .then(response => response.json())
+      .then(json => {
+        const receivedForms = json.forms;
 
-    const normalized = normalize(receivedForms, arrayOf(formSchema));
-    const formIds = normalized.result;
-    dispatch(receiveForms({ formIds, entities: normalized.entities }));
+        const normalized = normalize(receivedForms, arrayOf(formSchema));
+        const formIds = normalized.result;
+        dispatch(receiveForms({ formIds, entities: normalized.entities }));
+      });
   };
 }
 
@@ -83,7 +90,7 @@ export function tryDeleteQuestion(questionId) {
     // optimistically delete local question from its form
     // (don't need to delete the question from the set of questions)
     const { questions, forms } = getState().entities;
-    const form = forms[questions[questionId].form];
+    const form = forms[questions[questionId].form_id];
     const newForm = {
       ...form,
       questions: [...form.questions],

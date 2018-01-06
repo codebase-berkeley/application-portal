@@ -1,29 +1,31 @@
 import { arrayOf, normalize } from 'normalizr';
 import { categorySchema, applicationSchema } from '../constants/schemas';
+import { constructUrl } from '../utils/RouteUtils';
+import { API_PREFIX } from '../constants/config';
 
 import * as types from '../constants/ActionTypes';
 import { EXAMPLE_CAT1_PAGE1, EXAMPLE_CAT1_PAGE2, EXAMPLE_CAT1_PAGE3, EXAMPLE_CAT2_PAGE1, EXAMPLE_CAT3_PAGE1 } from '../constants/ExampleData';
 
 export function fetchCategoryPage(categoryId, page) {
   return (dispatch, getState) => {
-    var pageData = {};
-    if (categoryId == 1) {
-      pageData = EXAMPLE_CAT1_PAGE1;
-    } else if (categoryId == 2) {
-      pageData = EXAMPLE_CAT2_PAGE1;
-    } else {
-      pageData = EXAMPLE_CAT3_PAGE1;      
-    }
+    const pageUrl = constructUrl({
+      path: ['api', 'applications'],
+      query: { category_id: categoryId, page: page },
+    });
+    fetch(API_PREFIX + pageUrl, { credentials: 'include' })
+      .then(response => response.json())
+      .then(json => {
+        const normalized = normalize(json.applications, arrayOf(applicationSchema));
+        const ids = normalized.result;
 
-    const normalized = normalize(pageData.applications, arrayOf(applicationSchema));
-    const ids = normalized.result;
+        dispatch(receiveCategoryPage({
+          categoryId,
+          page,
+          entities: normalized.entities,
+          ids,
+        }));
+      });
 
-    dispatch(receiveCategoryPage({
-      categoryId,
-      page,
-      entities: normalized.entities,
-      ids,
-    }))
   };
 }
 

@@ -36,7 +36,7 @@ module.exports = {
   plugins: [ignore],
   devServer: {
     proxy: {
-      '/api/*': 'http://0.0.0.0:8081',
+      '/portal/api/*': 'http://0.0.0.0:8000',
     },
     host: '0.0.0.0',
     disableHostCheck: true,

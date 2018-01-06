@@ -7,7 +7,7 @@ const propTypes = {
   applicationIds: PropTypes.arrayOf(PropTypes.number).isRequired, // array of application IDs to be displayed in order
   dispatch: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired, // set of user entities by ID
-  handleSelectionChange : PropTypes.func, // Defaulted to () => {} 
+  handleSelectionChange : PropTypes.func, // Defaulted to () => {}
   resetSelections : PropTypes.func, // Defaulted to () => {}
 };
 
@@ -25,13 +25,13 @@ class ApplicationList extends Component {
     const state = { selected : {} }
     const applications = props.applications;
     for (var applicationId in applications) {
-      state.selected[applicationId] = false
+      state.selected[applicationId] = false;
     }
-    this.state = state
+    this.state = state;
 
     // Provide defaults for prop functions
     this.passSelectionChange   = this.props.passSelectionChange === undefined ? () => {} : this.props.passSelectionChange;
-    this.resetSelections       = this.props.resetSelections     === undefined ? () => {} : this.props.resetSelections;    
+    this.resetSelections       = this.props.resetSelections     === undefined ? () => {} : this.props.resetSelections;
   }
 
   componentWillMount() {
@@ -81,9 +81,9 @@ class ApplicationList extends Component {
       applicationList.setState((prevState, props) => {
         var nextState = {selected : Object.assign({}, prevState.selected)}
         nextState.selected[applicationId] = !prevState.selected[applicationId];
-        applicationList.passSelectionChange(applicationId, nextState.selected[applicationId])(e);        
+        applicationList.passSelectionChange(applicationId, nextState.selected[applicationId])(e);
         return nextState;
-      });    
+      });
     }
   }
 
@@ -102,8 +102,8 @@ class ApplicationList extends Component {
               path: ["application"],
               query: {
                 applicationId: applicationId.toString(),
-                formId: application.form.toString(),
-                categoryId: application.category.toString(),
+                formId: application.form_id.toString(),
+                categoryId: application.category_id.toString(),
               },
             }}
             >

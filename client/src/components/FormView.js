@@ -8,7 +8,7 @@ import Answer from '../components/Answer';
 import Link from '../components/Link';
 import Popover from '../components/Popover';
 
-import { tryUpdateFormQuestions } from '../actions/FormActions';
+import { tryUpdateFormQuestions, tryAddNewQuestion } from '../actions/FormActions';
 
 const propTypes = {
   form: PropTypes.object.isRequired, // the form object to be displayed.
@@ -74,7 +74,7 @@ class FormView extends Component {
   }
 
   render() {
-    const { form } = this.props;
+    const { dispatch, form } = this.props;
     return (
       <div className="form">
         <div className="form-meta">
@@ -84,6 +84,10 @@ class FormView extends Component {
         </div>
         <div className="form-body">
           {this.renderQuestionList()}
+          <div className="btn form-add-question" onClick={(e) => { dispatch(tryAddNewQuestion(form.id)); }}>
+            <i className="ion-plus" />
+            <span>Add new question</span>
+          </div>
         </div>
       </div>
     );

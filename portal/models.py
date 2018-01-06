@@ -10,13 +10,16 @@ class Form(models.Model):
     archived = models.BooleanField()
     published = models.BooleanField()
 
+    def __str__(self):
+        return self.name
+
 
 class Category(models.Model):
     name = models.CharField(max_length=40)
     form = models.ForeignKey(Form, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return "{}::Form::{}".format(self.name, self.form)
 
 
 class Application(models.Model):
@@ -43,29 +46,74 @@ class Comment(models.Model):
 
 
 class Question(models.Model):
+    RADIOBUTTON = 'Radiobutton'
+    PARAGRAPH = 'Paragraph'
+    CHECKBOX = 'Checkbox'
+    DROPDOWN = 'Dropdown'
+
     @classmethod
-    def isinstance(cls, question):
+    def create_paragraph(cls, question_text, form):
         """
-        Convenience function for checking if a question object is a <Question Class>.
-        This is inherited by Radiobutton, Checkbox, Dropdown, and Paragraph, and intended to be used
-        by those classes, **not by the Question class**! Example usage:
-
-        >>> from portal.models import Radiobutton, Checkbox
-        >>> q1 = Radiobutton.create("This is a radio button question", ["Yes", "No"])
-        >>> q2 = Dropdown.create("This is a dropdown question", ["Yeah", "Nah"])
-        >>> Radiobutton.isinstance(q1)
-        True
-        >>> Radiobutton.isinstance(q2)
-        False
-        >>> Dropdown.isinstance(q1)
-        False
-        >>> Dropdown.isinstance(q2)
-        True
-
-        :param question: Question object.
-        :return: True if the question is a <Question class>, else false.
+        Convenience function for creating a Paragraph question.
+        :param question_text: (str) The question text to display.
+        :param: form_id: (Form) The foreign key of the associated form.
+        :return: Question object.
         """
-        return question.question_type == cls.__name__
+        return cls(
+            form=form,
+            question_text=question_text,
+            question_type=cls.PARAGRAPH,
+            options=None
+        )
+
+    @classmethod
+    def create_radiobutton(cls, question_text, options, form):
+        """
+        Convenience function for creating a Radiobutton question.
+        :param question_text: (str) The question text to display.
+        :param options: (list) A list of string options.
+        :param: form_id: (Form) The foreign key of the associated form.
+        :return: Question object.
+        """
+        return cls(
+            form=form,
+            question_text=question_text,
+            question_type=cls.RADIOBUTTON,
+            options=json.dumps(options)
+        )
+
+    @classmethod
+    def create_dropdown(cls, question_text, options, form):
+        """
+        Convenience function for creating a Dropdown question.
+        :param question_text: (str) The question text to display.
+        :param options: (list) A list of string options.
+        :param: form_id: (Form) The foreign key of the associated form.
+        :return: Question object.
+        """
+        return cls(
+            form=form,
+            question_text=question_text,
+            question_type=cls.DROPDOWN,
+            options=json.dumps(options)
+        )
+
+    @classmethod
+    def create_checkbox(cls, question_text, options, form):
+        """
+        Convenience function for creating a Checkbox question.
+        :param question_text: (str) The question text to display.
+        :param options: (list) A list of string options.
+        :param: form_id: (Form) The foreign key of the associated form.
+        :return: Question object.
+        """
+        return cls(
+            form=form,
+            question_text=question_text,
+            question_type=cls.CHECKBOX,
+            options=json.dumps(options)
+        )
+
     form = models.ForeignKey(Form, on_delete=models.CASCADE)
     question_text = models.TextField()
     question_type = models.TextField() # added this to make determining the Question easier. Use same string as the class name
@@ -97,14 +145,16 @@ class Question(models.Model):
 
 class Radiobutton(Question):
     @classmethod
-    def create(cls, question_text, options):
+    def create(cls, question_text, options, form_id):
         """
         Convenience function for creating a Radiobutton question.
         :param question_text: (str) The question text to display.
         :param options: (list) A list of string options.
+        :param: form_id: (Form) The foreign key of the associated form.
         :return: Radiobutton object.
         """
         q = cls(
+            form=form_id,
             question_text=question_text,
             question_type=cls.__name__,
             options=json.dumps(options)
@@ -116,14 +166,16 @@ class Radiobutton(Question):
 
 class Checkbox(Question):
     @classmethod
-    def create(cls, question_text, options):
+    def create(cls, question_text, options, form_id):
         """
         Convenience function for creating a Checkbox question.
         :param question_text: (str) The question text to display.
         :param options: (list) A list of string options.
+        :param: form_id: (Form) The foreign key of the associated form.
         :return: Checkbox object.
         """
         q = cls(
+            form=form_id,
             question_text=question_text,
             question_type=cls.__name__,
             options=json.dumps(options)
@@ -135,14 +187,16 @@ class Checkbox(Question):
 
 class Dropdown(Question):
     @classmethod
-    def create(cls, question_text, options):
+    def create(cls, question_text, options, form_id):
         """
         Convenience function for creating a Dropdown question.
         :param question_text: (str) The question text to display.
         :param options: (list) A list of string options.
+        :param: form_id: (Form) The foreign key of the associated form.
         :return: Dropdown object.
         """
         q = cls(
+            form=form_id,
             question_text=question_text,
             question_type=cls.__name__,
             options=json.dumps(options)
@@ -154,13 +208,15 @@ class Dropdown(Question):
 
 class Paragraph(Question):
     @classmethod
-    def create(cls, question_text):
+    def create(cls, question_text, form_id):
         """
         Convenience function for creating a Paragraph question.
         :param question_text: (str) The question text to display.
+        :param: form_id: (Form) The foreign key of the associated form.
         :return: Checkbox object.
         """
         q = cls(
+            form=form_id,
             question_text=question_text,
             question_type=cls.__name__,
             options=None

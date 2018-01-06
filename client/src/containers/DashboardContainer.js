@@ -25,18 +25,17 @@ class DashboardContainer extends Component {
   constructor(props) {
     super(props);
 
-    // Initialize state to prevent crashing down the road.
-    this.state = {}
+    // Initialize state variables
+    this.state = {
+      applicationIsSelected: false,
+      selectedApplications: {},
+    };
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
     // fetch the forms to be displayed on the dashboard.
     dispatch(fetchForms());
-
-    // Initialize state variables. No need for setState()
-    this.state.applicationIsSelected = false; // True iff any applications are selected
-    this.state.selectedApplications = {}; // Selected applications
   }
 
   /**
@@ -64,10 +63,10 @@ class DashboardContainer extends Component {
         } else {
           newApplicationIsSelected = true
         }
-        
-        const newState = { 
-          applicationIsSelected : newApplicationIsSelected, 
-          selectedApplications : newSelectedApplications 
+
+        const newState = {
+          applicationIsSelected : newApplicationIsSelected,
+          selectedApplications : newSelectedApplications
         }
 
         return newState;
@@ -84,7 +83,7 @@ class DashboardContainer extends Component {
       this.setState({
         applicationIsSelected : false,
         selectedApplications : {}
-      })  
+      })
     }
   }
 
@@ -101,10 +100,10 @@ class DashboardContainer extends Component {
           // display category page.
           const categoryId = Number(query.categoryId);
           const page = ('page' in query) ? Number(query.page) : 1;
-          return <CategoryContainer 
-                    categoryId={categoryId} 
-                    page={page} 
-                    resetSelections={this.resetSelections.bind(this)} 
+          return <CategoryContainer
+                    categoryId={categoryId}
+                    page={page}
+                    resetSelections={this.resetSelections.bind(this)}
                     passSelectionChange={this.handleSelectionChange.bind(this)} />;
         } else if (Object.keys(forms).length !== 0) {
           // user went to the base dashboard URL.
@@ -140,7 +139,7 @@ class DashboardContainer extends Component {
 
     return (
       <div>
-        <DashToolbar 
+        <DashToolbar
           {...this.props}
           applicationIsSelected={this.state.applicationIsSelected} />
         <div className="dash-body">

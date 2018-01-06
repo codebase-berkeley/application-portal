@@ -41,7 +41,7 @@ class ApplicationView extends Component {
         <Answer
           key={answer.id}
           answer={answer}
-          question={questions[answer.question]}
+          question={questions[answer.question_id]}
           className="appview-answer" />
     );
   }
@@ -54,9 +54,9 @@ class ApplicationView extends Component {
     const answerIds = Object.keys(application.answers);
     const answerList = answerIds.map((answerId) => application.answers[answerId]);
     answerList.sort((a, b) => {
-      if (questions[a.question].order_number < questions[b.question].order_number) {
+      if (questions[a.question_id].order_number < questions[b.question_id].order_number) {
         return -1;
-      } else if (questions[a.question].order_number > questions[b.question].order_number) {
+      } else if (questions[a.question_id].order_number > questions[b.question_id].order_number) {
         return 1;
       } else {
         return 0;
